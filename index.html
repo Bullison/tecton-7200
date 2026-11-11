@@ -157,7 +157,7 @@ const sun = new THREE.DirectionalLight(0xffffff, 1.6); sun.position.set(6,10,8);
 const grid = new THREE.GridHelper(20, 40, 0x999999, 0xcccccc); grid.position.y = -0.2; grid.material.opacity=.35; grid.material.transparent=true; scene.add(grid);
 function bg(){ scene.background = new THREE.Color(getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()||'#f4f5f7'); }
 bg(); matchMedia('(prefers-color-scheme: dark)').addEventListener('change', bg);
-function size(){ const w=view.clientWidth,h=view.clientHeight; renderer.setSize(w,h); lab.setSize(w,h); cam.aspect=w/h; cam.fov=cam.aspect<1?62:40; cam.updateProjectionMatrix(); }
+function size(){ const w=view.clientWidth,h=view.clientHeight; renderer.setSize(w,h); lab.setSize(w,h); cam.aspect=w/h; cam.fov=cam.aspect<1?54:40; cam.updateProjectionMatrix(); }
 addEventListener('resize', size); size();
 
 // ---------- dimension drawing ----------
@@ -209,7 +209,7 @@ const pe=document.getElementById('presets'); for (const n in PRESETS){ const b=d
 const VIEWS = {
  "Çöldən": [[-7.5,4.5,8.5],[0,1.2,0]], "Yuxarıdan":[[0,13,0.01],[0,0,0]], "Önden":[[0,1.5,9],[0,1.3,0]],
  "Mətbəx":[[-1.2,1.6,1.2],[-2.6,1.0,-1.3]], "Yataq":[[1.0,1.6,1.2],[2.8,0.9,-0.8]], "Hamam":[[-0.105,1.6,0.15],[-0.105,0.9,-1.2]] };
-function place(p,t){ const d=Math.hypot(p[0]-t[0],p[1]-t[1],p[2]-t[2]), k=(cam.aspect<0.8 && d>4)?1.45:1; cam.position.set(t[0]+(p[0]-t[0])*k,t[1]+(p[1]-t[1])*k,t[2]+(p[2]-t[2])*k); ctl.target.set(...t); ctl.update(); }
+function place(p,t){ const d=Math.hypot(p[0]-t[0],p[1]-t[1],p[2]-t[2]), k=(cam.aspect<0.8 && d>4)?1.2:1; cam.position.set(t[0]+(p[0]-t[0])*k,t[1]+(p[1]-t[1])*k,t[2]+(p[2]-t[2])*k); ctl.target.set(...t); ctl.update(); }
 function setView(n){ const [p,t]=VIEWS[n]; place(p,t);
  document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('on', b.textContent===n));
  if (n==="Yuxarıdan"){ showLayer("10_Dam",false); showLayer("11_Fasad",false);} }
