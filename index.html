@@ -51,8 +51,8 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
  #side{position:fixed;top:0;left:0;right:0;z-index:20;width:auto;height:auto;max-height:none;overflow:visible;padding:8px 10px 10px;border:0;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--panel) 90%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
  #side h1{font-size:15px;display:inline-block;margin:5px 0 8px}
  #side .sub,#side>h2{display:none}
- #tog{display:flex;align-items:center;justify-content:center;float:right;width:42px;height:42px;padding:0;border-radius:50%;margin-top:-4px;background:var(--panel);color:var(--acc);border:1px solid var(--line);box-shadow:0 3px 12px rgba(0,0,0,.18);transition:background .15s,color .15s}
- #side.open #tog{background:var(--acc);color:#fff;border-color:var(--acc)}
+ #tog{display:flex;align-items:center;justify-content:center;position:absolute;left:12px;top:calc(100% + 12px);z-index:2;width:46px;height:46px;padding:0;border-radius:50%;transition:left .22s ease,background .15s,color .15s;background:var(--panel);color:var(--acc);border:1px solid var(--line);box-shadow:0 3px 12px rgba(0,0,0,.25)}
+ #side.open #tog{background:var(--acc);color:#fff;border-color:var(--acc);left:calc(min(64vw,270px) + 10px)}
  #side .mode{flex-wrap:nowrap}
  #side .mode button{padding:8px 6px}
  #side .chips{flex-wrap:nowrap;overflow-x:auto}
