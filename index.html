@@ -51,6 +51,8 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 #step h4{margin:4px 0 6px;font-size:14px;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
 #step .kv{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}#step .kv span{background:color-mix(in srgb,var(--acc) 13%,transparent);color:var(--acc);font-weight:600;border-radius:999px;padding:2px 8px;font-size:12px}
 #step .flow{font-weight:600;background:color-mix(in srgb,#ff2d7a 9%,transparent);border-left:3px solid #ff2d7a;padding:4px 7px;border-radius:4px;margin:2px 0 4px}
+#step .feedt{font-weight:600;border-left:3px solid #1aa3ff;background:color-mix(in srgb,#1aa3ff 10%,transparent);padding:4px 7px;margin:2px 0 4px}
+.pl.feed{background:#1aa3ff;color:#fff;border:1.5px dashed #fff;font-size:11px;padding:2px 6px}
 #step ol{margin:2px 0 8px;padding-left:20px}#step li{margin:2px 0}#step .lbl{color:var(--muted);font-size:11.5px;margin-top:4px}
 #step .mk{font:700 13px/1.3 ui-monospace,Consolas,monospace;border:1.5px dashed #ff2d7a;border-radius:6px;padding:6px 8px;margin-top:2px;user-select:all}
 .chips button.stepb{border-color:#ff2d7a;color:#ff2d7a;font-weight:600}.chips button.stepb.on{background:#ff2d7a;color:#fff}
@@ -413,7 +415,7 @@ document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>{ mode=b.dat
 
 // ---------- montaj addımları ----------
 let STEPS_ALL={}, stepOn=false, stepI=0; const STEPSOF=()=>STEPS_ALL[mode]||[];
-let STEPS=[];
+let STEPS=[]; let stepPainted=[];
 const stepEl=document.getElementById('step'), ssel=document.getElementById('ssel'), sbody=document.getElementById('sbody');
 const esc=t=>String(t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 function fillSteps(){ STEPS=STEPSOF(); ssel.innerHTML=STEPS.map((x,i)=>`<option value="${i}">${i+1}/${STEPS.length} · ${esc(x.code)} · ${esc(x.room)}</option>`).join(''); }
@@ -429,14 +431,17 @@ function showStep(i){
  document.getElementById('info').style.display='none'; select(null); clearSel();
  if(MOB.matches && side.classList.contains('open')) menu(false);
  for(const m in modeG) for(const k in modeG[m]) setGroupVis(modeG[m][k], false);
- const roots=stepRoots(st), ctxR=stepRoots({names:st.ctx||[]}).filter(r=>!roots.includes(r));
+ stepPainted.forEach(r=>paint(r,null)); stepPainted=[];
+ const roots=stepRoots(st), ctxR=stepRoots({names:st.ctx||[]}).filter(r=>!roots.includes(r)), feedR=stepRoots({names:st.feed||[]}).filter(r=>!roots.includes(r));
  allMesh.forEach(m=>{ const L=pickRoot(m).userData.web_qat; m.visible = (L==='01_Karkas'); });
- roots.concat(ctxR).forEach(r=>r.traverse(x=>{ x.visible=true; }));
+ roots.concat(ctxR,feedR).forEach(r=>r.traverse(x=>{ x.visible=true; }));
+ feedR.forEach(r=>{ paint(r,'#1aa3ff',0.9); stepPainted.push(r); });
  ['ELEKTRIK_SITI_Korpus'].forEach(n=>{ const o=modelRoot.getObjectByName(n); if(o) o.traverse(x=>x.visible=true); });
  selected=roots[0]||null; selExtra=roots.slice(1); roots.forEach(r=>paint(r,'#ff2d7a',1.4));
  for(const n of st.names){ const R=RAW[mode][n]; if(R) for(const [k,it] of R) selDims.add(build(k,it)); }
+ if(st.feedAt) selDims.add(tag('▼ Buradan gəlir',st.feedAt,'feed'));
  // camera: keep view direction, frame the step
- const box=new THREE.Box3(); roots.concat(ctxR).forEach(r=>box.expandByObject(r));
+ const box=new THREE.Box3(); roots.concat(ctxR).forEach(r=>box.expandByObject(r)); if(st.feedAt) box.expandByPoint(M(...st.feedAt));
  if(!box.isEmpty()){ const c=box.getCenter(new THREE.Vector3()), rad=Math.max(box.getSize(new THREE.Vector3()).length()/2,0.6);
   const dir=cam.position.clone().sub(ctl.target).normalize(); if(!wasOn) dir.set(-0.55,0.55,0.62).normalize();
   const dist=rad/Math.sin(THREE.MathUtils.degToRad(cam.fov/2))*(MOB.matches?1.25:1.05);
@@ -446,12 +451,13 @@ function showStep(i){
  sbody.innerHTML=`<h4><span class="code">${esc(st.code)}</span>${esc(st.title)}</h4>
   <div class="kv">${kv.map(t=>`<span>${esc(t)}</span>`).join('')}${st.h.length?`<span>h ${st.h.join(' / ')} mm</span>`:''}</div>
   ${st.flow?`<div class="lbl">${EL?'Cərəyan yolu':'Su / axın yolu'}:</div><div class="flow">${esc(st.flow)}</div>`:''}
+  ${st.feedTxt?`<div class="lbl">${EL?'Cərəyan haradan gəlir':'Su haradan gəlir'}:</div><div class="feedt">${esc(st.feedTxt)} <span style="color:var(--muted)">(modeldə mavi)</span></div>`:''}
   ${st.route.length?`<div class="lbl">Hardan aparılır:</div><ol>${st.route.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>`:''}
   ${st.note?`<div class="lbl">Qeyd:</div><div>${esc(st.note)}</div>`:''}
   <div class="lbl">Markerə yaz (${EL?'borunun hər iki ucuna və kabelin şit tərəfinə':'borunun hər iki ucuna: tee / əsas xətt tərəfi və çıxış tərəfi'}):</div><div class="mk">${esc(st.marker)}</div>`;
  stepEl.style.display='block'; sbody.scrollTop=0; stepEl.scrollTop=0; drawSubs();
 }
-function exitStep(){ stepOn=false; stepEl.style.display='none'; select(null); clearSel(); applyMode(false); }
+function exitStep(){ stepPainted.forEach(r=>paint(r,null)); stepPainted=[]; stepOn=false; stepEl.style.display='none'; select(null); clearSel(); applyMode(false); }
 (function loop(){ requestAnimationFrame(loop); ctl.update(); renderer.render(scene,cam); lab.render(scene,cam); })();
 </script>
 </body>

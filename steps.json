@@ -1011,7 +1011,14 @@
    ],
    "note": "Döşəmə bağlanmadan quraşdır və su ilə yoxla. Revizyon qapağına giriş saxla.",
    "marker": "K-0 · Əsas kanalizasiya d100 · PVC d100 · meyl ≥2%",
-   "flow": "Bütün xətlər → krestovina → revizyon (təmizləmə qapağı) → evdən kənar qoşulma nöqtəsi (septik / magistral)"
+   "flow": "Bütün xətlər → krestovina → revizyon (təmizləmə qapağı) → evdən kənar qoşulma nöqtəsi (septik / magistral)",
+   "feed": [],
+   "feedAt": [
+    260,
+    2150,
+    -885
+   ],
+   "feedTxt": "Buradan evdən çıxır: qoşulma nöqtəsi (septik / magistral)"
   },
   {
    "room": "Kanalizasiya (döşəmə bağlanmadan)",
@@ -1039,7 +1046,17 @@
    ],
    "note": "",
    "marker": "K-5 · Unitaz · PVC d100 · meyl ≥2%",
-   "flow": "Unitaz → döşəmə flansı → 2×45° keçid (döşəmənin içində) → K-0 əsas d100"
+   "flow": "Unitaz → döşəmə flansı → 2×45° keçid (döşəmənin içində) → K-0 əsas d100",
+   "feed": [
+    "KAN_Esas_d100",
+    "KAN_Esas_d100"
+   ],
+   "feedAt": [
+    260,
+    1696,
+    -433
+   ],
+   "feedTxt": "Unitaz suyu birbaşa K-0 əsas d100-ə axır"
   },
   {
    "room": "Kanalizasiya (döşəmə bağlanmadan)",
@@ -1079,7 +1096,17 @@
    ],
    "note": "",
    "marker": "K-2 · Mətbəx xətti d50 (paltaryuyan + duş + moyka) · PVC d50 · meyl ≥2%",
-   "flow": "Paltaryuyan sifonu → K-2 → (moyka K-1 87° tee ilə, duş K-3 45° kosoy ilə qoşulur) → 45° kosoy → K-0 əsas d100"
+   "flow": "Paltaryuyan sifonu → K-2 → (moyka K-1 87° tee ilə, duş K-3 45° kosoy ilə qoşulur) → 45° kosoy → K-0 əsas d100",
+   "feed": [
+    "KAN_Esas_d100",
+    "KAN_Esas_krestovina"
+   ],
+   "feedAt": [
+    260,
+    1550,
+    5
+   ],
+   "feedTxt": "Bu krestovina ilə K-0 əsas d100-ə axır"
   },
   {
    "room": "Kanalizasiya (döşəmə bağlanmadan)",
@@ -1112,7 +1139,16 @@
    ],
    "note": "",
    "marker": "K-1 · Moyka · PVC d50 · meyl ≥2%",
-   "flow": "Moyka sifonu → zəng + manjet → döşəmədən aşağı → K-2 mətbəx xəttinə 87° tee"
+   "flow": "Moyka sifonu → zəng + manjet → döşəmədən aşağı → K-2 mətbəx xəttinə 87° tee",
+   "feed": [
+    "KAN_Metbex_d50"
+   ],
+   "feedAt": [
+    -1931,
+    1433,
+    49
+   ],
+   "feedTxt": "Bu 87° tee ilə K-2 mətbəx xəttinə axır"
   },
   {
    "room": "Kanalizasiya (döşəmə bağlanmadan)",
@@ -1143,7 +1179,16 @@
    ],
    "note": "",
    "marker": "K-3 · Duş · PVC d50 · meyl ≥2%",
-   "flow": "Duş poddonunun trapı → K-3 döşəmənin altında → K-2-yə 45° kosoy"
+   "flow": "Duş poddonunun trapı → K-3 döşəmənin altında → K-2-yə 45° kosoy",
+   "feed": [
+    "KAN_Metbex_d50"
+   ],
+   "feedAt": [
+    -356,
+    1433,
+    17
+   ],
+   "feedTxt": "Bu 45° kosoy ilə K-2 mətbəx xəttinə axır"
   },
   {
    "room": "Kanalizasiya (döşəmə bağlanmadan)",
@@ -1179,7 +1224,17 @@
    ],
    "note": "",
    "marker": "K-4 · Lavabo · PVC d50 · meyl ≥2%",
-   "flow": "Lavabo sifonu → zəng + manjet → döşəmədən aşağı → 45° kosoy → K-0 əsas d100"
+   "flow": "Lavabo sifonu → zəng + manjet → döşəmədən aşağı → 45° kosoy → K-0 əsas d100",
+   "feed": [
+    "KAN_Esas_d100",
+    "KAN_Esas_krestovina"
+   ],
+   "feedAt": [
+    260,
+    1550,
+    5
+   ],
+   "feedTxt": "Bu krestovina ilə K-0 əsas d100-ə axır"
   },
   {
    "room": "Su girişi",
@@ -1211,7 +1266,14 @@
    ],
    "note": "",
    "marker": "SG-1 · Su girişi (sayğacdan evə) · PPR d20 soyuq",
-   "flow": "Sayğac quyusu (kran + sayğac + filtr) → PE32 yer altında → keçid mufta PE32→PPR20 → divarın içi ilə tavana → S-0 soyuq əsas xəttə tee"
+   "flow": "Sayğac quyusu (kran + sayğac + filtr) → PE32 yer altında → keçid mufta PE32→PPR20 → divarın içi ilə tavana → S-0 soyuq əsas xəttə tee",
+   "feed": [],
+   "feedAt": [
+    -1370,
+    2800,
+    -630
+   ],
+   "feedTxt": "Su buradan gəlir: sayğac quyusu (kran + sayğac + filtr)"
   },
   {
    "room": "Soyuq su",
@@ -1243,7 +1305,21 @@
    ],
    "note": "",
    "marker": "S-0 · Soyuq su əsas xətti (tavanda) · PPR d20 soyuq",
-   "flow": "SG-1 girişdən tee ilə → tavanda bütün cihazlara: paltaryuyan (S-1) … lavabo (S-7)"
+   "flow": "SG-1 girişdən tee ilə → tavanda bütün cihazlara: paltaryuyan (S-1) … lavabo (S-7)",
+   "feed": [
+    "SU_Soyuq_Giris_qalxan",
+    "SU_Giris_PPR",
+    "SU_Giris_kecid_PE_PPR",
+    "SU_Giris_PE32",
+    "SU_tee_Soyuq_Giris",
+    "SU_tee_Soyuq_Giris_qol"
+   ],
+   "feedAt": [
+    -1370,
+    1455,
+    2774
+   ],
+   "feedTxt": "Su S-0-a buradan girir: SG-1 girişinin tee-si"
   },
   {
    "room": "Soyuq su",
@@ -1275,7 +1351,21 @@
    ],
    "note": "Ayrıca qol yoxdur: S-0 soyuq əsas xətt burada başlayır (paltaryuyan çıxışından tavana qalxır).",
    "marker": "S-1 · Paltaryuyan · PPR d20 soyuq",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-0-ın başlanğıcı aşağı düşür → paltaryuyan kranı"
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-0-ın başlanğıcı aşağı düşür → paltaryuyan kranı",
+   "feed": [
+    "SU_Soyuq_Giris_qalxan",
+    "SU_Giris_PPR",
+    "SU_Giris_kecid_PE_PPR",
+    "SU_Giris_PE32",
+    "SU_tee_Soyuq_Giris",
+    "SU_tee_Soyuq_Giris_qol"
+   ],
+   "feedAt": [
+    -1370,
+    1455,
+    2774
+   ],
+   "feedTxt": "Su SG-1-dən bu tee ilə S-0-a girir, oradan paltaryuyana axır"
   },
   {
    "room": "Soyuq su",
@@ -1313,7 +1403,16 @@
    ],
    "note": "",
    "marker": "S-2 · Moyka · PPR d20 soyuq",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → tee → S-2 qolu aşağı → moyka bucaq kranı"
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → tee → S-2 qolu aşağı → moyka bucaq kranı",
+   "feed": [
+    "SU_Soyuq_xett"
+   ],
+   "feedAt": [
+    -1880,
+    1455,
+    2774
+   ],
+   "feedTxt": "Su buradan gəlir: S-0 soyuq əsas xəttindəki tee"
   },
   {
    "room": "Soyuq su",
@@ -1351,7 +1450,16 @@
    ],
    "note": "Aristonda soyuq solda, isti sağdadır. Soyuq girişə təhlükəsizlik klapanı.",
    "marker": "S-3 · Ariston girişi · PPR d20 soyuq",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → tee → S-3 qolu aşağı → təhlükəsizlik klapanı → Ariston"
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → tee → S-3 qolu aşağı → təhlükəsizlik klapanı → Ariston",
+   "feed": [
+    "SU_Soyuq_xett"
+   ],
+   "feedAt": [
+    -1160,
+    1455,
+    2774
+   ],
+   "feedTxt": "Su buradan gəlir: S-0 soyuq əsas xəttindəki tee"
   },
   {
    "room": "Soyuq su",
@@ -1386,7 +1494,16 @@
    ],
    "note": "",
    "marker": "S-4 · Duş · PPR d20 soyuq",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → tee → S-4 qolu aşağı → duş qarışdırıcısı (sağ giriş)"
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → tee → S-4 qolu aşağı → duş qarışdırıcısı (sağ giriş)",
+   "feed": [
+    "SU_Soyuq_xett"
+   ],
+   "feedAt": [
+    -373,
+    1210,
+    2720
+   ],
+   "feedTxt": "Su buradan gəlir: S-0 soyuq əsas xəttindəki tee"
   },
   {
    "room": "Soyuq su",
@@ -1424,7 +1541,16 @@
    ],
    "note": "",
    "marker": "S-5 · Unitaz · PPR d20 soyuq",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → tee → S-5 qolu aşağı → unitaz bucaq kranı → çəni"
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → tee → S-5 qolu aşağı → unitaz bucaq kranı → çəni",
+   "feed": [
+    "SU_Soyuq_xett"
+   ],
+   "feedAt": [
+    540,
+    1210,
+    2720
+   ],
+   "feedTxt": "Su buradan gəlir: S-0 soyuq əsas xəttindəki tee"
   },
   {
    "room": "Soyuq su",
@@ -1455,7 +1581,16 @@
    ],
    "note": "",
    "marker": "S-6 · Gigiyenik duş · PPR d20 soyuq",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → tee → S-6 qolu yan divarda aşağı → gizli qarışdırıcı"
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → tee → S-6 qolu yan divarda aşağı → gizli qarışdırıcı",
+   "feed": [
+    "SU_Soyuq_xett"
+   ],
+   "feedAt": [
+    530,
+    990,
+    2720
+   ],
+   "feedTxt": "Su buradan gəlir: S-0 soyuq əsas xəttindəki tee"
   },
   {
    "room": "Soyuq su",
@@ -1490,7 +1625,21 @@
    ],
    "note": "Ayrıca qol yoxdur: S-0 soyuq əsas xətt burada bitir (tavandan lavaboya düşür).",
    "marker": "S-7 · Lavabo · PPR d20 soyuq",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-0-ın sonu aşağı düşür → lavabo bucaq kranı"
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-0-ın sonu aşağı düşür → lavabo bucaq kranı",
+   "feed": [
+    "SU_Soyuq_Giris_qalxan",
+    "SU_Giris_PPR",
+    "SU_Giris_kecid_PE_PPR",
+    "SU_Giris_PE32",
+    "SU_tee_Soyuq_Giris",
+    "SU_tee_Soyuq_Giris_qol"
+   ],
+   "feedAt": [
+    -1370,
+    1455,
+    2774
+   ],
+   "feedTxt": "Su SG-1-dən bu tee ilə S-0-a girir, xəttin sonu lavaboya düşür"
   },
   {
    "room": "İsti su",
@@ -1525,7 +1674,17 @@
    ],
    "note": "",
    "marker": "İ-2 · Ariston çıxışı → isti xətt · PPR d20 isti",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 divarın içi ilə tavana → İ-0 isti əsas xəttə tee"
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 divarın içi ilə tavana → İ-0 isti əsas xəttə tee",
+   "feed": [
+    "SU_Soyuq_Ariston_giris",
+    "METBEX_Ariston"
+   ],
+   "feedAt": [
+    -1233,
+    1219,
+    2225
+   ],
+   "feedTxt": "Soyuq su S-3 ilə Aristona girir, qızıb İ-2 ilə çıxır"
   },
   {
    "room": "İsti su",
@@ -1556,7 +1715,19 @@
    ],
    "note": "",
    "marker": "İ-0 · İsti su əsas xətti (tavanda) · PPR d20 isti",
-   "flow": "Ariston (İ-2) tee ilə qoşulur → tavanda: moyka (İ-1), duş (İ-3), gigiyenik (İ-4), lavabo (İ-5)"
+   "flow": "Ariston (İ-2) tee ilə qoşulur → tavanda: moyka (İ-1), duş (İ-3), gigiyenik (İ-4), lavabo (İ-5)",
+   "feed": [
+    "SU_Isti_Ariston",
+    "SU_Soyuq_Ariston_giris",
+    "SU_tee_Isti_Ariston",
+    "SU_tee_Isti_Ariston_qol"
+   ],
+   "feedAt": [
+    -1110,
+    1425,
+    2774
+   ],
+   "feedTxt": "İsti su İ-0-a buradan girir: Aristondan gələn İ-2-nin tee-si"
   },
   {
    "room": "İsti su",
@@ -1591,7 +1762,18 @@
    ],
    "note": "Ayrıca qol yoxdur: İ-0 isti əsas xətt burada başlayır (moyka çıxışından tavana qalxır).",
    "marker": "İ-1 · Moyka · PPR d20 isti",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 → İ-0 isti əsas xətt (tavanda) → İ-0-ın başlanğıcı aşağı düşür → moyka bucaq kranı"
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 → İ-0 isti əsas xətt (tavanda) → İ-0-ın başlanğıcı aşağı düşür → moyka bucaq kranı",
+   "feed": [
+    "SU_Isti_Ariston",
+    "SU_tee_Isti_Ariston",
+    "SU_tee_Isti_Ariston_qol"
+   ],
+   "feedAt": [
+    -1110,
+    1425,
+    2774
+   ],
+   "feedTxt": "İsti su Aristondan (İ-2) bu tee ilə İ-0-a girir, oradan moykaya"
   },
   {
    "room": "İsti su",
@@ -1625,7 +1807,16 @@
    ],
    "note": "",
    "marker": "İ-3 · Duş · PPR d20 isti",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 → İ-0 isti əsas xətt (tavanda) → tee → İ-3 qolu aşağı → duş qarışdırıcısı (sol giriş)"
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 → İ-0 isti əsas xətt (tavanda) → tee → İ-3 qolu aşağı → duş qarışdırıcısı (sol giriş)",
+   "feed": [
+    "SU_Isti_xett"
+   ],
+   "feedAt": [
+    -523,
+    1240,
+    2680
+   ],
+   "feedTxt": "İsti su buradan gəlir: İ-0 isti əsas xəttindəki tee"
   },
   {
    "room": "İsti su",
@@ -1656,7 +1847,16 @@
    ],
    "note": "",
    "marker": "İ-4 · Gigiyenik duş · PPR d20 isti",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 → İ-0 isti əsas xətt (tavanda) → tee → İ-4 qolu yan divarda aşağı → gizli qarışdırıcı"
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 → İ-0 isti əsas xətt (tavanda) → tee → İ-4 qolu yan divarda aşağı → gizli qarışdırıcı",
+   "feed": [
+    "SU_Isti_xett"
+   ],
+   "feedAt": [
+    560,
+    965,
+    2680
+   ],
+   "feedTxt": "İsti su buradan gəlir: İ-0 isti əsas xəttindəki tee"
   },
   {
    "room": "İsti su",
@@ -1691,7 +1891,18 @@
    ],
    "note": "Ayrıca qol yoxdur: İ-0 isti əsas xətt burada bitir. Lavaboda isti sağdadır — şlanqlar qarışdırıcıda çarpazlaşır.",
    "marker": "İ-5 · Lavabo · PPR d20 isti",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 → İ-0 isti əsas xətt (tavanda) → İ-0-ın sonu aşağı düşür → lavabo bucaq kranı (şlanqlar çarpaz)"
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 → İ-0 isti əsas xətt (tavanda) → İ-0-ın sonu aşağı düşür → lavabo bucaq kranı (şlanqlar çarpaz)",
+   "feed": [
+    "SU_Isti_Ariston",
+    "SU_tee_Isti_Ariston",
+    "SU_tee_Isti_Ariston_qol"
+   ],
+   "feedAt": [
+    -1110,
+    1425,
+    2774
+   ],
+   "feedTxt": "İsti su Aristondan (İ-2) bu tee ilə İ-0-a girir, sonu lavaboya"
   }
  ]
 }
