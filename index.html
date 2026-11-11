@@ -25,10 +25,13 @@ button{font:inherit;font-size:13px;padding:6px 10px;border:1px solid var(--line)
 button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 #info,#meas,#hint{z-index:5}
 #info{position:absolute;right:12px;top:12px;width:300px;max-width:calc(100% - 24px);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:none;box-shadow:0 6px 24px rgba(0,0,0,.12)}
-#info h3{margin:0 0 6px;font-size:14px}
+#info h3{margin:0 24px 4px 0;font-size:14px;line-height:1.25}
 #info table{width:100%;border-collapse:collapse;font-size:12.5px}
 #info td{padding:3px 0;vertical-align:top;border-top:1px solid var(--line)}
 #info td:first-child{color:var(--muted);width:42%;padding-right:8px}
+#ichips{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 4px}#ichips span{font-size:12px;font-weight:600;padding:2px 7px;border-radius:999px;background:color-mix(in srgb,var(--acc) 14%,transparent);color:var(--acc)}
+#isub{font-size:12px;color:var(--muted)}#imore{border:0;background:none;color:var(--acc);font-size:12px;padding:4px 0 0;margin:0}
+#info table{display:none;margin-top:6px}#info.full table{display:table}
 #info .x{position:absolute;right:8px;top:6px;border:0;background:none;font-size:18px;color:var(--muted);padding:2px 6px}
 #hint{position:absolute;left:12px;bottom:12px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:12px;color:var(--muted)}
 #meas{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:var(--dim);color:#fff;border-radius:8px;padding:6px 12px;font-size:13px;display:none}
@@ -71,7 +74,8 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
  #side.open .body{transform:none;visibility:visible}
  #side .body h2{margin:12px 0 6px}
  #side .body .btns button{padding:6px 9px;font-size:12.5px}
- #info{top:auto;bottom:10px;left:10px;right:10px;width:auto;max-height:34vh;overflow:auto;padding:10px 12px}
+ #info{top:auto;bottom:10px;left:10px;right:auto;width:auto;max-width:min(300px,calc(100% - 20px));max-height:40vh;overflow:auto;padding:8px 11px;background:color-mix(in srgb,var(--panel) 88%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+ #info h3{font-size:13.5px}
  #info table{font-size:12px}
  #hint{display:none}
  #meas{top:auto;bottom:10px}
@@ -107,7 +111,7 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
  <main id="view">
   <div id="load">Model yüklənir…</div>
   <div id="meas"></div>
-  <div id="info"><button class="x" id="ix">×</button><h3 id="it"></h3><table id="itab"></table></div>
+  <div id="info"><button class="x" id="ix" aria-label="Bağla">×</button><h3 id="it"></h3><div id="ichips"></div><div id="isub"></div><button id="imore">Ətraflı ▾</button><table id="itab"></table></div>
   <div id="hint">Fırlat: sol düymə · sürüşdür: sağ düymə · yaxınlaşdır: təkər · obyektə klik — məlumat</div>
  </main>
 </div>
@@ -167,7 +171,7 @@ const GROUPS = [["umumi","Ümumi ölçülər",true],["otaq","Otaqlar və hündü
 const view = document.getElementById('view');
 const renderer = new THREE.WebGLRenderer({antialias:true}); renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 renderer.outputColorSpace = THREE.SRGBColorSpace; view.appendChild(renderer.domElement);
-const lab = new CSS2DRenderer(); lab.domElement.style.cssText='position:absolute;top:0;left:0;pointer-events:none'; view.appendChild(lab.domElement);
+const lab = new CSS2DRenderer(); lab.domElement.style.cssText='position:absolute;top:0;left:0;pointer-events:none;z-index:1'; view.appendChild(lab.domElement);
 const scene = new THREE.Scene();
 const cam = new THREE.PerspectiveCamera(40, 1, 0.05, 200);
 const ctl = new OrbitControls(cam, renderer.domElement); ctl.enableDamping = true; ctl.target.set(0,1.2,0);
@@ -305,10 +309,18 @@ function info(o){
  rows.push(["Ölçü (X × Y × Z)", `${Math.round(w)} × ${Math.round(dd)} × ${Math.round(h)} mm`]);
  rows.push(["Mərkəz X / Y", `${Math.round(cx)} / ${Math.round(cy)} mm`]);
  const ff=floorAt(cx,cy); rows.push(["Döşəmədən (alt / mərkəz)", `${Math.round(z0-ff)} / ${Math.round(zc-ff)} mm`]);
- document.getElementById('it').textContent=o.name.replace(/_/g,' ');
+ const PFX=/^(BORU|ROZ|ACAR|CIXIS|ISIQ|KABEL|SU|KAN|TV|ZC|TORPAQ|SIT|ELEKTRIK)_/;
+ document.getElementById('it').textContent=(o.name.replace(PFX,'').replace(/_/g,' ')).replace(/\.\d+$/,'');
+ const ch=[]; if(u.tip) ch.push(String(u.tip).replace(/ — .*/,'').slice(0,28));
+ const wm=String(u.icindeki_meftil||'').match(/(\d+)\s*ed\.\s*1x([\d.]+)/); if(wm) ch.push(wm[1]==='1'?`1×${wm[2]}`:`${wm[1]}×${wm[2]}`);
+ if(u.boru_mm) ch.push('d'+u.boru_mm); if(u.xett && !/^Zeif|^PE/.test(u.xett)) ch.push(u.xett); if(u.avtomat) ch.push(u.avtomat);
+ document.getElementById('ichips').innerHTML=ch.map(t=>`<span>${String(t).replace(/</g,'&lt;')}</span>`).join('');
+ const big=Math.max(w,dd,h); document.getElementById('isub').textContent=(big>600? `${(big/1000).toFixed(2)} m · `:`${Math.round(w)}×${Math.round(dd)}×${Math.round(h)} mm · `)+`h ${Math.round(zc-ff)} mm`;
+ const inf=document.getElementById('info'); inf.classList.toggle('full', !MOB.matches); document.getElementById('imore').textContent=inf.classList.contains('full')?'Qısalt ▴':'Ətraflı ▾';
  document.getElementById('itab').innerHTML=rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1].replace(/</g,'&lt;')}</td></tr>`).join('');
  document.getElementById('info').style.display='block';
 }
+document.getElementById('imore').onclick=()=>{ const i=document.getElementById('info'); i.classList.toggle('full'); document.getElementById('imore').textContent=i.classList.contains('full')?'Qısalt ▴':'Ətraflı ▾'; };
 document.getElementById('ix').onclick=()=>{ document.getElementById('info').style.display='none'; clearSel(); if(selected) select(null); };
 const side=document.getElementById('side'), tog=document.getElementById('tog'), MOB=matchMedia('(max-width:760px)');
 try{ if(localStorage.getItem('tecMenuSeen')) side.classList.add('seen'); }catch(e){}
