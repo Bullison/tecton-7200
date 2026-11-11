@@ -44,6 +44,7 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 .pl.el{color:#c26a00;border-color:#e08a00}.pl.zc{color:#2e7d32;border-color:#2e7d32}
 .mode button{flex:1}
 #modehelp{color:var(--muted);font-size:12px;margin-top:6px}
+#mk{margin-top:8px;font-size:12px}#mk summary{cursor:pointer;color:var(--acc);font-weight:600}#mktab{width:100%;border-collapse:collapse;margin-top:4px}#mktab td{padding:3px 4px;border-top:1px solid var(--line);vertical-align:top}#mktab tr{cursor:pointer}#mktab td:first-child{font-weight:700;white-space:nowrap;color:var(--ink)}#mktab td:last-child{color:var(--muted);white-space:nowrap}
 #load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted)}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .chips:empty{display:none}
@@ -98,6 +99,7 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
   <div class="chips" id="modesub"></div>
   <div class="body">
    <div id="modehelp"></div>
+   <details id="mk" style="display:none"><summary>Marker kodları (borulara yapışdırmaq üçün)</summary><table id="mktab"></table></details>
    <h2>Görünüş</h2>
    <div class="btns" id="views"></div>
    <h2>Ölçülər</h2>
@@ -212,7 +214,7 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=qofre2', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=marker1', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
@@ -306,7 +308,7 @@ function addMeasure(p){
  const el=document.createElement('div'); el.className='dl m'; el.textContent=`${Math.round(d)} mm`; const l=new CSS2DObject(el); l.position.copy(a.clone().add(b).multiplyScalar(.5)); g.add(l); measGroup.add(g);
  meas.textContent=`${Math.round(d)} mm   (X ${Math.round(dx)} · Y ${Math.round(dy)} · hündürlük ${Math.round(dz)})`; mpts=[];
 }
-const KEYS={ad:"Təsvir",tip:"Növ",xett:"Xətt",avtomat:"Avtomat",icindeki_meftil:"Naqil",boru_mm:"Boru, mm",meftil_uzunluq_m_her_reng:"Naqil, m (hər rəng)",
+const KEYS={marker:"Marker",marker_ad:"Marker təsviri",ad:"Təsvir",tip:"Növ",xett:"Xətt",avtomat:"Avtomat",icindeki_meftil:"Naqil",boru_mm:"Boru, mm",meftil_uzunluq_m_her_reng:"Naqil, m (hər rəng)",
  uzunluq_m:"Uzunluq, m",olcu_mm:"Ölçü, mm",qalinliq_mm:"Qalınlıq, mm",material:"Material",Profil:"Profil",otaq:"Otaq",marsrut:"Marşrut"};
 function info(o){
  const box=new THREE.Box3().setFromObject(o); const a=toMM(box.min), b=toMM(box.max);
@@ -320,7 +322,7 @@ function info(o){
  const ff=floorAt(cx,cy); rows.push(["Döşəmədən (alt / mərkəz)", `${Math.round(z0-ff)} / ${Math.round(zc-ff)} mm`]);
  const PFX=/^(BORU|ROZ|ACAR|CIXIS|ISIQ|KABEL|SU|KAN|TV|ZC|TORPAQ|SIT|ELEKTRIK)_/;
  document.getElementById('it').textContent=(o.name.replace(PFX,'').replace(/_/g,' ')).replace(/\.\d+$/,'');
- const ch=[]; if(u.tip) ch.push(String(u.tip).replace(/ — .*/,'').slice(0,28));
+ const ch=[]; if(u.marker) ch.push(u.marker); if(u.tip) ch.push(String(u.tip).replace(/ — .*/,'').slice(0,28));
  const wm=String(u.icindeki_meftil||'').match(/(\d+)\s*ed\.\s*1x([\d.]+)/); if(wm) ch.push(wm[1]==='1'?`1×${wm[2]}`:`${wm[1]}×${wm[2]}`);
  if(u.boru_mm) ch.push('d'+u.boru_mm); if(u.xett && !/^Zeif|^PE/.test(u.xett)) ch.push(u.xett); if(u.avtomat) ch.push(u.avtomat);
  document.getElementById('ichips').innerHTML=ch.map(t=>`<span>${String(t).replace(/</g,'&lt;')}</span>`).join('');
@@ -348,6 +350,11 @@ function tag(text,p,kind,links){ const g=new THREE.Group(); const el=document.cr
  const s=new THREE.Mesh(new THREE.SphereGeometry(0.01,8,8), new THREE.MeshBasicMaterial({color:{isti:'#d0342c',soyuq:'#1f6fd1',kan:'#6b7480',zc:'#2e7d32',zcp:'#2e7d32'}[kind]||'#e08a00',depthTest:false})); s.position.copy(M(...p)); s.renderOrder=11; g.add(s); return g; }
 function setGroupVis(g,v){ g.traverse(o=>{ o.visible=v; if(o.element) o.element.style.display=v?'':'none'; }); }
 function build(k,it){ return (k==='h'||k==='w')? dimension(it[0],it[1],it[2],it[3]) : tag(it[0],it[1],it[2],it[4]); }
+fetch('markers.json',{cache:'no-cache'}).then(r=>r.json()).then(L=>{ const t=document.getElementById('mktab');
+ const W=n=>{ const it=(window.__N||[]).find(x=>x[3]===n||(x[4]&&x[4].includes(n))); return it? it[0].split(String.fromCharCode(10)).pop().replace(/^.*· /,''):''; };
+ t.innerHTML=L.map(([c,it,b,l])=>`<tr data-n="${b||it[0]}"><td>${c}</td><td>${l}</td><td data-w="${b||it[0]}"></td></tr>`).join('');
+ t.querySelectorAll('tr').forEach(r=>r.onclick=()=>{ pickLinked(r.dataset.n); if(MOB.matches) menu(false); });
+ window.__fillW=()=>t.querySelectorAll('td[data-w]').forEach(td=>td.textContent=W(td.dataset.w)); window.__fillW(); }).catch(()=>{});
 fetch('olculer.json',{cache:'no-cache'}).then(r=>r.json()).then(J=>{
  for(const m of ["santexnika","elektrik"]){
   for(const k of ["n","d","t"]){ const g=new THREE.Group(); scene.add(g); modeG[m][k]=g; }
@@ -357,6 +364,7 @@ fetch('olculer.json',{cache:'no-cache'}).then(r=>r.json()).then(J=>{
    if(nm && k!=='n'){ (RAW[m][nm]=RAW[m][nm]||[]).push([k,it]); }
    if(k==='n' && it[4]) for(const x of it[4]){ const S=LINK[x]=LINK[x]||new Set(); it[4].forEach(y=>S.add(y)); } }
   for(const k in modeG[m]) setGroupVis(modeG[m][k],false); }
+ window.__N=J.elektrik.n; window.__fillW&&window.__fillW();
  applyMode(false);
 }).catch(e=>console.error('olculer',e));
 // dimensions of the tapped object only
@@ -378,7 +386,7 @@ function applyMode(move=true){
  else { const s=new Set(MODE_LAYERS[mode]); LAYERS.forEach(([k])=>showLayer(k,s.has(k)));
   document.querySelectorAll('#presets button,#views button').forEach(b=>b.classList.remove('on'));
   if(move){ const [p,t]=MODE_VIEW[mode]; place(p,t); } }
- document.getElementById('modehelp').textContent=MODE_HELP[mode];
+ document.getElementById('modehelp').textContent=MODE_HELP[mode]; document.getElementById('mk').style.display=mode==='elektrik'?'':'none';
  document.querySelectorAll('#modes button').forEach(b=>b.classList.toggle('on',b.dataset.m===mode)); drawSubs(); }
 document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>{ mode=b.dataset.m; applyMode(true); if(side.classList.contains('open')) menu(true); });
 (function loop(){ requestAnimationFrame(loop); ctl.update(); renderer.render(scene,cam); lab.render(scene,cam); })();

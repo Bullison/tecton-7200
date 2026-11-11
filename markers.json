@@ -1,0 +1,251 @@
+[
+ [
+  "MR-1",
+  [
+   "ROZ_Metbex_Is_1"
+  ],
+  "BORU_Metbex_Is_1",
+  "Mətbəx iş masası (ikili)"
+ ],
+ [
+  "MR-2",
+  [
+   "ROZ_Metbex_Paltaryuyan"
+  ],
+  "BORU_Metbex_Paltaryuyan",
+  "Paltaryuyan"
+ ],
+ [
+  "MR-3",
+  [
+   "ROZ_Metbex_Soba"
+  ],
+  "BORU_Metbex_Soba",
+  "Soba"
+ ],
+ [
+  "MR-4",
+  [
+   "ROZ_Metbex_Aspirator"
+  ],
+  "BORU_Metbex_Aspirator",
+  "Aspirator"
+ ],
+ [
+  "MR-5",
+  [
+   "ROZ_Metbex_Is_2"
+  ],
+  null,
+  "Mətbəx iş masası (ikili, MR-1 xəttindən)"
+ ],
+ [
+  "MR-6",
+  [
+   "ROZ_Metbex_Soyuducu"
+  ],
+  "BORU_Metbex_Soyuducu",
+  "Soyuducu"
+ ],
+ [
+  "MR-7",
+  [
+   "ROZ_Metbex_Ariston"
+  ],
+  "BORU_Metbex_Ariston",
+  "Ariston"
+ ],
+ [
+  "MR-8",
+  [
+   "ROZ_Metbex_TV"
+  ],
+  "BORU_Metbex_TV_guc",
+  "Mətbəx TV rozetkası"
+ ],
+ [
+  "QR-1",
+  [
+   "ROZ_Qonaq_Pencere_yani"
+  ],
+  "BORU_Qonaq_Pencere_yani",
+  "Qonaq, pəncərə yanı"
+ ],
+ [
+  "QR-2",
+  [
+   "CIXIS_Kondisioner"
+  ],
+  "BORU_S_Kondisioner",
+  "Kondisioner"
+ ],
+ [
+  "YR-1",
+  [
+   "ROZ_Yataq_On_divar"
+  ],
+  "BORU_Yataq_On_divar",
+  "Yataq, ön divar"
+ ],
+ [
+  "YR-2",
+  [
+   "ROZ_Yataq_Arxa_hamam_yani"
+  ],
+  "BORU_Yataq_Arxa_hamam_yani",
+  "Yataq, arxa divar (hamam yanı)"
+ ],
+ [
+  "YR-3",
+  [
+   "ROZ_Yataq_Carpayi_sag"
+  ],
+  "BORU_Yataq_Carpayi_sag",
+  "Yataq, çarpayı sağ"
+ ],
+ [
+  "YR-4",
+  [
+   "ROZ_Yataq_Carpayi_sol"
+  ],
+  "BORU_Yataq_Carpayi_sol",
+  "Yataq, çarpayı sol"
+ ],
+ [
+  "YR-5",
+  [
+   "ROZ_Yataq_TV"
+  ],
+  "BORU_Yataq_TV_guc",
+  "Yataq TV rozetkası"
+ ],
+ [
+  "MZ-1",
+  [
+   "TV_Metbex_LAN_TV"
+  ],
+  "BORU_ZC_TV_Metbex",
+  "Mətbəx LAN + TV"
+ ],
+ [
+  "YZ-1",
+  [
+   "TV_Yataq_LAN_TV"
+  ],
+  "BORU_ZC_TV_Yataq",
+  "Yataq LAN + TV"
+ ],
+ [
+  "HA-1",
+  [
+   "ACAR_Hamam"
+  ],
+  "BORU_Hamam_Acar_qidalanma",
+  "Hamam açarı"
+ ],
+ [
+  "HI-1",
+  [
+   "ISIQ_Hamam_Spot_1",
+   "ISIQ_Hamam_Spot_2"
+  ],
+  "BORU_Hamam_Isiq",
+  "Hamam spotları"
+ ],
+ [
+  "HI-2",
+  [
+   "CIXIS_Hamam_Guzgu"
+  ],
+  "BORU_Hamam_Guzgu",
+  "Güzgü işığı"
+ ],
+ [
+  "MA-1",
+  [
+   "ACAR_Metbex_Qonaq"
+  ],
+  null,
+  "Açar: mətbəx/qonaq işığı"
+ ],
+ [
+  "YA-1",
+  [
+   "ACAR_Yataq"
+  ],
+  null,
+  "Açar: yataq işığı"
+ ],
+ [
+  "FA-1",
+  [
+   "ACAR_Fasad"
+  ],
+  null,
+  "Açar: fasad LED"
+ ],
+ [
+  "SA-1",
+  [
+   "ACAR_Ramka_3lu"
+  ],
+  "BORU_Isiq_Sit_acarlar",
+  "Şit → açarlar (3-lü)"
+ ],
+ [
+  "MI-1",
+  [
+   "ISIQ_Metbex_Spot_1",
+   "ISIQ_Metbex_Spot_2",
+   "ISIQ_Metbex_Spot_3",
+   "ISIQ_Metbex_Spot_4"
+  ],
+  "BORU_Isiq_Metbex_Qonaq",
+  "Mətbəx/qonaq spotları"
+ ],
+ [
+  "YI-1",
+  [
+   "ISIQ_Yataq_Spot_1",
+   "ISIQ_Yataq_Spot_2",
+   "ISIQ_Yataq_Spot_3",
+   "ISIQ_Yataq_Spot_4"
+  ],
+  "BORU_Isiq_Yataq",
+  "Yataq spotları"
+ ],
+ [
+  "FI-1",
+  [
+   "CIXIS_Fasad_LED"
+  ],
+  "BORU_Isiq_Fasad",
+  "Fasad LED"
+ ],
+ [
+  "G-1",
+  [],
+  "BORU_Giris_Esas_kabel",
+  "Giriş kabeli → şit"
+ ],
+ [
+  "PE-1",
+  [],
+  "BORU_Torpaq_PE_Sit",
+  "Torpaqlama → şit"
+ ],
+ [
+  "Z-1",
+  [],
+  "BORU_ZC_Internet_giris",
+  "İnternet girişi (optik)"
+ ],
+ [
+  "Z-2",
+  [
+   "ZC_Paylayici_qutu"
+  ],
+  "BORU_ZC_Sit_qalxan",
+  "Zəif cərəyan qalxanı → şit"
+ ]
+]
