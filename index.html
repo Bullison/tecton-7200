@@ -36,6 +36,7 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 .dl.m{background:var(--dim);color:#fff}
 .pl{font:600 11px/1.15 system-ui,Arial,sans-serif;background:var(--panel);border:1px solid;border-radius:4px;padding:2px 5px;white-space:nowrap;pointer-events:none}
 .pl.isti{color:#d0342c;border-color:#d0342c}.pl.soyuq{color:#1f6fd1;border-color:#1f6fd1}.pl.kan{color:#6b7480;border-color:#6b7480}
+.pl.elp{background:#e08a00;color:#fff;border-color:#e08a00}.pl.zcp{background:#2e7d32;color:#fff;border-color:#2e7d32}
 .pl.el{color:#c26a00;border-color:#e08a00}.pl.zc{color:#2e7d32;border-color:#2e7d32}
 .mode button{flex:1}
 #modehelp{color:var(--muted);font-size:12px;margin-top:6px}
@@ -322,7 +323,7 @@ const SUBS=[["n","Adlar"],["d","Ölçülər"],["t","Nöqtələr"]];
 const modeG={santexnika:{},elektrik:{}}, RAW={santexnika:{},elektrik:{}};
 function tag(text,p,kind){ const g=new THREE.Group(); const el=document.createElement('div'); el.className='pl '+(kind||'el'); el.textContent=text;
  const l=new CSS2DObject(el); l.position.copy(M(...p)); g.add(l);
- const s=new THREE.Mesh(new THREE.SphereGeometry(0.01,8,8), new THREE.MeshBasicMaterial({color:{isti:'#d0342c',soyuq:'#1f6fd1',kan:'#6b7480',zc:'#2e7d32'}[kind]||'#e08a00',depthTest:false})); s.position.copy(M(...p)); s.renderOrder=11; g.add(s); return g; }
+ const s=new THREE.Mesh(new THREE.SphereGeometry(0.01,8,8), new THREE.MeshBasicMaterial({color:{isti:'#d0342c',soyuq:'#1f6fd1',kan:'#6b7480',zc:'#2e7d32',zcp:'#2e7d32'}[kind]||'#e08a00',depthTest:false})); s.position.copy(M(...p)); s.renderOrder=11; g.add(s); return g; }
 function setGroupVis(g,v){ g.traverse(o=>{ o.visible=v; if(o.element) o.element.style.display=v?'':'none'; }); }
 function build(k,it){ return (k==='h'||k==='w')? dimension(it[0],it[1],it[2],it[3]) : tag(it[0],it[1],it[2]); }
 fetch('olculer.json',{cache:'no-cache'}).then(r=>r.json()).then(J=>{
