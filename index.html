@@ -40,6 +40,10 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 .mode button{flex:1}
 #modehelp{color:var(--muted);font-size:12px;margin-top:6px}
 #load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.chips:empty{display:none}
+.chips button{font-size:12.5px;padding:5px 10px;border-radius:999px}
+.chips button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 #tog{display:none}
 @media (max-width:760px){
  #app{display:block}
@@ -50,6 +54,8 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
  #tog{display:inline-block;float:right;padding:6px 12px;font-weight:600}
  #side .mode{flex-wrap:nowrap}
  #side .mode button{padding:8px 6px}
+ #side .chips{flex-wrap:nowrap;overflow-x:auto}
+ #side .chips button{flex:none;padding:6px 11px}
  #side .body{display:none;max-height:calc(100dvh - 120px);overflow:auto;-webkit-overflow-scrolling:touch;margin-top:8px;padding-top:2px;border-top:1px solid var(--line)}
  #side.open .body{display:block}
  #info{top:auto;bottom:10px;left:10px;right:10px;width:auto;max-height:34vh;overflow:auto;padding:10px 12px}
@@ -71,8 +77,8 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
   <div class="sub">Modul ev · 7200 × 3200 mm · bütün ölçülər mm</div>
   <h2>Rejim</h2>
   <div class="btns mode" id="modes"><button data-m="umumi" class="on">Ümumi</button><button data-m="santexnika">Santexnika</button><button data-m="elektrik">Elektrik</button></div>
+  <div class="chips" id="modesub"></div>
   <div class="body">
-   <div id="modesub"></div>
    <div id="modehelp"></div>
    <h2>Görünüş</h2>
    <div class="btns" id="views"></div>
@@ -231,7 +237,7 @@ renderer.domElement.addEventListener('pointerup',e=>{
  const hits=ray.intersectObjects(scene.children,true).filter(h=>h.object.isMesh && h.object.visible && visibleChain(h.object) && !measGroup.getObjectById(h.object.id) && !Object.values(dimGroups).some(g=>g.getObjectById(h.object.id)));
  if(!hits.length) return;
  if(measuring){ addMeasure(hits[0].point); return; }
- const root=pickRoot(hits[0].object); select(root); info(root);
+ const root=pickRoot(hits[0].object); select(root); info(root); showSel(root);
 });
 // ---------- highlight: hover (soft) and selected (bright) ----------
 function pickRoot(o){ for(let x=o;x;x=x.parent){ if(x.userData && x.userData.web_qat) return x; } return o; }
@@ -282,7 +288,7 @@ function info(o){
  document.getElementById('itab').innerHTML=rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1].replace(/</g,'&lt;')}</td></tr>`).join('');
  document.getElementById('info').style.display='block';
 }
-document.getElementById('ix').onclick=()=>{ document.getElementById('info').style.display='none'; if(selected){ paint(selected,null); selected=null; } };
+document.getElementById('ix').onclick=()=>{ document.getElementById('info').style.display='none'; clearSel(); if(selected){ paint(selected,null); selected=null; } };
 const side=document.getElementById('side'), tog=document.getElementById('tog'), MOB=matchMedia('(max-width:760px)');
 function menu(open){ side.classList.toggle('open',open); tog.textContent=open?'✕ Bağla':'☰ Menyu'; }
 tog.onclick=()=>menu(!side.classList.contains('open'));
@@ -291,25 +297,38 @@ view.addEventListener('pointerdown',()=>{ if(MOB.matches) menu(false); });
 // ---------- modes: plumbing / electrical with exact dimensions ----------
 const MODE_LAYERS={santexnika:["01_Karkas","02_Doseme","07_Santexnika"],elektrik:["01_Karkas","02_Doseme","06_Elektrik"]};
 const MODE_VIEW={santexnika:[[-0.6,3.0,3.4],[-0.7,1.0,-1.0]],elektrik:[[-1.5,6.5,5.5],[0,0.8,0]]};
-const MODE_HELP={umumi:"",santexnika:"Qırmızı — isti, göy — soyuq su (PPR d20), boz — kanalizasiya. Hər çıxışda döşəmədən hündürlük (h) və ən yaxın divardan məsafə, mm.",
- elektrik:"Hər rozetka/açar/çıxış üçün döşəmədən hündürlük (h) və ən yaxın divardan məsafə; borularda diametr, xətt və avtomat."};
-const SUBS=[["h","Hündürlüklər"],["w","Divardan məsafə"],["l","Boru adları və uzunluq"],["t","Nöqtələr"]];
-const modeG={santexnika:{},elektrik:{}};
+const MODE_HELP={umumi:"",santexnika:"Qırmızı — isti, göy — soyuq su (PPR d20), boz — kanalizasiya. Çıxışa və ya boruya toxunun — onun ölçüləri görünəcək. Hamısı üçün «Ölçülər».",
+ elektrik:"Borularda içindəki kabel (3×1.5, 3×2.5 …). Rozetkaya, açara və ya boruya toxunun — onun ölçüləri görünəcək. Hamısı üçün «Ölçülər»."};
+const SUBS=[["n","Adlar"],["d","Ölçülər"],["t","Nöqtələr"]];
+const modeG={santexnika:{},elektrik:{}}, RAW={santexnika:{},elektrik:{}};
 function tag(text,p,kind){ const g=new THREE.Group(); const el=document.createElement('div'); el.className='pl '+(kind||'el'); el.textContent=text;
  const l=new CSS2DObject(el); l.position.copy(M(...p)); g.add(l);
  const s=new THREE.Mesh(new THREE.SphereGeometry(0.01,8,8), new THREE.MeshBasicMaterial({color:{isti:'#d0342c',soyuq:'#1f6fd1',kan:'#6b7480',zc:'#2e7d32'}[kind]||'#e08a00',depthTest:false})); s.position.copy(M(...p)); s.renderOrder=11; g.add(s); return g; }
 function setGroupVis(g,v){ g.traverse(o=>{ o.visible=v; if(o.element) o.element.style.display=v?'':'none'; }); }
-fetch('olculer.json').then(r=>r.json()).then(J=>{
- for(const m of ["santexnika","elektrik"]) for(const [k] of SUBS){ const g=new THREE.Group(); scene.add(g); modeG[m][k]=g;
-  for(const it of (J[m][k]||[])){ if(k==='h'||k==='w') g.add(dimension(it[0],it[1],it[2],it[3])); else g.add(tag(it[0],it[1],it[2])); }
-  setGroupVis(g,false); }
-});
-let mode='umumi'; const subOn={h:true,w:true,l:true,t:false};
+function build(k,it){ return (k==='h'||k==='w')? dimension(it[0],it[1],it[2],it[3]) : tag(it[0],it[1],it[2]); }
+fetch('olculer.json',{cache:'no-cache'}).then(r=>r.json()).then(J=>{
+ for(const m of ["santexnika","elektrik"]){
+  for(const k of ["n","d","t"]){ const g=new THREE.Group(); scene.add(g); modeG[m][k]=g; }
+  for(const k of ["h","w","l","t","n"]) for(const it of (J[m][k]||[])){
+   const grp = k==='n'?'n':(k==='t'?'t':'d'); modeG[m][grp].add(build(k,it));
+   const nm = (k==='h'||k==='w')? it[4] : it[3];
+   if(nm && k!=='n'){ (RAW[m][nm]=RAW[m][nm]||[]).push([k,it]); } }
+  for(const k in modeG[m]) setGroupVis(modeG[m][k],false); }
+ applyMode(false);
+}).catch(e=>console.error('olculer',e));
+// dimensions of the tapped object only
+const selDims=new THREE.Group(); scene.add(selDims);
+function clearSel(){ while(selDims.children.length){ const c=selDims.children.pop(); c.traverse(x=>{ if(x.element) x.element.remove(); }); } }
+function showSel(o){ clearSel(); if(mode==='umumi'||!o) return;
+ let best=null; for(const nm in RAW[mode]){ if(o.name===nm || o.name.startsWith(nm+'_')){ if(!best||nm.length>best.length) best=nm; } }
+ if(!best) return; for(const [k,it] of RAW[mode][best]) selDims.add(build(k,it)); }
+let mode='umumi'; const subOn={n:true,d:false,t:false};
 const subEl=document.getElementById('modesub');
 function drawSubs(){ subEl.innerHTML=''; if(mode==='umumi') return;
- for(const [k,t] of SUBS){ const r=document.createElement('label'); r.className='row'; r.innerHTML=`<input type="checkbox" ${subOn[k]?'checked':''}><span>${t}</span>`;
-  r.querySelector('input').onchange=e=>{ subOn[k]=e.target.checked; applyMode(false); }; subEl.appendChild(r); } }
+ for(const [k,t] of SUBS){ const b=document.createElement('button'); b.textContent=t; b.classList.toggle('on',subOn[k]);
+  b.onclick=()=>{ subOn[k]=!subOn[k]; applyMode(false); }; subEl.appendChild(b); } }
 function applyMode(move=true){
+ if(move) clearSel();
  for(const m in modeG) for(const k in modeG[m]) setGroupVis(modeG[m][k], m===mode && subOn[k]);
  for(const k in dimGroups) setGroupVis(dimGroups[k], mode==='umumi' && GROUPS.find(g=>g[0]===k)[2]);
  if(mode==='umumi'){ if(move){ setPreset("Hamısı"); setView("Çöldən"); } }
