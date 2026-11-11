@@ -37,7 +37,8 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 #meas{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:var(--dim);color:#fff;border-radius:8px;padding:6px 12px;font-size:13px;display:none}
 .dl{font:600 11.5px/1 system-ui,Arial,sans-serif;color:var(--dim);background:var(--panel);border:1px solid var(--dim);border-radius:4px;padding:2px 5px;white-space:nowrap;pointer-events:none}
 .dl.m{background:var(--dim);color:#fff}
-.pl{font:600 11px/1.15 system-ui,Arial,sans-serif;background:var(--panel);border:1px solid;border-radius:4px;padding:2px 5px;white-space:nowrap;pointer-events:none}
+.pl{font:600 10px/1.15 system-ui,Arial,sans-serif;background:var(--panel);border:1px solid;border-radius:4px;padding:1px 4px;white-space:pre;text-align:center;pointer-events:none}
+.pl.lk{pointer-events:auto;cursor:pointer}
 .pl.isti{color:#d0342c;border-color:#d0342c}.pl.soyuq{color:#1f6fd1;border-color:#1f6fd1}.pl.kan{color:#6b7480;border-color:#6b7480}
 .pl.elp{background:#e08a00;color:#fff;border-color:#e08a00}.pl.zcp{background:#2e7d32;color:#fff;border-color:#2e7d32}
 .pl.el{color:#c26a00;border-color:#e08a00}.pl.zc{color:#2e7d32;border-color:#2e7d32}
@@ -79,7 +80,7 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
  #info table{font-size:12px}
  #hint{display:none}
  #meas{top:auto;bottom:10px}
- .dl,.pl{font-size:10px;padding:1px 4px}
+ .dl{font-size:10px;padding:1px 4px} .pl{font-size:9px;padding:1px 3px;border-radius:3px}
  .row{padding:8px 0}.row input{width:20px;height:20px}
  .btns button{padding:8px 10px}
 }
@@ -209,9 +210,10 @@ for (const [k,t,on] of GROUPS){
 }
 
 // ---------- model ----------
+let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
 new GLTFLoader().load('TECTON_7200.glb?v=qofre2', g=>{
- const root=g.scene; scene.add(root);
+ const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
  document.getElementById('load').remove();
@@ -273,7 +275,14 @@ function paint(root, color, k){
 }
 function ghost(on){ ghostOn=on; document.body.classList.toggle('sel',on); allMesh.forEach(m=>{ if(selected && inRoot(m,selected)) return; if(hovered && inRoot(m,hovered) && on===false) return; m.material=baseMat(m); }); }
 let selected=null, hovered=null;
-function select(r){ const prev=selected; selected=r; if(prev&&prev!==r) paint(prev,null); if(r) paint(r,'#ff2d7a',1.4); if(hovered===r) hovered=null; }
+let selExtra=[];
+function isSel(o){ return o && (o===selected || selExtra.includes(o)); }
+function select(r){ const prev=[selected,...selExtra].filter(Boolean); selected=r; selExtra=[];
+ const L=r&&(LINK[r.name]||LINK[r.name.replace(/_qutu$/,'')]);
+ if(L && modelRoot) for(const n of L){ if(n===r.name) continue; const x=modelRoot.getObjectByName(n); if(x) selExtra.push(pickRoot(x)); }
+ for(const p of prev) if(!isSel(p)) paint(p,null);
+ for(const x of [r,...selExtra]) if(x) paint(x,'#ff2d7a',1.4); if(isSel(hovered)) hovered=null; }
+function pickLinked(name){ const o=modelRoot&&modelRoot.getObjectByName(name); if(!o) return; const r=pickRoot(o); select(r); info(r); showSel(r); }
 let hvT=0;
 renderer.domElement.addEventListener('pointermove',e=>{
  if(e.pointerType!=='mouse'||e.buttons||measuring) return; const now=performance.now(); if(now-hvT<60) return; hvT=now;
@@ -282,8 +291,8 @@ renderer.domElement.addEventListener('pointermove',e=>{
  const h=ray.intersectObjects(scene.children,true).find(h=>h.object.isMesh&&visibleChain(h.object)&&h.object.userData!==undefined&&!measGroup.getObjectById(h.object.id)&&!Object.values(dimGroups).some(g=>g.getObjectById(h.object.id)));
  const root=h?pickRoot(h.object):null;
  if(root===hovered) return;
- if(hovered&&hovered!==selected) paint(hovered,null);
- hovered=root; if(root&&root!==selected) paint(root,'#ffd54f',0.45);
+ if(hovered&&!isSel(hovered)) paint(hovered,null);
+ hovered=root; if(root&&!isSel(root)) paint(root,'#ffd54f',0.45);
  renderer.domElement.style.cursor=root?'pointer':'';
 });
 function visibleChain(o){ for(let x=o;x;x=x.parent) if(!x.visible) return false; return true; }
@@ -333,18 +342,20 @@ const MODE_HELP={umumi:"",santexnika:"Qırmızı — isti, göy — soyuq su (PP
  elektrik:"Borularda içindəki kabel (3×1.5, 3×2.5 …). Rozetkaya, açara və ya boruya toxunun — onun ölçüləri görünəcək. Hamısı üçün «Ölçülər»."};
 const SUBS=[["n","Adlar"],["d","Ölçülər"],["t","Nöqtələr"]];
 const modeG={santexnika:{},elektrik:{}}, RAW={santexnika:{},elektrik:{}};
-function tag(text,p,kind){ const g=new THREE.Group(); const el=document.createElement('div'); el.className='pl '+(kind||'el'); el.textContent=text;
+function tag(text,p,kind,links){ const g=new THREE.Group(); const el=document.createElement('div'); el.className='pl '+(kind||'el')+(links?' lk':''); el.textContent=text;
+ if(links){ el.addEventListener('pointerup',e=>{ e.stopPropagation(); pickLinked(links[0]); }); el.addEventListener('pointerdown',e=>e.stopPropagation()); }
  const l=new CSS2DObject(el); l.position.copy(M(...p)); g.add(l);
  const s=new THREE.Mesh(new THREE.SphereGeometry(0.01,8,8), new THREE.MeshBasicMaterial({color:{isti:'#d0342c',soyuq:'#1f6fd1',kan:'#6b7480',zc:'#2e7d32',zcp:'#2e7d32'}[kind]||'#e08a00',depthTest:false})); s.position.copy(M(...p)); s.renderOrder=11; g.add(s); return g; }
 function setGroupVis(g,v){ g.traverse(o=>{ o.visible=v; if(o.element) o.element.style.display=v?'':'none'; }); }
-function build(k,it){ return (k==='h'||k==='w')? dimension(it[0],it[1],it[2],it[3]) : tag(it[0],it[1],it[2]); }
+function build(k,it){ return (k==='h'||k==='w')? dimension(it[0],it[1],it[2],it[3]) : tag(it[0],it[1],it[2],it[4]); }
 fetch('olculer.json',{cache:'no-cache'}).then(r=>r.json()).then(J=>{
  for(const m of ["santexnika","elektrik"]){
   for(const k of ["n","d","t"]){ const g=new THREE.Group(); scene.add(g); modeG[m][k]=g; }
   for(const k of ["h","w","l","t","n"]) for(const it of (J[m][k]||[])){
    const grp = k==='n'?'n':(k==='t'?'t':'d'); modeG[m][grp].add(build(k,it));
    const nm = (k==='h'||k==='w')? it[4] : it[3];
-   if(nm && k!=='n'){ (RAW[m][nm]=RAW[m][nm]||[]).push([k,it]); } }
+   if(nm && k!=='n'){ (RAW[m][nm]=RAW[m][nm]||[]).push([k,it]); }
+   if(k==='n' && it[4]) for(const x of it[4]){ const S=LINK[x]=LINK[x]||new Set(); it[4].forEach(y=>S.add(y)); } }
   for(const k in modeG[m]) setGroupVis(modeG[m][k],false); }
  applyMode(false);
 }).catch(e=>console.error('olculer',e));
