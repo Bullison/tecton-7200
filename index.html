@@ -49,6 +49,7 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 #step .code{display:inline-block;font-weight:800;font-size:15px;color:#fff;background:#ff2d7a;border-radius:6px;padding:2px 8px;margin-right:6px}
 #step h4{margin:4px 0 6px;font-size:14px;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
 #step .kv{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}#step .kv span{background:color-mix(in srgb,var(--acc) 13%,transparent);color:var(--acc);font-weight:600;border-radius:999px;padding:2px 8px;font-size:12px}
+#step .flow{font-weight:600;background:color-mix(in srgb,#ff2d7a 9%,transparent);border-left:3px solid #ff2d7a;padding:4px 7px;border-radius:4px;margin:2px 0 4px}
 #step ol{margin:2px 0 8px;padding-left:20px}#step li{margin:2px 0}#step .lbl{color:var(--muted);font-size:11.5px;margin-top:4px}
 #step .mk{font:700 13px/1.3 ui-monospace,Consolas,monospace;border:1.5px dashed #ff2d7a;border-radius:6px;padding:6px 8px;margin-top:2px;user-select:all}
 .chips button.stepb{border-color:#ff2d7a;color:#ff2d7a;font-weight:600}.chips button.stepb.on{background:#ff2d7a;color:#fff}
@@ -227,7 +228,7 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=marker1', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=step2', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
@@ -423,14 +424,14 @@ function showStep(i){
  document.getElementById('info').style.display='none'; select(null); clearSel();
  if(MOB.matches && side.classList.contains('open')) menu(false);
  for(const m in modeG) for(const k in modeG[m]) setGroupVis(modeG[m][k], false);
- const roots=stepRoots(st);
+ const roots=stepRoots(st), ctxR=stepRoots({names:st.ctx||[]}).filter(r=>!roots.includes(r));
  allMesh.forEach(m=>{ const L=pickRoot(m).userData.web_qat; m.visible = (L==='01_Karkas'); });
- roots.forEach(r=>r.traverse(x=>{ x.visible=true; }));
+ roots.concat(ctxR).forEach(r=>r.traverse(x=>{ x.visible=true; }));
  ['ELEKTRIK_SITI_Korpus'].forEach(n=>{ const o=modelRoot.getObjectByName(n); if(o) o.traverse(x=>x.visible=true); });
  selected=roots[0]||null; selExtra=roots.slice(1); roots.forEach(r=>paint(r,'#ff2d7a',1.4));
  for(const n of st.names){ const R=RAW.elektrik[n]; if(R) for(const [k,it] of R) selDims.add(build(k,it)); }
  // camera: keep view direction, frame the step
- const box=new THREE.Box3(); roots.forEach(r=>box.expandByObject(r));
+ const box=new THREE.Box3(); roots.concat(ctxR).forEach(r=>box.expandByObject(r));
  if(!box.isEmpty()){ const c=box.getCenter(new THREE.Vector3()), rad=Math.max(box.getSize(new THREE.Vector3()).length()/2,0.6);
   const dir=cam.position.clone().sub(ctl.target).normalize(); if(!wasOn) dir.set(-0.55,0.55,0.62).normalize();
   const dist=rad/Math.sin(THREE.MathUtils.degToRad(cam.fov/2))*(MOB.matches?1.25:1.05);
@@ -439,6 +440,7 @@ function showStep(i){
  ssel.value=i; const kv=[st.wire&&('Kabel '+st.wire), st.avtomat&&('Avtomat '+st.avtomat), st.xett&&('Xətt '+st.xett), st.boru&&('Boru '+st.boru), st.len&&('Boru '+st.len+' m'), st.meftil&&('Naqil '+st.meftil+' m')].filter(Boolean);
  sbody.innerHTML=`<h4><span class="code">${esc(st.code)}</span>${esc(st.title)}</h4>
   <div class="kv">${kv.map(t=>`<span>${esc(t)}</span>`).join('')}${st.h.length?`<span>h ${st.h.join(' / ')} mm</span>`:''}</div>
+  ${st.flow?`<div class="lbl">Cərəyan yolu:</div><div class="flow">${esc(st.flow)}</div>`:''}
   ${st.route.length?`<div class="lbl">Hardan aparılır:</div><ol>${st.route.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>`:''}
   ${st.note?`<div class="lbl">Qeyd:</div><div>${esc(st.note)}</div>`:''}
   <div class="lbl">Markerə yaz (borunun hər iki ucuna və kabelin şit tərəfinə):</div><div class="mk">${esc(st.marker)}</div>`;

@@ -8,6 +8,7 @@
    "ROZ_Metbex_Is_1_qutu",
    "BORU_Metbex_Is_1"
   ],
+  "ctx": [],
   "wire": "3×2.5",
   "avtomat": "B16",
   "xett": "W3",
@@ -25,28 +26,8 @@
    "aşağı 1530 mm → h 1025"
   ],
   "note": "",
+  "flow": "Şit W3 B16 → MR-1 borusu → Mətbəx iş masası (ikili)",
   "marker": "MR-1 · Mətbəx iş masası · 3×2.5 · B16"
- },
- {
-  "room": "Mətbəx",
-  "code": "MR-5",
-  "title": "Mətbəx iş masası (ikili, MR-1 xəttindən)",
-  "names": [
-   "ROZ_Metbex_Is_2",
-   "ROZ_Metbex_Is_2_qutu"
-  ],
-  "wire": "3×2.5",
-  "avtomat": "B16",
-  "xett": "W3",
-  "boru": "",
-  "len": null,
-  "meftil": null,
-  "h": [
-   1025
-  ],
-  "route": [],
-  "note": "MR-1 xəttindən qidalanır — MR-1 rozetkasından davam etdirilir",
-  "marker": "MR-5 · Mətbəx iş masası · 3×2.5 · B16"
  },
  {
   "room": "Mətbəx",
@@ -57,6 +38,7 @@
    "ROZ_Metbex_Paltaryuyan_qutu",
    "BORU_Metbex_Paltaryuyan"
   ],
+  "ctx": [],
   "wire": "3×2.5",
   "avtomat": "B16",
   "xett": "W4",
@@ -75,6 +57,7 @@
    "aşağı 2265 mm → h 290"
   ],
   "note": "",
+  "flow": "Şit W4 B16 → MR-2 borusu → Paltaryuyan",
   "marker": "MR-2 · Paltaryuyan · 3×2.5 · B16"
  },
  {
@@ -86,6 +69,7 @@
    "ROZ_Metbex_Soba_qutu",
    "BORU_Metbex_Soba"
   ],
+  "ctx": [],
   "wire": "3×4",
   "avtomat": "C16",
   "xett": "W6",
@@ -104,6 +88,7 @@
    "aşağı 2280 mm → h 275"
   ],
   "note": "",
+  "flow": "Şit W6 C16 → MR-3 borusu → Soba",
   "marker": "MR-3 · Soba · 3×4 · C16"
  },
  {
@@ -115,6 +100,7 @@
    "ROZ_Metbex_Aspirator_qutu",
    "BORU_Metbex_Aspirator"
   ],
+  "ctx": [],
   "wire": "3×1.5",
   "avtomat": "B10",
   "xett": "W2",
@@ -133,6 +119,7 @@
    "aşağı 430 mm → h 2125"
   ],
   "note": "",
+  "flow": "Şit W2 B10 → MR-4 borusu → Aspirator",
   "marker": "MR-4 · Aspirator · 3×1.5 · B10"
  },
  {
@@ -143,6 +130,9 @@
    "ROZ_Metbex_Soyuducu",
    "ROZ_Metbex_Soyuducu_qutu",
    "BORU_Metbex_Soyuducu"
+  ],
+  "ctx": [
+   "ROZ_Metbex_Is_2"
   ],
   "wire": "3×2.5",
   "avtomat": "B16",
@@ -162,7 +152,41 @@
    "aşağı 2380 mm → h 175"
   ],
   "note": "",
-  "marker": "MR-6 · Soyuducu · 3×2.5 · B16"
+  "flow": "Şit W3 B16 → MR-6 borusu → MR-5 qutusundan keçir → MR-6 soyuducu",
+  "marker": "MR-6 · Soyuducu · 3×2.5 · B16 · keçir: MR-5"
+ },
+ {
+  "room": "Mətbəx",
+  "code": "MR-5",
+  "title": "Mətbəx iş masası (ikili, MR-6 borusunun üstündə)",
+  "names": [
+   "ROZ_Metbex_Is_2",
+   "BORU_Metbex_Soyuducu",
+   "ROZ_Metbex_Is_2_qutu"
+  ],
+  "ctx": [
+   "ROZ_Metbex_Soyuducu"
+  ],
+  "wire": "3×2.5",
+  "avtomat": "B16",
+  "xett": "W3",
+  "boru": "",
+  "len": null,
+  "meftil": null,
+  "h": [
+   1025
+  ],
+  "route": [
+   "Şitdən başla (h 1800)",
+   "yuxarı 755 mm → h 2555",
+   "arxa divara (+Y) 201 mm (tavanda)",
+   "mətbəx tərəfə (−X) 489 mm (tavanda, ön divardan 256 mm)",
+   "arxa divara (+Y) 2716 mm (tavanda)",
+   "aşağı düş → h 1025-də MR-5 qutusuna gir; boru qutudan çıxıb aşağı davam edir → MR-6 (h 175)"
+  ],
+  "note": "Ayrıca borusu yoxdur: MR-6 (soyuducu) borusu tavandan düşərkən bu qutudan keçir. Kabel 3×2.5 qutuya girir, MR-5-ə qoşulur və eyni boru ilə aşağı MR-6-ya davam edir.",
+  "flow": "Şit W3 B16 → MR-6 borusu → MR-5 qutusu (kabel burada qoşulub aşağı MR-6-ya davam edir)",
+  "marker": "MR-5 · Mətbəx iş masası · 3×2.5 · B16"
  },
  {
   "room": "Mətbəx",
@@ -173,6 +197,7 @@
    "ROZ_Metbex_Ariston_qutu",
    "BORU_Metbex_Ariston"
   ],
+  "ctx": [],
   "wire": "3×4",
   "avtomat": "C16",
   "xett": "W7",
@@ -191,6 +216,7 @@
    "aşağı 380 mm → h 2175"
   ],
   "note": "",
+  "flow": "Şit W7 C16 → MR-7 borusu → Ariston",
   "marker": "MR-7 · Ariston · 3×4 · C16"
  },
  {
@@ -202,6 +228,9 @@
    "ROZ_Metbex_TV_qutu",
    "BORU_Metbex_TV_guc"
   ],
+  "ctx": [
+   "PAYLAYICI_W3_TV"
+  ],
   "wire": "3×2.5",
   "avtomat": "B16",
   "xett": "W3",
@@ -212,12 +241,13 @@
    1325
   ],
   "route": [
-   "Başlanğıc (h 2555)",
+   "Tavandakı W3 paylayıcı qutusundan başla (MR-6 soyuducu xəttindən ayrılır) (h 2555)",
    "aşağı 25 mm → h 2530",
    "yataq tərəfə (+X) 360 mm (tavanda, ön divardan 1751 mm)",
    "aşağı 1180 mm → h 1325"
   ],
   "note": "",
+  "flow": "Şit W3 B16 → MR-6 borusu → tavanda W3 paylayıcı qutu → MR-8 borusu → TV rozetkası",
   "marker": "MR-8 · Mətbəx TV rozetkası · 3×2.5 · B16"
  },
  {
@@ -229,6 +259,10 @@
    "TV_Metbex_LAN_TV_qutu",
    "BORU_ZC_TV_Metbex"
   ],
+  "ctx": [
+   "MODEM_Router",
+   "ZC_TV_Splitter"
+  ],
   "wire": "Cat6 + RG6",
   "avtomat": "",
   "xett": "Zeif cereyan",
@@ -239,7 +273,7 @@
    1325
   ],
   "route": [
-   "Başlanğıc (h 2020)",
+   "Modem nişindən başla (şitin üstü) (h 2020)",
    "yuxarı 500 mm → h 2520",
    "arxa divara (+Y) 250 mm (tavanda)",
    "mətbəx tərəfə (−X) 50 mm (tavanda, ön divardan 331 mm)",
@@ -250,6 +284,7 @@
    "aşağı 1230 mm → h 1325"
   ],
   "note": "",
+  "flow": "Modem / TV splitter (şitin üstündəki niş) → MZ-1 borusu → mətbəx TV yanında LAN + TV",
   "marker": "MZ-1 · Mətbəx LAN + TV · Cat6 + RG6"
  },
  {
@@ -261,6 +296,7 @@
    "ROZ_Qonaq_Pencere_yani_qutu",
    "BORU_Qonaq_Pencere_yani"
   ],
+  "ctx": [],
   "wire": "3×2.5",
   "avtomat": "B16",
   "xett": "W9",
@@ -278,6 +314,7 @@
    "aşağı 2265 mm → h 290"
   ],
   "note": "",
+  "flow": "Şit W9 B16 → QR-1 borusu → Qonaq, pəncərə yanı",
   "marker": "QR-1 · Qonaq, pəncərə yanı · 3×2.5 · B16"
  },
  {
@@ -289,6 +326,7 @@
    "CIXIS_Kondisioner_qutu",
    "BORU_S_Kondisioner"
   ],
+  "ctx": [],
   "wire": "3×4",
   "avtomat": "C16",
   "xett": "W8",
@@ -307,6 +345,7 @@
    "aşağı 350 mm → h 2205"
   ],
   "note": "",
+  "flow": "Şit W8 C16 → QR-2 borusu → Kondisioner",
   "marker": "QR-2 · Kondisioner · 3×4 · C16"
  },
  {
@@ -320,6 +359,7 @@
    "ACAR_Yataq",
    "ACAR_Fasad"
   ],
+  "ctx": [],
   "wire": "3×1.5",
   "avtomat": "B10",
   "xett": "W1",
@@ -334,6 +374,7 @@
    "aşağı 306 mm → h 1024"
   ],
   "note": "",
+  "flow": "Şit W1 B10 → SA-1 borusu → 3-lü açar qutusu. Buradan 3 açar: MA-1 (mətbəx/qonaq), YA-1 (yataq), FA-1 (fasad)",
   "marker": "SA-1 · Şit → açarlar · 3×1.5 · B10"
  },
  {
@@ -344,6 +385,10 @@
    "ACAR_Metbex_Qonaq",
    "ACAR_Metbex_Qonaq_qutu",
    "ACAR_Ramka_3lu"
+  ],
+  "ctx": [
+   "BORU_Isiq_Sit_acarlar",
+   "BORU_Isiq_Metbex_Qonaq"
   ],
   "wire": "",
   "avtomat": "B10",
@@ -356,6 +401,7 @@
   ],
   "route": [],
   "note": "",
+  "flow": "Şit W1 B10 → SA-1 → 3-lü açar qutusu → MA-1 açarı → MI-1 borusu → mətbəx/qonaq 4 spot",
   "marker": "MA-1 · Açar: mətbəx/qonaq işığı · B10"
  },
  {
@@ -367,7 +413,15 @@
    "ISIQ_Metbex_Spot_2",
    "ISIQ_Metbex_Spot_3",
    "ISIQ_Metbex_Spot_4",
+   "KABEL_Metbex_Spot_1",
+   "KABEL_Metbex_Spot_2",
+   "KABEL_Metbex_Spot_3",
+   "KABEL_Metbex_Spot_4",
    "BORU_Isiq_Metbex_Qonaq"
+  ],
+  "ctx": [
+   "ACAR_Metbex_Qonaq",
+   "ACAR_Ramka_3lu"
   ],
   "wire": "3×1.5",
   "avtomat": "B10",
@@ -377,7 +431,7 @@
   "meftil": 7.61,
   "h": [],
   "route": [
-   "Başlanğıc (h 1024)",
+   "3-lü açar qutusundan başla (h 1024)",
    "yuxarı 201 mm → h 1225",
    "yataq tərəfə (+X) 237 mm",
    "yuxarı 1294 mm → h 2519",
@@ -388,6 +442,7 @@
    "yataq tərəfə (+X) 1490 mm (tavanda, ön divardan 2151 mm)"
   ],
   "note": "",
+  "flow": "Şit W1 B10 → SA-1 → 3-lü açar qutusu → MA-1 açarı → MI-1 borusu → mətbəx/qonaq 4 spot",
   "marker": "MI-1 · Mətbəx/qonaq spotları · 3×1.5 · B10"
  },
  {
@@ -399,6 +454,7 @@
    "ROZ_Yataq_On_divar_qutu",
    "BORU_Yataq_On_divar"
   ],
+  "ctx": [],
   "wire": "3×2.5",
   "avtomat": "B16",
   "xett": "W10",
@@ -416,6 +472,7 @@
    "aşağı 2265 mm → h 290"
   ],
   "note": "",
+  "flow": "Şit W10 B16 → YR-1 borusu → Yataq, ön divar",
   "marker": "YR-1 · Yataq, ön divar · 3×2.5 · B16"
  },
  {
@@ -427,6 +484,7 @@
    "ROZ_Yataq_Arxa_hamam_yani_qutu",
    "BORU_Yataq_Arxa_hamam_yani"
   ],
+  "ctx": [],
   "wire": "3×2.5",
   "avtomat": "B16",
   "xett": "W10",
@@ -445,6 +503,7 @@
    "aşağı 2265 mm → h 290"
   ],
   "note": "",
+  "flow": "Şit W10 B16 → YR-2 borusu → Yataq, arxa divar (hamam yanı)",
   "marker": "YR-2 · Yataq, arxa divar · 3×2.5 · B16"
  },
  {
@@ -456,6 +515,7 @@
    "ROZ_Yataq_Carpayi_sag_qutu",
    "BORU_Yataq_Carpayi_sag"
   ],
+  "ctx": [],
   "wire": "3×1.5",
   "avtomat": "B10",
   "xett": "W11",
@@ -473,6 +533,7 @@
    "aşağı 2265 mm → h 290"
   ],
   "note": "",
+  "flow": "Şit W11 B10 → YR-3 borusu → Yataq, çarpayı sağ",
   "marker": "YR-3 · Yataq, çarpayı sağ · 3×1.5 · B10"
  },
  {
@@ -484,6 +545,7 @@
    "ROZ_Yataq_Carpayi_sol_qutu",
    "BORU_Yataq_Carpayi_sol"
   ],
+  "ctx": [],
   "wire": "3×1.5",
   "avtomat": "B10",
   "xett": "W11",
@@ -502,6 +564,7 @@
    "aşağı 2265 mm → h 290"
   ],
   "note": "",
+  "flow": "Şit W11 B10 → YR-4 borusu → Yataq, çarpayı sol",
   "marker": "YR-4 · Yataq, çarpayı sol · 3×1.5 · B10"
  },
  {
@@ -513,6 +576,9 @@
    "ROZ_Yataq_TV_qutu",
    "BORU_Yataq_TV_guc"
   ],
+  "ctx": [
+   "PAYLAYICI_W10_TV"
+  ],
   "wire": "3×2.5",
   "avtomat": "B16",
   "xett": "W10",
@@ -523,12 +589,13 @@
    1525
   ],
   "route": [
-   "Başlanğıc (h 2555)",
+   "Tavandakı W10 paylayıcı qutusundan başla (YR-2 xəttindən ayrılır) (h 2555)",
    "aşağı 25 mm → h 2530",
    "mətbəx tərəfə (−X) 123 mm (tavanda, ön divardan 1726 mm)",
    "aşağı 980 mm → h 1525"
   ],
   "note": "",
+  "flow": "Şit W10 B16 → YR-2 borusu → tavanda W10 paylayıcı qutu → YR-5 borusu → TV rozetkası",
   "marker": "YR-5 · Yataq TV rozetkası · 3×2.5 · B16"
  },
  {
@@ -540,6 +607,10 @@
    "TV_Yataq_LAN_TV_qutu",
    "BORU_ZC_TV_Yataq"
   ],
+  "ctx": [
+   "MODEM_Router",
+   "ZC_TV_Splitter"
+  ],
   "wire": "Cat6 + RG6",
   "avtomat": "",
   "xett": "Zeif cereyan",
@@ -550,7 +621,7 @@
    1525
   ],
   "route": [
-   "Başlanğıc (h 2020)",
+   "Modem nişindən başla (şitin üstü) (h 2020)",
    "yuxarı 500 mm → h 2520",
    "arxa divara (+Y) 200 mm (tavanda)",
    "yataq tərəfə (+X) 1468 mm (tavanda, ön divardan 281 mm)",
@@ -560,6 +631,7 @@
    "aşağı 1030 mm → h 1525"
   ],
   "note": "",
+  "flow": "Modem / TV splitter (şitin üstündəki niş) → YZ-1 borusu → yataq TV yanında LAN + TV",
   "marker": "YZ-1 · Yataq LAN + TV · Cat6 + RG6"
  },
  {
@@ -570,6 +642,10 @@
    "ACAR_Yataq",
    "ACAR_Yataq_qutu",
    "ACAR_Ramka_3lu"
+  ],
+  "ctx": [
+   "BORU_Isiq_Sit_acarlar",
+   "BORU_Isiq_Yataq"
   ],
   "wire": "",
   "avtomat": "B10",
@@ -582,6 +658,7 @@
   ],
   "route": [],
   "note": "",
+  "flow": "Şit W1 B10 → SA-1 → 3-lü açar qutusu → YA-1 açarı → YI-1 borusu → yataq 4 spot",
   "marker": "YA-1 · Açar: yataq işığı · B10"
  },
  {
@@ -593,7 +670,15 @@
    "ISIQ_Yataq_Spot_2",
    "ISIQ_Yataq_Spot_3",
    "ISIQ_Yataq_Spot_4",
+   "KABEL_Yataq_Spot_1",
+   "KABEL_Yataq_Spot_2",
+   "KABEL_Yataq_Spot_3",
+   "KABEL_Yataq_Spot_4",
    "BORU_Isiq_Yataq"
+  ],
+  "ctx": [
+   "ACAR_Yataq",
+   "ACAR_Ramka_3lu"
   ],
   "wire": "3×1.5",
   "avtomat": "B10",
@@ -603,7 +688,7 @@
   "meftil": 8.99,
   "h": [],
   "route": [
-   "Başlanğıc (h 1024)",
+   "3-lü açar qutusundan başla (h 1024)",
    "yuxarı 151 mm → h 1175",
    "yataq tərəfə (+X) 216 mm",
    "yuxarı 1355 mm → h 2530",
@@ -615,6 +700,7 @@
    "mətbəx tərəfə (−X) 1360 mm (tavanda, ön divardan 1917 mm)"
   ],
   "note": "",
+  "flow": "Şit W1 B10 → SA-1 → 3-lü açar qutusu → YA-1 açarı → YI-1 borusu → yataq 4 spot",
   "marker": "YI-1 · Yataq spotları · 3×1.5 · B10"
  },
  {
@@ -626,6 +712,7 @@
    "ACAR_Hamam_qutu",
    "BORU_Hamam_Acar_qidalanma"
   ],
+  "ctx": [],
   "wire": "3×1.5",
   "avtomat": "B10",
   "xett": "W1",
@@ -644,6 +731,7 @@
    "aşağı 1525 mm → h 990"
   ],
   "note": "",
+  "flow": "Şit W1 B10 → HA-1 borusu → hamam açarı. Buradan: HI-1 (2 spot + ventilyator), HI-2 (güzgü işığı)",
   "marker": "HA-1 · Hamam açarı · 3×1.5 · B10"
  },
  {
@@ -653,7 +741,12 @@
   "names": [
    "ISIQ_Hamam_Spot_1",
    "ISIQ_Hamam_Spot_2",
+   "KABEL_Hamam_Spot_1",
+   "KABEL_Hamam_Spot_2",
    "BORU_Hamam_Isiq"
+  ],
+  "ctx": [
+   "ACAR_Hamam"
   ],
   "wire": "3×1.5",
   "avtomat": "B10",
@@ -663,7 +756,7 @@
   "meftil": 4.76,
   "h": [],
   "route": [
-   "Başlanğıc (h 990)",
+   "Hamam açarının (HA-1) qutusundan başla (h 990)",
    "yuxarı 1560 mm → h 2564",
    "mətbəx tərəfə (−X) 510 mm (tavanda, ön divardan 1281 mm)",
    "arxa divara (+Y) 500 mm (tavanda)",
@@ -676,6 +769,7 @@
    "yataq tərəfə (+X) 365 mm (tavanda, ön divardan 2781 mm)"
   ],
   "note": "",
+  "flow": "Şit W1 B10 → HA-1 → hamam açarı → HI-1 borusu → 2 spot + ventilyator",
   "marker": "HI-1 · Hamam spotları · 3×1.5 · B10"
  },
  {
@@ -687,6 +781,9 @@
    "CIXIS_Hamam_Guzgu_qutu",
    "BORU_Hamam_Guzgu"
   ],
+  "ctx": [
+   "ACAR_Hamam"
+  ],
   "wire": "3×1.5",
   "avtomat": "B10",
   "xett": "W1",
@@ -697,13 +794,14 @@
    1939
   ],
   "route": [
-   "Başlanğıc (h 990)",
+   "Hamam açarının (HA-1) qutusundan başla (h 990)",
    "yuxarı 1560 mm → h 2564",
    "yataq tərəfə (+X) 285 mm (tavanda, ön divardan 1281 mm)",
    "arxa divara (+Y) 350 mm (tavanda)",
    "aşağı 625 mm → h 1925"
   ],
   "note": "",
+  "flow": "Şit W1 B10 → HA-1 → hamam açarı → HI-2 borusu → güzgü işığı",
   "marker": "HI-2 · Güzgü işığı · 3×1.5 · B10"
  },
  {
@@ -714,6 +812,10 @@
    "ACAR_Fasad",
    "ACAR_Fasad_qutu",
    "ACAR_Ramka_3lu"
+  ],
+  "ctx": [
+   "BORU_Isiq_Sit_acarlar",
+   "BORU_Isiq_Fasad"
   ],
   "wire": "",
   "avtomat": "B10",
@@ -726,6 +828,7 @@
   ],
   "route": [],
   "note": "",
+  "flow": "Şit W1 B10 → SA-1 → 3-lü açar qutusu → FA-1 açarı → FI-1 borusu → fasad LED",
   "marker": "FA-1 · Açar: fasad LED · B10"
  },
  {
@@ -735,6 +838,10 @@
   "names": [
    "CIXIS_Fasad_LED",
    "BORU_Isiq_Fasad"
+  ],
+  "ctx": [
+   "ACAR_Fasad",
+   "ACAR_Ramka_3lu"
   ],
   "wire": "3×1.5",
   "avtomat": "B10",
@@ -746,7 +853,7 @@
    2460
   ],
   "route": [
-   "Başlanğıc (h 1024)",
+   "3-lü açar qutusundan başla (h 1024)",
    "yuxarı 101 mm → h 1125",
    "ön divara (−Y) 65 mm",
    "yataq tərəfə (+X) 135 mm",
@@ -755,6 +862,7 @@
    "yataq tərəfə (+X) 120 mm (tavanda, ön divardan -104 mm)"
   ],
   "note": "",
+  "flow": "Şit W1 B10 → SA-1 → 3-lü açar qutusu → FA-1 açarı → FI-1 borusu → fasad LED",
   "marker": "FI-1 · Fasad LED · 3×1.5 · B10"
  },
  {
@@ -764,6 +872,7 @@
   "names": [
    "BORU_Giris_Esas_kabel"
   ],
+  "ctx": [],
   "wire": "3×6",
   "avtomat": "2P 32A (giris) -> Rele DIF",
   "xett": "W0 Giris",
@@ -777,6 +886,7 @@
    "yuxarı 2355 mm → h 1330"
   ],
   "note": "",
+  "flow": "Şit W0 Giris 2P 32A (giris) -> Rele DIF → G-1 borusu → Giriş kabeli → şit",
   "marker": "G-1 · Giriş kabeli → şit · 3×6 · 2P 32A (giris) -> Rele DIF"
  },
  {
@@ -786,6 +896,7 @@
   "names": [
    "BORU_Torpaq_PE_Sit"
   ],
+  "ctx": [],
   "wire": "PE 1×16",
   "avtomat": "",
   "xett": "PE Torpaqlama",
@@ -800,6 +911,7 @@
    "yuxarı 1580 mm → h 1330"
   ],
   "note": "",
+  "flow": "",
   "marker": "PE-1 · Torpaqlama → şit · PE 1×16"
  },
  {
@@ -809,6 +921,7 @@
   "names": [
    "BORU_ZC_Internet_giris"
   ],
+  "ctx": [],
   "wire": "Optik kabel",
   "avtomat": "",
   "xett": "Zeif cereyan",
@@ -823,6 +936,7 @@
    "ön divara (−Y) 1345 mm"
   ],
   "note": "",
+  "flow": "",
   "marker": "Z-1 · İnternet girişi · Optik kabel"
  },
  {
@@ -833,6 +947,7 @@
    "ZC_Paylayici_qutu",
    "BORU_ZC_Sit_qalxan"
   ],
+  "ctx": [],
   "wire": "İnternet + RG6",
   "avtomat": "",
   "xett": "Zeif cereyan",
@@ -850,6 +965,7 @@
    "arxa divara (+Y) 34 mm"
   ],
   "note": "",
+  "flow": "",
   "marker": "Z-2 · Zəif cərəyan qalxanı → şit · İnternet + RG6"
  }
 ]
