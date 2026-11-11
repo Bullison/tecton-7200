@@ -1287,7 +1287,7 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 9.1,
+   "len": 9.3,
    "meftil": null,
    "h": [],
    "route": [
@@ -1295,7 +1295,11 @@
     "arxa divara (+Y) 34 mm",
     "yuxarı 1996 mm → h 2499",
     "ön divara (−Y) 30 mm (tavanda)",
-    "yataq tərəfə (+X) 2046 mm (tavanda)",
+    "yataq tərəfə (+X) 1700 mm (tavanda)",
+    "arxa divara (+Y) 76 mm (tavanda)",
+    "yataq tərəfə (+X) 125 mm (tavanda)",
+    "ön divara (−Y) 76 mm (tavanda)",
+    "yataq tərəfə (+X) 141 mm (tavanda)",
     "ön divara (−Y) 191 mm (tavanda)",
     "yataq tərəfə (+X) 1320 mm (tavanda)",
     "ön divara (−Y) 830 mm (tavanda)",
@@ -1303,7 +1307,7 @@
     "aşağı 1893 mm → h 552",
     "ön divara (−Y) 72 mm"
    ],
-   "note": "",
+   "note": "Ariston arxasında S-0 divarın içinə girir (obvod, 4 dirsək) və İ-2 isti borusunun arxasından keçir — isti ilə soyuq kəsişmir, ara 30 mm. Divar profilləri deşilmir.",
    "marker": "S-0 · Soyuq su əsas xətti (tavanda) · PPR d20 soyuq",
    "flow": "SG-1 girişdən tee ilə → tavanda bütün cihazlara: paltaryuyan (S-1) … lavabo (S-7)",
    "feed": [
@@ -1437,18 +1441,17 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 1.2,
+   "len": 1.14,
    "meftil": null,
    "h": [
     1455
    ],
    "route": [
-    "Əsas xəttdəki tee-dən başla (h 2529)",
-    "arxa divara (+Y) 60 mm (tavanda)",
-    "aşağı 1016 mm → h 1483",
-    "ön divara (−Y) 34 mm"
+    "Əsas xəttdəki tee-dən başla (h 2515)",
+    "aşağı 1030 mm → h 1485",
+    "ön divara (−Y) 58 mm"
    ],
-   "note": "Aristonda soyuq solda, isti sağdadır. Soyuq girişə təhlükəsizlik klapanı.",
+   "note": "Aristonda soyuq solda, isti sağdadır. Soyuq girişə təhlükəsizlik klapanı. S-3 tee-si divarın içindəki obvodun üstündədir, boru düz aşağı düşür.",
    "marker": "S-3 · Ariston girişi · PPR d20 soyuq",
    "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → tee → S-3 qolu aşağı → təhlükəsizlik klapanı → Ariston",
    "feed": [
@@ -1456,7 +1459,7 @@
    ],
    "feedAt": [
     -1160,
-    1455,
+    1571,
     2774
    ],
    "feedTxt": "Su buradan gəlir: S-0 soyuq əsas xəttindəki tee"
@@ -1662,21 +1665,20 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 1.22,
+   "len": 1.18,
    "meftil": null,
    "h": [
     1455
    ],
    "route": [
     "Aristonun isti çıxışından başla (h 1455)",
-    "yuxarı 1051 mm → h 2523",
-    "ön divara (−Y) 60 mm (tavanda)"
+    "yuxarı 1022 mm → h 2499",
+    "ön divara (−Y) 56 mm (tavanda)"
    ],
-   "note": "",
+   "note": "Soyuq xətt (S-0) burada divarın içindən, bu borunun arxasından keçir — İ-2 düz isti xəttin tee-sinə girir, soyuqla toxunmur (ara 30 mm).",
    "marker": "İ-2 · Ariston çıxışı → isti xətt · PPR d20 isti",
    "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 divarın içi ilə tavana → İ-0 isti əsas xəttə tee",
    "feed": [
-    "SU_Soyuq_Ariston_giris",
     "METBEX_Ariston"
    ],
    "feedAt": [
@@ -1718,7 +1720,6 @@
    "flow": "Ariston (İ-2) tee ilə qoşulur → tavanda: moyka (İ-1), duş (İ-3), gigiyenik (İ-4), lavabo (İ-5)",
    "feed": [
     "SU_Isti_Ariston",
-    "SU_Soyuq_Ariston_giris",
     "SU_tee_Isti_Ariston",
     "SU_tee_Isti_Ariston_qol"
    ],
