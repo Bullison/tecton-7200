@@ -51,8 +51,14 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
  #side{position:fixed;top:0;left:0;right:0;z-index:20;width:auto;height:auto;max-height:none;overflow:visible;padding:8px 10px 10px;border:0;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--panel) 90%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
  #side h1{font-size:15px;display:inline-block;margin:5px 0 8px}
  #side .sub,#side>h2{display:none}
- #tog{display:flex;align-items:center;justify-content:center;position:absolute;left:12px;top:calc(100% + 12px);z-index:2;width:46px;height:46px;padding:0;border-radius:50%;transition:left .22s ease,background .15s,color .15s;background:var(--panel);color:var(--acc);border:1px solid var(--line);box-shadow:0 3px 12px rgba(0,0,0,.25)}
- #side.open #tog{background:var(--acc);color:#fff;border-color:var(--acc);left:calc(min(64vw,270px) + 10px)}
+ #tog{display:flex;align-items:center;justify-content:center;position:absolute;left:12px;top:calc(100% + 12px);z-index:2;width:46px;height:46px;padding:0;border-radius:50%;transition:left .22s ease,background .15s,color .15s;background:var(--acc);color:#fff;border:2px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+ #tog::before{content:"";position:absolute;inset:-2px;border-radius:50%;border:3px solid var(--acc);animation:ping 1.6s ease-out infinite;pointer-events:none}
+ #tog::after{content:"Menyu";position:absolute;left:calc(100% + 8px);top:50%;transform:translateY(-50%);background:var(--acc);color:#fff;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.3);animation:nudge 1.6s ease-in-out infinite;pointer-events:none}
+ #side.seen #tog::before,#side.open #tog::before{animation:none;opacity:0}
+ #side.seen #tog::after,#side.open #tog::after{display:none}
+ @keyframes ping{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.8);opacity:0}}
+ @keyframes nudge{0%,100%{transform:translate(0,-50%)}50%{transform:translate(4px,-50%)}}
+ #side.open #tog{background:#fff;color:var(--acc);border-color:var(--acc);left:calc(min(64vw,270px) + 10px)}
  #side .mode{flex-wrap:nowrap}
  #side .mode button{padding:8px 6px}
  #side .chips{flex-wrap:nowrap;overflow-x:auto}
@@ -296,7 +302,8 @@ function info(o){
 }
 document.getElementById('ix').onclick=()=>{ document.getElementById('info').style.display='none'; clearSel(); if(selected){ paint(selected,null); selected=null; } };
 const side=document.getElementById('side'), tog=document.getElementById('tog'), MOB=matchMedia('(max-width:760px)');
-function menu(open){ side.style.setProperty('--barH', side.offsetHeight+'px'); side.classList.toggle('open',open); tog.setAttribute('aria-expanded',open); }
+try{ if(localStorage.getItem('tecMenuSeen')) side.classList.add('seen'); }catch(e){}
+function menu(open){ if(open){ side.classList.add('seen'); try{ localStorage.setItem('tecMenuSeen','1'); }catch(e){} } side.style.setProperty('--barH', side.offsetHeight+'px'); side.classList.toggle('open',open); tog.setAttribute('aria-expanded',open); }
 tog.onclick=()=>menu(!side.classList.contains('open'));
 // ---------- modes: plumbing / electrical with exact dimensions ----------
 const MODE_LAYERS={santexnika:["01_Karkas","02_Doseme","07_Santexnika"],elektrik:["01_Karkas","02_Doseme","06_Elektrik"]};
