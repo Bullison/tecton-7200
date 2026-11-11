@@ -1,0 +1,855 @@
+[
+ {
+  "room": "Mətbəx",
+  "code": "MR-1",
+  "title": "Mətbəx iş masası (ikili)",
+  "names": [
+   "ROZ_Metbex_Is_1",
+   "ROZ_Metbex_Is_1_qutu",
+   "BORU_Metbex_Is_1"
+  ],
+  "wire": "3×2.5",
+  "avtomat": "B16",
+  "xett": "W3",
+  "boru": "d20",
+  "len": 7.5,
+  "meftil": 8.22,
+  "h": [
+   1025
+  ],
+  "route": [
+   "Şitdən başla (h 1800)",
+   "yuxarı 755 mm → h 2555",
+   "mətbəx tərəfə (−X) 2270 mm (tavanda, ön divardan 76 mm)",
+   "arxa divara (+Y) 2896 mm (tavanda)",
+   "aşağı 1530 mm → h 1025"
+  ],
+  "note": "",
+  "marker": "MR-1 · Mətbəx iş masası · 3×2.5 · B16"
+ },
+ {
+  "room": "Mətbəx",
+  "code": "MR-5",
+  "title": "Mətbəx iş masası (ikili, MR-1 xəttindən)",
+  "names": [
+   "ROZ_Metbex_Is_2",
+   "ROZ_Metbex_Is_2_qutu"
+  ],
+  "wire": "3×2.5",
+  "avtomat": "B16",
+  "xett": "W3",
+  "boru": "",
+  "len": null,
+  "meftil": null,
+  "h": [
+   1025
+  ],
+  "route": [],
+  "note": "MR-1 xəttindən qidalanır — MR-1 rozetkasından davam etdirilir",
+  "marker": "MR-5 · Mətbəx iş masası · 3×2.5 · B16"
+ },
+ {
+  "room": "Mətbəx",
+  "code": "MR-2",
+  "title": "Paltaryuyan",
+  "names": [
+   "ROZ_Metbex_Paltaryuyan",
+   "ROZ_Metbex_Paltaryuyan_qutu",
+   "BORU_Metbex_Paltaryuyan"
+  ],
+  "wire": "3×2.5",
+  "avtomat": "B16",
+  "xett": "W4",
+  "boru": "d20",
+  "len": 8.1,
+  "meftil": 8.82,
+  "h": [
+   290
+  ],
+  "route": [
+   "Şitdən başla (h 1800)",
+   "yuxarı 755 mm → h 2555",
+   "arxa divara (+Y) 51 mm (tavanda)",
+   "mətbəx tərəfə (−X) 2137 mm (tavanda, ön divardan 106 mm)",
+   "arxa divara (+Y) 2866 mm (tavanda)",
+   "aşağı 2265 mm → h 290"
+  ],
+  "note": "",
+  "marker": "MR-2 · Paltaryuyan · 3×2.5 · B16"
+ },
+ {
+  "room": "Mətbəx",
+  "code": "MR-3",
+  "title": "Soba",
+  "names": [
+   "ROZ_Metbex_Soba",
+   "ROZ_Metbex_Soba_qutu",
+   "BORU_Metbex_Soba"
+  ],
+  "wire": "3×4",
+  "avtomat": "C16",
+  "xett": "W6",
+  "boru": "d25",
+  "len": 7.66,
+  "meftil": 8.38,
+  "h": [
+   275
+  ],
+  "route": [
+   "Şitdən başla (h 1800)",
+   "yuxarı 755 mm → h 2555",
+   "arxa divara (+Y) 81 mm (tavanda)",
+   "mətbəx tərəfə (−X) 1679 mm (tavanda, ön divardan 136 mm)",
+   "arxa divara (+Y) 2836 mm (tavanda)",
+   "aşağı 2280 mm → h 275"
+  ],
+  "note": "",
+  "marker": "MR-3 · Soba · 3×4 · C16"
+ },
+ {
+  "room": "Mətbəx",
+  "code": "MR-4",
+  "title": "Aspirator",
+  "names": [
+   "ROZ_Metbex_Aspirator",
+   "ROZ_Metbex_Aspirator_qutu",
+   "BORU_Metbex_Aspirator"
+  ],
+  "wire": "3×1.5",
+  "avtomat": "B10",
+  "xett": "W2",
+  "boru": "d20",
+  "len": 5.79,
+  "meftil": 6.5,
+  "h": [
+   2125
+  ],
+  "route": [
+   "Şitdən başla (h 1800)",
+   "yuxarı 755 mm → h 2555",
+   "arxa divara (+Y) 111 mm (tavanda)",
+   "mətbəx tərəfə (−X) 1658 mm (tavanda, ön divardan 166 mm)",
+   "arxa divara (+Y) 2806 mm (tavanda)",
+   "aşağı 430 mm → h 2125"
+  ],
+  "note": "",
+  "marker": "MR-4 · Aspirator · 3×1.5 · B10"
+ },
+ {
+  "room": "Mətbəx",
+  "code": "MR-6",
+  "title": "Soyuducu",
+  "names": [
+   "ROZ_Metbex_Soyuducu",
+   "ROZ_Metbex_Soyuducu_qutu",
+   "BORU_Metbex_Soyuducu"
+  ],
+  "wire": "3×2.5",
+  "avtomat": "B16",
+  "xett": "W3",
+  "boru": "d20",
+  "len": 6.57,
+  "meftil": 7.31,
+  "h": [
+   175
+  ],
+  "route": [
+   "Şitdən başla (h 1800)",
+   "yuxarı 755 mm → h 2555",
+   "arxa divara (+Y) 201 mm (tavanda)",
+   "mətbəx tərəfə (−X) 489 mm (tavanda, ön divardan 256 mm)",
+   "arxa divara (+Y) 2716 mm (tavanda)",
+   "aşağı 2380 mm → h 175"
+  ],
+  "note": "",
+  "marker": "MR-6 · Soyuducu · 3×2.5 · B16"
+ },
+ {
+  "room": "Mətbəx",
+  "code": "MR-7",
+  "title": "Ariston",
+  "names": [
+   "ROZ_Metbex_Ariston",
+   "ROZ_Metbex_Ariston_qutu",
+   "BORU_Metbex_Ariston"
+  ],
+  "wire": "3×4",
+  "avtomat": "C16",
+  "xett": "W7",
+  "boru": "d25",
+  "len": 4.54,
+  "meftil": 5.28,
+  "h": [
+   2175
+  ],
+  "route": [
+   "Şitdən başla (h 1800)",
+   "yuxarı 755 mm → h 2555",
+   "arxa divara (+Y) 231 mm (tavanda)",
+   "mətbəx tərəfə (−X) 459 mm (tavanda, ön divardan 286 mm)",
+   "arxa divara (+Y) 2686 mm (tavanda)",
+   "aşağı 380 mm → h 2175"
+  ],
+  "note": "",
+  "marker": "MR-7 · Ariston · 3×4 · C16"
+ },
+ {
+  "room": "Mətbəx",
+  "code": "MR-8",
+  "title": "Mətbəx TV rozetkası",
+  "names": [
+   "ROZ_Metbex_TV",
+   "ROZ_Metbex_TV_qutu",
+   "BORU_Metbex_TV_guc"
+  ],
+  "wire": "3×2.5",
+  "avtomat": "B16",
+  "xett": "W3",
+  "boru": "d20",
+  "len": 1.58,
+  "meftil": 2.18,
+  "h": [
+   1325
+  ],
+  "route": [
+   "Başlanğıc (h 2555)",
+   "aşağı 25 mm → h 2530",
+   "yataq tərəfə (+X) 360 mm (tavanda, ön divardan 1751 mm)",
+   "aşağı 1180 mm → h 1325"
+  ],
+  "note": "",
+  "marker": "MR-8 · Mətbəx TV rozetkası · 3×2.5 · B16"
+ },
+ {
+  "room": "Mətbəx",
+  "code": "MZ-1",
+  "title": "Mətbəx LAN + TV",
+  "names": [
+   "TV_Metbex_LAN_TV",
+   "TV_Metbex_LAN_TV_qutu",
+   "BORU_ZC_TV_Metbex"
+  ],
+  "wire": "Cat6 + RG6",
+  "avtomat": "",
+  "xett": "Zeif cereyan",
+  "boru": "d20",
+  "len": 3.72,
+  "meftil": 4.7,
+  "h": [
+   1325
+  ],
+  "route": [
+   "Başlanğıc (h 2020)",
+   "yuxarı 500 mm → h 2520",
+   "arxa divara (+Y) 250 mm (tavanda)",
+   "mətbəx tərəfə (−X) 50 mm (tavanda, ön divardan 331 mm)",
+   "arxa divara (+Y) 1150 mm (tavanda)",
+   "yuxarı 35 mm → h 2555",
+   "arxa divara (+Y) 420 mm (tavanda)",
+   "yataq tərəfə (+X) 81 mm (tavanda, ön divardan 1901 mm)",
+   "aşağı 1230 mm → h 1325"
+  ],
+  "note": "",
+  "marker": "MZ-1 · Mətbəx LAN + TV · Cat6 + RG6"
+ },
+ {
+  "room": "Qonaq",
+  "code": "QR-1",
+  "title": "Qonaq, pəncərə yanı",
+  "names": [
+   "ROZ_Qonaq_Pencere_yani",
+   "ROZ_Qonaq_Pencere_yani_qutu",
+   "BORU_Qonaq_Pencere_yani"
+  ],
+  "wire": "3×2.5",
+  "avtomat": "B16",
+  "xett": "W9",
+  "boru": "d20",
+  "len": 5.76,
+  "meftil": 6.45,
+  "h": [
+   290
+  ],
+  "route": [
+   "Şitdən başla (h 1800)",
+   "yuxarı 755 mm → h 2555",
+   "mətbəx tərəfə (−X) 2488 mm (tavanda, ön divardan 16 mm)",
+   "arxa divara (+Y) 215 mm (tavanda)",
+   "aşağı 2265 mm → h 290"
+  ],
+  "note": "",
+  "marker": "QR-1 · Qonaq, pəncərə yanı · 3×2.5 · B16"
+ },
+ {
+  "room": "Qonaq",
+  "code": "QR-2",
+  "title": "Kondisioner",
+  "names": [
+   "CIXIS_Kondisioner",
+   "CIXIS_Kondisioner_qutu",
+   "BORU_S_Kondisioner"
+  ],
+  "wire": "3×4",
+  "avtomat": "C16",
+  "xett": "W8",
+  "boru": "d25",
+  "len": 5.1,
+  "meftil": 5.81,
+  "h": [
+   2205
+  ],
+  "route": [
+   "Şitdən başla (h 1800)",
+   "yuxarı 755 mm → h 2555",
+   "mətbəx tərəfə (−X) 2484 mm (tavanda, ön divardan 46 mm)",
+   "arxa divara (+Y) 1435 mm (tavanda)",
+   "mətbəx tərəfə (−X) 51 mm (tavanda, ön divardan 1481 mm)",
+   "aşağı 350 mm → h 2205"
+  ],
+  "note": "",
+  "marker": "QR-2 · Kondisioner · 3×4 · C16"
+ },
+ {
+  "room": "Mətbəx/qonaq işığı",
+  "code": "SA-1",
+  "title": "Şit → açarlar (3-lü)",
+  "names": [
+   "ACAR_Ramka_3lu",
+   "BORU_Isiq_Sit_acarlar",
+   "ACAR_Metbex_Qonaq",
+   "ACAR_Yataq",
+   "ACAR_Fasad"
+  ],
+  "wire": "3×1.5",
+  "avtomat": "B10",
+  "xett": "W1",
+  "boru": "d20",
+  "len": 0.31,
+  "meftil": 1.15,
+  "h": [
+   990
+  ],
+  "route": [
+   "Şitdən başla (h 1330)",
+   "aşağı 306 mm → h 1024"
+  ],
+  "note": "",
+  "marker": "SA-1 · Şit → açarlar · 3×1.5 · B10"
+ },
+ {
+  "room": "Mətbəx/qonaq işığı",
+  "code": "MA-1",
+  "title": "Açar: mətbəx/qonaq işığı",
+  "names": [
+   "ACAR_Metbex_Qonaq",
+   "ACAR_Metbex_Qonaq_qutu",
+   "ACAR_Ramka_3lu"
+  ],
+  "wire": "",
+  "avtomat": "B10",
+  "xett": "W1",
+  "boru": "",
+  "len": null,
+  "meftil": null,
+  "h": [
+   990
+  ],
+  "route": [],
+  "note": "",
+  "marker": "MA-1 · Açar: mətbəx/qonaq işığı · B10"
+ },
+ {
+  "room": "Mətbəx/qonaq işığı",
+  "code": "MI-1",
+  "title": "Mətbəx/qonaq spotları",
+  "names": [
+   "ISIQ_Metbex_Spot_1",
+   "ISIQ_Metbex_Spot_2",
+   "ISIQ_Metbex_Spot_3",
+   "ISIQ_Metbex_Spot_4",
+   "BORU_Isiq_Metbex_Qonaq"
+  ],
+  "wire": "3×1.5",
+  "avtomat": "B10",
+  "xett": "W1",
+  "boru": "d20",
+  "len": 7.7,
+  "meftil": 7.61,
+  "h": [],
+  "route": [
+   "Başlanğıc (h 1024)",
+   "yuxarı 201 mm → h 1225",
+   "yataq tərəfə (+X) 237 mm",
+   "yuxarı 1294 mm → h 2519",
+   "mətbəx tərəfə (−X) 415 mm (tavanda, ön divardan 56 mm)",
+   "arxa divara (+Y) 755 mm (tavanda)",
+   "mətbəx tərəfə (−X) 1935 mm (tavanda, ön divardan 811 mm)",
+   "arxa divara (+Y) 1340 mm (tavanda)",
+   "yataq tərəfə (+X) 1490 mm (tavanda, ön divardan 2151 mm)"
+  ],
+  "note": "",
+  "marker": "MI-1 · Mətbəx/qonaq spotları · 3×1.5 · B10"
+ },
+ {
+  "room": "Yataq",
+  "code": "YR-1",
+  "title": "Yataq, ön divar",
+  "names": [
+   "ROZ_Yataq_On_divar",
+   "ROZ_Yataq_On_divar_qutu",
+   "BORU_Yataq_On_divar"
+  ],
+  "wire": "3×2.5",
+  "avtomat": "B16",
+  "xett": "W10",
+  "boru": "d20",
+  "len": 5.3,
+  "meftil": 6.02,
+  "h": [
+   290
+  ],
+  "route": [
+   "Şitdən başla (h 1800)",
+   "yuxarı 755 mm → h 2555",
+   "yataq tərəfə (+X) 2244 mm (tavanda, ön divardan 16 mm)",
+   "ön divara (−Y) 26 mm (tavanda)",
+   "aşağı 2265 mm → h 290"
+  ],
+  "note": "",
+  "marker": "YR-1 · Yataq, ön divar · 3×2.5 · B16"
+ },
+ {
+  "room": "Yataq",
+  "code": "YR-2",
+  "title": "Yataq, arxa divar (hamam yanı)",
+  "names": [
+   "ROZ_Yataq_Arxa_hamam_yani",
+   "ROZ_Yataq_Arxa_hamam_yani_qutu",
+   "BORU_Yataq_Arxa_hamam_yani"
+  ],
+  "wire": "3×2.5",
+  "avtomat": "B16",
+  "xett": "W10",
+  "boru": "d20",
+  "len": 7.53,
+  "meftil": 8.28,
+  "h": [
+   290
+  ],
+  "route": [
+   "Şitdən başla (h 1800)",
+   "yuxarı 755 mm → h 2555",
+   "arxa divara (+Y) 51 mm (tavanda)",
+   "yataq tərəfə (+X) 1572 mm (tavanda, ön divardan 106 mm)",
+   "arxa divara (+Y) 2866 mm (tavanda)",
+   "aşağı 2265 mm → h 290"
+  ],
+  "note": "",
+  "marker": "YR-2 · Yataq, arxa divar · 3×2.5 · B16"
+ },
+ {
+  "room": "Yataq",
+  "code": "YR-3",
+  "title": "Yataq, çarpayı sağ",
+  "names": [
+   "ROZ_Yataq_Carpayi_sag",
+   "ROZ_Yataq_Carpayi_sag_qutu",
+   "BORU_Yataq_Carpayi_sag"
+  ],
+  "wire": "3×1.5",
+  "avtomat": "B10",
+  "xett": "W11",
+  "boru": "d20",
+  "len": 7.31,
+  "meftil": 8.05,
+  "h": [
+   290
+  ],
+  "route": [
+   "Şitdən başla (h 1800)",
+   "yuxarı 755 mm → h 2555",
+   "yataq tərəfə (+X) 4140 mm (tavanda, ön divardan 46 mm)",
+   "arxa divara (+Y) 109 mm (tavanda)",
+   "aşağı 2265 mm → h 290"
+  ],
+  "note": "",
+  "marker": "YR-3 · Yataq, çarpayı sağ · 3×1.5 · B10"
+ },
+ {
+  "room": "Yataq",
+  "code": "YR-4",
+  "title": "Yataq, çarpayı sol",
+  "names": [
+   "ROZ_Yataq_Carpayi_sol",
+   "ROZ_Yataq_Carpayi_sol_qutu",
+   "BORU_Yataq_Carpayi_sol"
+  ],
+  "wire": "3×1.5",
+  "avtomat": "B10",
+  "xett": "W11",
+  "boru": "d20",
+  "len": 9.41,
+  "meftil": 10.16,
+  "h": [
+   290
+  ],
+  "route": [
+   "Şitdən başla (h 1800)",
+   "yuxarı 755 mm → h 2555",
+   "yataq tərəfə (+X) 4136 mm (tavanda, ön divardan 76 mm)",
+   "arxa divara (+Y) 2160 mm (tavanda)",
+   "yataq tərəfə (+X) 51 mm (tavanda, ön divardan 2236 mm)",
+   "aşağı 2265 mm → h 290"
+  ],
+  "note": "",
+  "marker": "YR-4 · Yataq, çarpayı sol · 3×1.5 · B10"
+ },
+ {
+  "room": "Yataq",
+  "code": "YR-5",
+  "title": "Yataq TV rozetkası",
+  "names": [
+   "ROZ_Yataq_TV",
+   "ROZ_Yataq_TV_qutu",
+   "BORU_Yataq_TV_guc"
+  ],
+  "wire": "3×2.5",
+  "avtomat": "B16",
+  "xett": "W10",
+  "boru": "d20",
+  "len": 1.15,
+  "meftil": 1.75,
+  "h": [
+   1525
+  ],
+  "route": [
+   "Başlanğıc (h 2555)",
+   "aşağı 25 mm → h 2530",
+   "mətbəx tərəfə (−X) 123 mm (tavanda, ön divardan 1726 mm)",
+   "aşağı 980 mm → h 1525"
+  ],
+  "note": "",
+  "marker": "YR-5 · Yataq TV rozetkası · 3×2.5 · B16"
+ },
+ {
+  "room": "Yataq",
+  "code": "YZ-1",
+  "title": "Yataq LAN + TV",
+  "names": [
+   "TV_Yataq_LAN_TV",
+   "TV_Yataq_LAN_TV_qutu",
+   "BORU_ZC_TV_Yataq"
+  ],
+  "wire": "Cat6 + RG6",
+  "avtomat": "",
+  "xett": "Zeif cereyan",
+  "boru": "d20",
+  "len": 4.91,
+  "meftil": 5.9,
+  "h": [
+   1525
+  ],
+  "route": [
+   "Başlanğıc (h 2020)",
+   "yuxarı 500 mm → h 2520",
+   "arxa divara (+Y) 200 mm (tavanda)",
+   "yataq tərəfə (+X) 1468 mm (tavanda, ön divardan 281 mm)",
+   "yuxarı 35 mm → h 2555",
+   "arxa divara (+Y) 1595 mm (tavanda)",
+   "mətbəx tərəfə (−X) 73 mm (tavanda, ön divardan 1876 mm)",
+   "aşağı 1030 mm → h 1525"
+  ],
+  "note": "",
+  "marker": "YZ-1 · Yataq LAN + TV · Cat6 + RG6"
+ },
+ {
+  "room": "Yataq",
+  "code": "YA-1",
+  "title": "Açar: yataq işığı",
+  "names": [
+   "ACAR_Yataq",
+   "ACAR_Yataq_qutu",
+   "ACAR_Ramka_3lu"
+  ],
+  "wire": "",
+  "avtomat": "B10",
+  "xett": "W1",
+  "boru": "",
+  "len": null,
+  "meftil": null,
+  "h": [
+   990
+  ],
+  "route": [],
+  "note": "",
+  "marker": "YA-1 · Açar: yataq işığı · B10"
+ },
+ {
+  "room": "Yataq",
+  "code": "YI-1",
+  "title": "Yataq spotları",
+  "names": [
+   "ISIQ_Yataq_Spot_1",
+   "ISIQ_Yataq_Spot_2",
+   "ISIQ_Yataq_Spot_3",
+   "ISIQ_Yataq_Spot_4",
+   "BORU_Isiq_Yataq"
+  ],
+  "wire": "3×1.5",
+  "avtomat": "B10",
+  "xett": "W1",
+  "boru": "d20",
+  "len": 8.31,
+  "meftil": 8.99,
+  "h": [],
+  "route": [
+   "Başlanğıc (h 1024)",
+   "yuxarı 151 mm → h 1175",
+   "yataq tərəfə (+X) 216 mm",
+   "yuxarı 1355 mm → h 2530",
+   "arxa divara (+Y) 132 mm (tavanda)",
+   "yataq tərəfə (+X) 1966 mm (tavanda, ön divardan 181 mm)",
+   "arxa divara (+Y) 365 mm (tavanda)",
+   "yataq tərəfə (+X) 1360 mm (tavanda, ön divardan 546 mm)",
+   "arxa divara (+Y) 1371 mm (tavanda)",
+   "mətbəx tərəfə (−X) 1360 mm (tavanda, ön divardan 1917 mm)"
+  ],
+  "note": "",
+  "marker": "YI-1 · Yataq spotları · 3×1.5 · B10"
+ },
+ {
+  "room": "Hamam",
+  "code": "HA-1",
+  "title": "Hamam açarı",
+  "names": [
+   "ACAR_Hamam",
+   "ACAR_Hamam_qutu",
+   "BORU_Hamam_Acar_qidalanma"
+  ],
+  "wire": "3×1.5",
+  "avtomat": "B10",
+  "xett": "W1",
+  "boru": "d20",
+  "len": 4.63,
+  "meftil": 5.37,
+  "h": [
+   990
+  ],
+  "route": [
+   "Şitdən başla (h 1800)",
+   "yuxarı 755 mm → h 2555",
+   "arxa divara (+Y) 81 mm (tavanda)",
+   "yataq tərəfə (+X) 1168 mm (tavanda, ön divardan 136 mm)",
+   "arxa divara (+Y) 1072 mm (tavanda)",
+   "aşağı 1525 mm → h 990"
+  ],
+  "note": "",
+  "marker": "HA-1 · Hamam açarı · 3×1.5 · B10"
+ },
+ {
+  "room": "Hamam",
+  "code": "HI-1",
+  "title": "Hamam spotları",
+  "names": [
+   "ISIQ_Hamam_Spot_1",
+   "ISIQ_Hamam_Spot_2",
+   "BORU_Hamam_Isiq"
+  ],
+  "wire": "3×1.5",
+  "avtomat": "B10",
+  "xett": "W1",
+  "boru": "d20",
+  "len": 4.16,
+  "meftil": 4.76,
+  "h": [],
+  "route": [
+   "Başlanğıc (h 990)",
+   "yuxarı 1560 mm → h 2564",
+   "mətbəx tərəfə (−X) 510 mm (tavanda, ön divardan 1281 mm)",
+   "arxa divara (+Y) 500 mm (tavanda)",
+   "aşağı 44 mm → h 2520",
+   "yuxarı 44 mm → h 2564",
+   "arxa divara (+Y) 700 mm (tavanda)",
+   "aşağı 44 mm → h 2520",
+   "yuxarı 44 mm → h 2564",
+   "arxa divara (+Y) 300 mm (tavanda)",
+   "yataq tərəfə (+X) 365 mm (tavanda, ön divardan 2781 mm)"
+  ],
+  "note": "",
+  "marker": "HI-1 · Hamam spotları · 3×1.5 · B10"
+ },
+ {
+  "room": "Hamam",
+  "code": "HI-2",
+  "title": "Güzgü işığı",
+  "names": [
+   "CIXIS_Hamam_Guzgu",
+   "CIXIS_Hamam_Guzgu_qutu",
+   "BORU_Hamam_Guzgu"
+  ],
+  "wire": "3×1.5",
+  "avtomat": "B10",
+  "xett": "W1",
+  "boru": "d20",
+  "len": 2.86,
+  "meftil": 3.46,
+  "h": [
+   1939
+  ],
+  "route": [
+   "Başlanğıc (h 990)",
+   "yuxarı 1560 mm → h 2564",
+   "yataq tərəfə (+X) 285 mm (tavanda, ön divardan 1281 mm)",
+   "arxa divara (+Y) 350 mm (tavanda)",
+   "aşağı 625 mm → h 1925"
+  ],
+  "note": "",
+  "marker": "HI-2 · Güzgü işığı · 3×1.5 · B10"
+ },
+ {
+  "room": "Fasad",
+  "code": "FA-1",
+  "title": "Açar: fasad LED",
+  "names": [
+   "ACAR_Fasad",
+   "ACAR_Fasad_qutu",
+   "ACAR_Ramka_3lu"
+  ],
+  "wire": "",
+  "avtomat": "B10",
+  "xett": "W1",
+  "boru": "",
+  "len": null,
+  "meftil": null,
+  "h": [
+   990
+  ],
+  "route": [],
+  "note": "",
+  "marker": "FA-1 · Açar: fasad LED · B10"
+ },
+ {
+  "room": "Fasad",
+  "code": "FI-1",
+  "title": "Fasad LED",
+  "names": [
+   "CIXIS_Fasad_LED",
+   "BORU_Isiq_Fasad"
+  ],
+  "wire": "3×1.5",
+  "avtomat": "B10",
+  "xett": "W1",
+  "boru": "d20",
+  "len": 1.91,
+  "meftil": 2.27,
+  "h": [
+   2460
+  ],
+  "route": [
+   "Başlanğıc (h 1024)",
+   "yuxarı 101 mm → h 1125",
+   "ön divara (−Y) 65 mm",
+   "yataq tərəfə (+X) 135 mm",
+   "yuxarı 1335 mm → h 2460",
+   "ön divara (−Y) 125 mm (tavanda)",
+   "yataq tərəfə (+X) 120 mm (tavanda, ön divardan -104 mm)"
+  ],
+  "note": "",
+  "marker": "FI-1 · Fasad LED · 3×1.5 · B10"
+ },
+ {
+  "room": "Şit girişi",
+  "code": "G-1",
+  "title": "Giriş kabeli → şit",
+  "names": [
+   "BORU_Giris_Esas_kabel"
+  ],
+  "wire": "3×6",
+  "avtomat": "2P 32A (giris) -> Rele DIF",
+  "xett": "W0 Giris",
+  "boru": "d25",
+  "len": 3.49,
+  "meftil": 5.82,
+  "h": [],
+  "route": [
+   "Başlanğıc (h -1025)",
+   "arxa divara (+Y) 1138 mm",
+   "yuxarı 2355 mm → h 1330"
+  ],
+  "note": "",
+  "marker": "G-1 · Giriş kabeli → şit · 3×6 · 2P 32A (giris) -> Rele DIF"
+ },
+ {
+  "room": "Şit girişi",
+  "code": "PE-1",
+  "title": "Torpaqlama → şit",
+  "names": [
+   "BORU_Torpaq_PE_Sit"
+  ],
+  "wire": "PE 1×16",
+  "avtomat": "",
+  "xett": "PE Torpaqlama",
+  "boru": "d20",
+  "len": 2.5,
+  "meftil": 3.22,
+  "h": [],
+  "route": [
+   "Başlanğıc (h -250)",
+   "mətbəx tərəfə (−X) 895 mm",
+   "arxa divara (+Y) 26 mm",
+   "yuxarı 1580 mm → h 1330"
+  ],
+  "note": "",
+  "marker": "PE-1 · Torpaqlama → şit · PE 1×16"
+ },
+ {
+  "room": "Şit girişi",
+  "code": "Z-1",
+  "title": "İnternet girişi (optik)",
+  "names": [
+   "BORU_ZC_Internet_giris"
+  ],
+  "wire": "Optik kabel",
+  "avtomat": "",
+  "xett": "Zeif cereyan",
+  "boru": "d20",
+  "len": 2.61,
+  "meftil": null,
+  "h": [],
+  "route": [
+   "Başlanğıc (h -185)",
+   "mətbəx tərəfə (−X) 430 mm",
+   "aşağı 840 mm → h -1025",
+   "ön divara (−Y) 1345 mm"
+  ],
+  "note": "",
+  "marker": "Z-1 · İnternet girişi · Optik kabel"
+ },
+ {
+  "room": "Şit girişi",
+  "code": "Z-2",
+  "title": "Zəif cərəyan qalxanı → şit",
+  "names": [
+   "ZC_Paylayici_qutu",
+   "BORU_ZC_Sit_qalxan"
+  ],
+  "wire": "İnternet + RG6",
+  "avtomat": "",
+  "xett": "Zeif cereyan",
+  "boru": "d32",
+  "len": 2.39,
+  "meftil": 3.4,
+  "h": [
+   -185
+  ],
+  "route": [
+   "Başlanğıc (h -145)",
+   "aşağı 40 mm → h -185",
+   "ön divara (−Y) 162 mm",
+   "yuxarı 2120 mm → h 1935",
+   "arxa divara (+Y) 34 mm"
+  ],
+  "note": "",
+  "marker": "Z-2 · Zəif cərəyan qalxanı → şit · İnternet + RG6"
+ }
+]

@@ -43,6 +43,15 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 .pl.elp{background:#e08a00;color:#fff;border-color:#e08a00}.pl.zcp{background:#2e7d32;color:#fff;border-color:#2e7d32}
 .pl.el{color:#c26a00;border-color:#e08a00}.pl.zc{color:#2e7d32;border-color:#2e7d32}
 .mode button{flex:1}
+#step{position:absolute;right:12px;top:12px;width:320px;max-width:calc(100% - 24px);max-height:calc(100% - 24px);overflow:auto;z-index:6;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 12px 10px;display:none;box-shadow:0 6px 24px rgba(0,0,0,.14);font-size:12.5px}
+#step .sh{display:flex;gap:6px;align-items:center;margin-bottom:6px}#step .sh select{flex:1;min-width:0;font:inherit;font-size:12.5px;padding:5px 6px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+#step .sh button{padding:5px 10px}#step .x2{border:0;background:none;font-size:18px;color:var(--muted);padding:2px 6px}
+#step .code{display:inline-block;font-weight:800;font-size:15px;color:#fff;background:#ff2d7a;border-radius:6px;padding:2px 8px;margin-right:6px}
+#step h4{margin:4px 0 6px;font-size:14px;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+#step .kv{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}#step .kv span{background:color-mix(in srgb,var(--acc) 13%,transparent);color:var(--acc);font-weight:600;border-radius:999px;padding:2px 8px;font-size:12px}
+#step ol{margin:2px 0 8px;padding-left:20px}#step li{margin:2px 0}#step .lbl{color:var(--muted);font-size:11.5px;margin-top:4px}
+#step .mk{font:700 13px/1.3 ui-monospace,Consolas,monospace;border:1.5px dashed #ff2d7a;border-radius:6px;padding:6px 8px;margin-top:2px;user-select:all}
+.chips button.stepb{border-color:#ff2d7a;color:#ff2d7a;font-weight:600}.chips button.stepb.on{background:#ff2d7a;color:#fff}
 #modehelp{color:var(--muted);font-size:12px;margin-top:6px}
 #mk{margin-top:8px;font-size:12px}#mk summary{cursor:pointer;color:var(--acc);font-weight:600}#mktab{width:100%;border-collapse:collapse;margin-top:4px}#mktab td{padding:3px 4px;border-top:1px solid var(--line);vertical-align:top}#mktab tr{cursor:pointer}#mktab td:first-child{font-weight:700;white-space:nowrap;color:var(--ink)}#mktab td:last-child{color:var(--muted);white-space:nowrap}
 #load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted)}
@@ -76,6 +85,7 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
  #side.open .body{transform:none;visibility:visible}
  #side .body h2{margin:12px 0 6px}
  #side .body .btns button{padding:6px 9px;font-size:12.5px}
+ #step{top:auto;bottom:10px;left:10px;right:10px;width:auto;max-width:none;height:42vh;max-height:42vh;padding:6px 10px 8px;background:color-mix(in srgb,var(--panel) 92%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-size:12px}
  #info{top:auto;bottom:10px;left:10px;right:auto;width:auto;max-width:min(300px,calc(100% - 20px));max-height:40vh;overflow:auto;padding:8px 11px;background:color-mix(in srgb,var(--panel) 88%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
  #info h3{font-size:13.5px}
  #info table{font-size:12px}
@@ -114,6 +124,9 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
  <main id="view">
   <div id="load">Model yüklənir…</div>
   <div id="meas"></div>
+  <div id="step" role="dialog" aria-label="Montaj addımı">
+   <div class="sh"><button id="sprev" aria-label="Əvvəlki">◀</button><select id="ssel"></select><button id="snext" aria-label="Növbəti">▶</button><button id="sx" class="x2" aria-label="Bağla">×</button></div>
+   <div id="sbody"></div></div>
   <div id="info"><button class="x" id="ix" aria-label="Bağla">×</button><h3 id="it"></h3><div id="ichips"></div><div id="isub"></div><button id="imore">Ətraflı ▾</button><table id="itab"></table></div>
   <div id="hint">Fırlat: sol düymə · sürüşdür: sağ düymə · yaxınlaşdır: təkər · obyektə klik — məlumat</div>
  </main>
@@ -256,6 +269,7 @@ renderer.domElement.addEventListener('pointerup',e=>{
  const r=renderer.domElement.getBoundingClientRect(); mouse.set((e.clientX-r.left)/r.width*2-1, -(e.clientY-r.top)/r.height*2+1);
  ray.setFromCamera(mouse,cam);
  const hits=ray.intersectObjects(scene.children,true).filter(h=>h.object.isMesh && h.object.visible && visibleChain(h.object) && !measGroup.getObjectById(h.object.id) && !Object.values(dimGroups).some(g=>g.getObjectById(h.object.id)));
+ if(stepOn){ if(MOB.matches && side.classList.contains('open')) menu(false); return; }
  if(!hits.length){ if(MOB.matches && side.classList.contains('open')) menu(false); else if(selected){ document.getElementById('info').style.display='none'; clearSel(); select(null); } return; }
  if(measuring){ addMeasure(hits[0].point); return; }
  const root=pickRoot(hits[0].object); select(root); info(root); showSel(root);
@@ -377,8 +391,10 @@ let mode='umumi'; const subOn={n:true,d:false,t:false};
 const subEl=document.getElementById('modesub');
 function drawSubs(){ subEl.innerHTML=''; if(mode==='umumi') return;
  for(const [k,t] of SUBS){ const b=document.createElement('button'); b.textContent=t; b.classList.toggle('on',subOn[k]);
-  b.onclick=()=>{ subOn[k]=!subOn[k]; applyMode(false); }; subEl.appendChild(b); } }
+  b.onclick=()=>{ subOn[k]=!subOn[k]; applyMode(false); }; subEl.appendChild(b); }
+ if(mode==='elektrik' && STEPS.length){ const b=document.createElement('button'); b.className='stepb'+(stepOn?' on':''); b.textContent='▶ Addım-addım'; b.onclick=()=>stepOn?exitStep():showStep(stepI); subEl.appendChild(b); } }
 function applyMode(move=true){
+ if(move && stepOn){ stepOn=false; document.getElementById('step').style.display='none'; }
  if(move){ clearSel(); if(selected){ document.getElementById('info').style.display='none'; select(null); } }
  for(const m in modeG) for(const k in modeG[m]) setGroupVis(modeG[m][k], m===mode && subOn[k]);
  for(const k in dimGroups) setGroupVis(dimGroups[k], mode==='umumi' && GROUPS.find(g=>g[0]===k)[2]);
@@ -389,6 +405,46 @@ function applyMode(move=true){
  document.getElementById('modehelp').textContent=MODE_HELP[mode]; document.getElementById('mk').style.display=mode==='elektrik'?'':'none';
  document.querySelectorAll('#modes button').forEach(b=>b.classList.toggle('on',b.dataset.m===mode)); drawSubs(); }
 document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>{ mode=b.dataset.m; applyMode(true); if(side.classList.contains('open')) menu(true); });
+
+// ---------- montaj addımları ----------
+let STEPS=[], stepOn=false, stepI=0;
+const stepEl=document.getElementById('step'), ssel=document.getElementById('ssel'), sbody=document.getElementById('sbody');
+const esc=t=>String(t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+fetch('steps.json',{cache:'no-cache'}).then(r=>r.json()).then(S=>{ STEPS=S;
+ ssel.innerHTML=S.map((x,i)=>`<option value="${i}">${i+1}/${S.length} · ${esc(x.code)} · ${esc(x.room)}</option>`).join('');
+ if(mode==='elektrik') drawSubs(); }).catch(()=>{});
+ssel.onchange=()=>showStep(+ssel.value);
+document.getElementById('sprev').onclick=()=>showStep(Math.max(0,stepI-1));
+document.getElementById('snext').onclick=()=>showStep(Math.min(STEPS.length-1,stepI+1));
+document.getElementById('sx').onclick=()=>exitStep();
+function stepRoots(st){ const out=[]; if(!modelRoot) return out; for(const n of st.names){ const o=modelRoot.getObjectByName(n); if(o){ const r=pickRoot(o); if(!out.includes(r)) out.push(r); } } return out; }
+function showStep(i){
+ if(!STEPS.length||!modelRoot) return; stepI=i; const st=STEPS[i]; const wasOn=stepOn; stepOn=true;
+ document.getElementById('info').style.display='none'; select(null); clearSel();
+ if(MOB.matches && side.classList.contains('open')) menu(false);
+ for(const m in modeG) for(const k in modeG[m]) setGroupVis(modeG[m][k], false);
+ const roots=stepRoots(st);
+ allMesh.forEach(m=>{ const L=pickRoot(m).userData.web_qat; m.visible = (L==='01_Karkas'); });
+ roots.forEach(r=>r.traverse(x=>{ x.visible=true; }));
+ ['ELEKTRIK_SITI_Korpus'].forEach(n=>{ const o=modelRoot.getObjectByName(n); if(o) o.traverse(x=>x.visible=true); });
+ selected=roots[0]||null; selExtra=roots.slice(1); roots.forEach(r=>paint(r,'#ff2d7a',1.4));
+ for(const n of st.names){ const R=RAW.elektrik[n]; if(R) for(const [k,it] of R) selDims.add(build(k,it)); }
+ // camera: keep view direction, frame the step
+ const box=new THREE.Box3(); roots.forEach(r=>box.expandByObject(r));
+ if(!box.isEmpty()){ const c=box.getCenter(new THREE.Vector3()), rad=Math.max(box.getSize(new THREE.Vector3()).length()/2,0.6);
+  const dir=cam.position.clone().sub(ctl.target).normalize(); if(!wasOn) dir.set(-0.55,0.55,0.62).normalize();
+  const dist=rad/Math.sin(THREE.MathUtils.degToRad(cam.fov/2))*(MOB.matches?1.25:1.05);
+  ctl.target.copy(c); if(MOB.matches) ctl.target.y-=rad*0.35; cam.position.copy(c).add(dir.multiplyScalar(dist)); ctl.update(); }
+ // card
+ ssel.value=i; const kv=[st.wire&&('Kabel '+st.wire), st.avtomat&&('Avtomat '+st.avtomat), st.xett&&('Xətt '+st.xett), st.boru&&('Boru '+st.boru), st.len&&('Boru '+st.len+' m'), st.meftil&&('Naqil '+st.meftil+' m')].filter(Boolean);
+ sbody.innerHTML=`<h4><span class="code">${esc(st.code)}</span>${esc(st.title)}</h4>
+  <div class="kv">${kv.map(t=>`<span>${esc(t)}</span>`).join('')}${st.h.length?`<span>h ${st.h.join(' / ')} mm</span>`:''}</div>
+  ${st.route.length?`<div class="lbl">Hardan aparılır:</div><ol>${st.route.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>`:''}
+  ${st.note?`<div class="lbl">Qeyd:</div><div>${esc(st.note)}</div>`:''}
+  <div class="lbl">Markerə yaz (borunun hər iki ucuna və kabelin şit tərəfinə):</div><div class="mk">${esc(st.marker)}</div>`;
+ stepEl.style.display='block'; sbody.scrollTop=0; stepEl.scrollTop=0; drawSubs();
+}
+function exitStep(){ stepOn=false; stepEl.style.display='none'; select(null); clearSel(); applyMode(false); }
 (function loop(){ requestAnimationFrame(loop); ctl.update(); renderer.render(scene,cam); lab.render(scene,cam); })();
 </script>
 </body>
