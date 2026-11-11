@@ -36,6 +36,7 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 .dl.m{background:var(--dim);color:#fff}
 .pl{font:600 11px/1.15 system-ui,Arial,sans-serif;background:var(--panel);border:1px solid;border-radius:4px;padding:2px 5px;white-space:nowrap;pointer-events:none}
 .pl.isti{color:#d0342c;border-color:#d0342c}.pl.soyuq{color:#1f6fd1;border-color:#1f6fd1}.pl.kan{color:#6b7480;border-color:#6b7480}
+body.sel .pl{opacity:.3}
 .pl.el{color:#c26a00;border-color:#e08a00}.pl.zc{color:#2e7d32;border-color:#2e7d32}
 .mode button{flex:1}
 #modehelp{color:var(--muted);font-size:12px;margin-top:6px}
@@ -205,10 +206,10 @@ for (const [k,t,on] of GROUPS){
 
 // ---------- model ----------
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=qofre1', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=qofre2', g=>{
  const root=g.scene; scene.add(root);
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
-   o.material.side = THREE.DoubleSide; });
+   o.material.side = THREE.DoubleSide; allMesh.push(o); });
  document.getElementById('load').remove();
  setPreset("Hamısı"); setView("Çöldən");
 }, undefined, e=>{ document.getElementById('load').textContent='Model yüklənmədi: '+e.message; });
@@ -247,20 +248,25 @@ renderer.domElement.addEventListener('pointerup',e=>{
  const r=renderer.domElement.getBoundingClientRect(); mouse.set((e.clientX-r.left)/r.width*2-1, -(e.clientY-r.top)/r.height*2+1);
  ray.setFromCamera(mouse,cam);
  const hits=ray.intersectObjects(scene.children,true).filter(h=>h.object.isMesh && h.object.visible && visibleChain(h.object) && !measGroup.getObjectById(h.object.id) && !Object.values(dimGroups).some(g=>g.getObjectById(h.object.id)));
- if(!hits.length){ if(MOB.matches && side.classList.contains('open')) menu(false); return; }
+ if(!hits.length){ if(MOB.matches && side.classList.contains('open')) menu(false); else if(selected){ document.getElementById('info').style.display='none'; clearSel(); select(null); } return; }
  if(measuring){ addMeasure(hits[0].point); return; }
  const root=pickRoot(hits[0].object); select(root); info(root); showSel(root);
 });
 // ---------- highlight: hover (soft) and selected (bright) ----------
 function pickRoot(o){ for(let x=o;x;x=x.parent){ if(x.userData && x.userData.web_qat) return x; } return o; }
+const allMesh=[]; let ghostOn=false;
+function inRoot(m,r){ for(let x=m;x;x=x.parent) if(x===r) return true; return false; }
+function ghostMat(m){ if(!m.userData._ghost){ const g=m.userData._orig.clone(); g.transparent=true; g.opacity=0.1; g.depthWrite=false; g.emissive&&g.emissive.set(0); m.userData._ghost=g; } return m.userData._ghost; }
+function baseMat(m){ if(!m.userData._orig) m.userData._orig=m.material; return (ghostOn && selected && !inRoot(m,selected)) ? ghostMat(m) : m.userData._orig; }
 function paint(root, color, k){
  root.traverse(m=>{ if(!m.isMesh) return;
   if(!m.userData._orig) m.userData._orig=m.material;
-  if(color===null){ m.material=m.userData._orig; return; }
+  if(color===null){ m.material=baseMat(m); return; }
   const mt=m.userData._orig.clone(); mt.emissive=new THREE.Color(color); mt.emissiveIntensity=k; m.material=mt; });
 }
+function ghost(on){ ghostOn=on; document.body.classList.toggle('sel',on); allMesh.forEach(m=>{ if(selected && inRoot(m,selected)) return; if(hovered && inRoot(m,hovered) && on===false) return; m.material=baseMat(m); }); }
 let selected=null, hovered=null;
-function select(r){ if(selected&&selected!==r) paint(selected,null); selected=r; if(r) paint(r,'#ffb000',1.0); if(hovered===r) hovered=null; }
+function select(r){ const prev=selected; selected=r; if(prev&&prev!==r) paint(prev,null); if(r) paint(r,'#ffb000',1.0); if(hovered===r) hovered=null; ghost(!!r); }
 let hvT=0;
 renderer.domElement.addEventListener('pointermove',e=>{
  if(e.pointerType!=='mouse'||e.buttons||measuring) return; const now=performance.now(); if(now-hvT<60) return; hvT=now;
@@ -300,7 +306,7 @@ function info(o){
  document.getElementById('itab').innerHTML=rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1].replace(/</g,'&lt;')}</td></tr>`).join('');
  document.getElementById('info').style.display='block';
 }
-document.getElementById('ix').onclick=()=>{ document.getElementById('info').style.display='none'; clearSel(); if(selected){ paint(selected,null); selected=null; } };
+document.getElementById('ix').onclick=()=>{ document.getElementById('info').style.display='none'; clearSel(); if(selected) select(null); };
 const side=document.getElementById('side'), tog=document.getElementById('tog'), MOB=matchMedia('(max-width:760px)');
 try{ if(localStorage.getItem('tecMenuSeen')) side.classList.add('seen'); }catch(e){}
 function menu(open){ if(open){ side.classList.add('seen'); try{ localStorage.setItem('tecMenuSeen','1'); }catch(e){} } side.style.setProperty('--barH', side.offsetHeight+'px'); side.classList.toggle('open',open); tog.setAttribute('aria-expanded',open); }
@@ -339,7 +345,7 @@ function drawSubs(){ subEl.innerHTML=''; if(mode==='umumi') return;
  for(const [k,t] of SUBS){ const b=document.createElement('button'); b.textContent=t; b.classList.toggle('on',subOn[k]);
   b.onclick=()=>{ subOn[k]=!subOn[k]; applyMode(false); }; subEl.appendChild(b); } }
 function applyMode(move=true){
- if(move) clearSel();
+ if(move){ clearSel(); if(selected){ document.getElementById('info').style.display='none'; select(null); } }
  for(const m in modeG) for(const k in modeG[m]) setGroupVis(modeG[m][k], m===mode && subOn[k]);
  for(const k in dimGroups) setGroupVis(dimGroups[k], mode==='umumi' && GROUPS.find(g=>g[0]===k)[2]);
  if(mode==='umumi'){ if(move){ setPreset("Hamısı"); setView("Çöldən"); } }
