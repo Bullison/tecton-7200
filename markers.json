@@ -1,251 +1,519 @@
-[
- [
-  "MR-1",
+{
+ "elektrik": [
   [
-   "ROZ_Metbex_Is_1"
+   "MR-1",
+   [
+    "ROZ_Metbex_Is_1"
+   ],
+   "BORU_Metbex_Is_1",
+   "Mətbəx iş masası (ikili)"
   ],
-  "BORU_Metbex_Is_1",
-  "Mətbəx iş masası (ikili)"
- ],
- [
-  "MR-2",
   [
-   "ROZ_Metbex_Paltaryuyan"
+   "MR-2",
+   [
+    "ROZ_Metbex_Paltaryuyan"
+   ],
+   "BORU_Metbex_Paltaryuyan",
+   "Paltaryuyan"
   ],
-  "BORU_Metbex_Paltaryuyan",
-  "Paltaryuyan"
- ],
- [
-  "MR-3",
   [
-   "ROZ_Metbex_Soba"
+   "MR-3",
+   [
+    "ROZ_Metbex_Soba"
+   ],
+   "BORU_Metbex_Soba",
+   "Soba"
   ],
-  "BORU_Metbex_Soba",
-  "Soba"
- ],
- [
-  "MR-4",
   [
-   "ROZ_Metbex_Aspirator"
+   "MR-4",
+   [
+    "ROZ_Metbex_Aspirator"
+   ],
+   "BORU_Metbex_Aspirator",
+   "Aspirator"
   ],
-  "BORU_Metbex_Aspirator",
-  "Aspirator"
- ],
- [
-  "MR-5",
   [
-   "ROZ_Metbex_Is_2"
+   "MR-5",
+   [
+    "ROZ_Metbex_Is_2"
+   ],
+   null,
+   "Mətbəx iş masası (ikili, MR-6 borusunun üstündə)"
   ],
-  null,
-  "Mətbəx iş masası (ikili, MR-6 borusunun üstündə)"
- ],
- [
-  "MR-6",
   [
-   "ROZ_Metbex_Soyuducu"
+   "MR-6",
+   [
+    "ROZ_Metbex_Soyuducu"
+   ],
+   "BORU_Metbex_Soyuducu",
+   "Soyuducu"
   ],
-  "BORU_Metbex_Soyuducu",
-  "Soyuducu"
- ],
- [
-  "MR-7",
   [
-   "ROZ_Metbex_Ariston"
+   "MR-7",
+   [
+    "ROZ_Metbex_Ariston"
+   ],
+   "BORU_Metbex_Ariston",
+   "Ariston"
   ],
-  "BORU_Metbex_Ariston",
-  "Ariston"
- ],
- [
-  "MR-8",
   [
-   "ROZ_Metbex_TV"
+   "MR-8",
+   [
+    "ROZ_Metbex_TV"
+   ],
+   "BORU_Metbex_TV_guc",
+   "Mətbəx TV rozetkası"
   ],
-  "BORU_Metbex_TV_guc",
-  "Mətbəx TV rozetkası"
- ],
- [
-  "QR-1",
   [
-   "ROZ_Qonaq_Pencere_yani"
+   "QR-1",
+   [
+    "ROZ_Qonaq_Pencere_yani"
+   ],
+   "BORU_Qonaq_Pencere_yani",
+   "Qonaq, pəncərə yanı"
   ],
-  "BORU_Qonaq_Pencere_yani",
-  "Qonaq, pəncərə yanı"
- ],
- [
-  "QR-2",
   [
-   "CIXIS_Kondisioner"
+   "QR-2",
+   [
+    "CIXIS_Kondisioner"
+   ],
+   "BORU_S_Kondisioner",
+   "Kondisioner"
   ],
-  "BORU_S_Kondisioner",
-  "Kondisioner"
- ],
- [
-  "YR-1",
   [
-   "ROZ_Yataq_On_divar"
+   "YR-1",
+   [
+    "ROZ_Yataq_On_divar"
+   ],
+   "BORU_Yataq_On_divar",
+   "Yataq, ön divar"
   ],
-  "BORU_Yataq_On_divar",
-  "Yataq, ön divar"
- ],
- [
-  "YR-2",
   [
-   "ROZ_Yataq_Arxa_hamam_yani"
+   "YR-2",
+   [
+    "ROZ_Yataq_Arxa_hamam_yani"
+   ],
+   "BORU_Yataq_Arxa_hamam_yani",
+   "Yataq, arxa divar (hamam yanı)"
   ],
-  "BORU_Yataq_Arxa_hamam_yani",
-  "Yataq, arxa divar (hamam yanı)"
- ],
- [
-  "YR-3",
   [
-   "ROZ_Yataq_Carpayi_sag"
+   "YR-3",
+   [
+    "ROZ_Yataq_Carpayi_sag"
+   ],
+   "BORU_Yataq_Carpayi_sag",
+   "Yataq, çarpayı sağ"
   ],
-  "BORU_Yataq_Carpayi_sag",
-  "Yataq, çarpayı sağ"
- ],
- [
-  "YR-4",
   [
-   "ROZ_Yataq_Carpayi_sol"
+   "YR-4",
+   [
+    "ROZ_Yataq_Carpayi_sol"
+   ],
+   "BORU_Yataq_Carpayi_sol",
+   "Yataq, çarpayı sol"
   ],
-  "BORU_Yataq_Carpayi_sol",
-  "Yataq, çarpayı sol"
- ],
- [
-  "YR-5",
   [
-   "ROZ_Yataq_TV"
+   "YR-5",
+   [
+    "ROZ_Yataq_TV"
+   ],
+   "BORU_Yataq_TV_guc",
+   "Yataq TV rozetkası"
   ],
-  "BORU_Yataq_TV_guc",
-  "Yataq TV rozetkası"
- ],
- [
-  "MZ-1",
   [
-   "TV_Metbex_LAN_TV"
+   "MZ-1",
+   [
+    "TV_Metbex_LAN_TV"
+   ],
+   "BORU_ZC_TV_Metbex",
+   "Mətbəx LAN + TV"
   ],
-  "BORU_ZC_TV_Metbex",
-  "Mətbəx LAN + TV"
- ],
- [
-  "YZ-1",
   [
-   "TV_Yataq_LAN_TV"
+   "YZ-1",
+   [
+    "TV_Yataq_LAN_TV"
+   ],
+   "BORU_ZC_TV_Yataq",
+   "Yataq LAN + TV"
   ],
-  "BORU_ZC_TV_Yataq",
-  "Yataq LAN + TV"
- ],
- [
-  "HA-1",
   [
-   "ACAR_Hamam"
+   "HA-1",
+   [
+    "ACAR_Hamam"
+   ],
+   "BORU_Hamam_Acar_qidalanma",
+   "Hamam açarı"
   ],
-  "BORU_Hamam_Acar_qidalanma",
-  "Hamam açarı"
- ],
- [
-  "HI-1",
   [
-   "ISIQ_Hamam_Spot_1",
-   "ISIQ_Hamam_Spot_2"
+   "HI-1",
+   [
+    "ISIQ_Hamam_Spot_1",
+    "ISIQ_Hamam_Spot_2"
+   ],
+   "BORU_Hamam_Isiq",
+   "Hamam spotları"
   ],
-  "BORU_Hamam_Isiq",
-  "Hamam spotları"
- ],
- [
-  "HI-2",
   [
-   "CIXIS_Hamam_Guzgu"
+   "HI-2",
+   [
+    "CIXIS_Hamam_Guzgu"
+   ],
+   "BORU_Hamam_Guzgu",
+   "Güzgü işığı"
   ],
-  "BORU_Hamam_Guzgu",
-  "Güzgü işığı"
- ],
- [
-  "MA-1",
   [
-   "ACAR_Metbex_Qonaq"
+   "MA-1",
+   [
+    "ACAR_Metbex_Qonaq"
+   ],
+   null,
+   "Açar: mətbəx/qonaq işığı"
   ],
-  null,
-  "Açar: mətbəx/qonaq işığı"
- ],
- [
-  "YA-1",
   [
-   "ACAR_Yataq"
+   "YA-1",
+   [
+    "ACAR_Yataq"
+   ],
+   null,
+   "Açar: yataq işığı"
   ],
-  null,
-  "Açar: yataq işığı"
- ],
- [
-  "FA-1",
   [
-   "ACAR_Fasad"
+   "FA-1",
+   [
+    "ACAR_Fasad"
+   ],
+   null,
+   "Açar: fasad LED"
   ],
-  null,
-  "Açar: fasad LED"
- ],
- [
-  "SA-1",
   [
-   "ACAR_Ramka_3lu"
+   "SA-1",
+   [
+    "ACAR_Ramka_3lu"
+   ],
+   "BORU_Isiq_Sit_acarlar",
+   "Şit → açarlar (3-lü)"
   ],
-  "BORU_Isiq_Sit_acarlar",
-  "Şit → açarlar (3-lü)"
- ],
- [
-  "MI-1",
   [
-   "ISIQ_Metbex_Spot_1",
-   "ISIQ_Metbex_Spot_2",
-   "ISIQ_Metbex_Spot_3",
-   "ISIQ_Metbex_Spot_4"
+   "MI-1",
+   [
+    "ISIQ_Metbex_Spot_1",
+    "ISIQ_Metbex_Spot_2",
+    "ISIQ_Metbex_Spot_3",
+    "ISIQ_Metbex_Spot_4"
+   ],
+   "BORU_Isiq_Metbex_Qonaq",
+   "Mətbəx/qonaq spotları"
   ],
-  "BORU_Isiq_Metbex_Qonaq",
-  "Mətbəx/qonaq spotları"
- ],
- [
-  "YI-1",
   [
-   "ISIQ_Yataq_Spot_1",
-   "ISIQ_Yataq_Spot_2",
-   "ISIQ_Yataq_Spot_3",
-   "ISIQ_Yataq_Spot_4"
+   "YI-1",
+   [
+    "ISIQ_Yataq_Spot_1",
+    "ISIQ_Yataq_Spot_2",
+    "ISIQ_Yataq_Spot_3",
+    "ISIQ_Yataq_Spot_4"
+   ],
+   "BORU_Isiq_Yataq",
+   "Yataq spotları"
   ],
-  "BORU_Isiq_Yataq",
-  "Yataq spotları"
- ],
- [
-  "FI-1",
   [
-   "CIXIS_Fasad_LED"
+   "FI-1",
+   [
+    "CIXIS_Fasad_LED"
+   ],
+   "BORU_Isiq_Fasad",
+   "Fasad LED"
   ],
-  "BORU_Isiq_Fasad",
-  "Fasad LED"
- ],
- [
-  "G-1",
-  [],
-  "BORU_Giris_Esas_kabel",
-  "Giriş kabeli → şit"
- ],
- [
-  "PE-1",
-  [],
-  "BORU_Torpaq_PE_Sit",
-  "Torpaqlama → şit"
- ],
- [
-  "Z-1",
-  [],
-  "BORU_ZC_Internet_giris",
-  "İnternet girişi (optik)"
- ],
- [
-  "Z-2",
   [
-   "ZC_Paylayici_qutu"
+   "G-1",
+   [],
+   "BORU_Giris_Esas_kabel",
+   "Giriş kabeli → şit"
   ],
-  "BORU_ZC_Sit_qalxan",
-  "Zəif cərəyan qalxanı → şit"
+  [
+   "PE-1",
+   [],
+   "BORU_Torpaq_PE_Sit",
+   "Torpaqlama → şit"
+  ],
+  [
+   "Z-1",
+   [],
+   "BORU_ZC_Internet_giris",
+   "İnternet girişi (optik)"
+  ],
+  [
+   "Z-2",
+   [
+    "ZC_Paylayici_qutu"
+   ],
+   "BORU_ZC_Sit_qalxan",
+   "Zəif cərəyan qalxanı → şit"
+  ]
+ ],
+ "santexnika": [
+  [
+   "SG-1",
+   [
+    "SU_Sayqac_quyusu",
+    "SU_Giris_PE32",
+    "SU_Giris_kecid_PE_PPR",
+    "SU_Giris_PPR",
+    "SU_tee_Soyuq_Giris",
+    "SU_tee_Soyuq_Giris_qol"
+   ],
+   "SU_Soyuq_Giris_qalxan",
+   "Su girişi (sayğacdan evə)"
+  ],
+  [
+   "S-0",
+   [],
+   "SU_Soyuq_xett",
+   "Soyuq su əsas xətti (tavanda)"
+  ],
+  [
+   "S-1",
+   [
+    "SU_Paltaryuyan_dil",
+    "SU_Paltaryuyan_divar_fitinqi",
+    "SU_Paltaryuyan_flanes",
+    "SU_Paltaryuyan_kran"
+   ],
+   null,
+   "Paltaryuyan — soyuq"
+  ],
+  [
+   "S-2",
+   [
+    "SU_Moyka_soyuq_cixis",
+    "SU_Moyka_soyuq_dil",
+    "SU_Moyka_soyuq_divar_fitinqi",
+    "SU_Moyka_soyuq_flanes",
+    "SU_Moyka_soyuq_kran",
+    "SU_Moyka_soyuq_slanq",
+    "SU_tee_Soyuq_Moyka",
+    "SU_tee_Soyuq_Moyka_qol"
+   ],
+   "SU_Soyuq_Moyka",
+   "Moyka — soyuq"
+  ],
+  [
+   "S-3",
+   [
+    "SU_Ariston_nippel_1200",
+    "SU_Ariston_nippel_1260",
+    "SU_Ariston_soyuq_dil",
+    "SU_Ariston_soyuq_divar_fitinqi",
+    "SU_Ariston_soyuq_flanes",
+    "SU_Ariston_soyuq_kran",
+    "SU_Ariston_soyuq_slanq",
+    "SU_tee_Soyuq_Ariston_giris",
+    "SU_tee_Soyuq_Ariston_giris_qol"
+   ],
+   "SU_Soyuq_Ariston_giris",
+   "Ariston girişi — soyuq"
+  ],
+  [
+   "S-4",
+   [
+    "SU_Dus_373_divar_fitinqi",
+    "SU_Dus_373_flanes",
+    "SU_Dus_ekssentrik_373",
+    "SU_tee_Soyuq_Dus",
+    "SU_tee_Soyuq_Dus_qol"
+   ],
+   "SU_Soyuq_Dus",
+   "Duş — soyuq"
+  ],
+  [
+   "S-5",
+   [
+    "SU_tee_Soyuq_Unitaz",
+    "SU_tee_Soyuq_Unitaz_qol",
+    "SU_Unitaz_cixis",
+    "SU_Unitaz_dil",
+    "SU_Unitaz_divar_fitinqi",
+    "SU_Unitaz_flanes",
+    "SU_Unitaz_kran",
+    "SU_Unitaz_slanq"
+   ],
+   "SU_Soyuq_Unitaz",
+   "Unitaz — soyuq"
+  ],
+  [
+   "S-6",
+   [
+    "SU_tee_Soyuq_Gigiyenik",
+    "SU_tee_Soyuq_Gigiyenik_qol"
+   ],
+   "SU_Soyuq_Gigiyenik",
+   "Gigiyenik duş — soyuq"
+  ],
+  [
+   "S-7",
+   [
+    "SU_Lavabo_soyuq_cixis",
+    "SU_Lavabo_soyuq_dil",
+    "SU_Lavabo_soyuq_divar_fitinqi",
+    "SU_Lavabo_soyuq_flanes",
+    "SU_Lavabo_soyuq_kran",
+    "SU_Lavabo_soyuq_slanq"
+   ],
+   null,
+   "Lavabo — soyuq"
+  ],
+  [
+   "İ-2",
+   [
+    "SU_Ariston_isti_dil",
+    "SU_Ariston_isti_divar_fitinqi",
+    "SU_Ariston_isti_flanes",
+    "SU_Ariston_isti_kran",
+    "SU_Ariston_isti_slanq",
+    "SU_tee_Isti_Ariston",
+    "SU_tee_Isti_Ariston_qol"
+   ],
+   "SU_Isti_Ariston",
+   "Ariston çıxışı → isti xətt"
+  ],
+  [
+   "İ-0",
+   [],
+   "SU_Isti_xett",
+   "İsti su əsas xətti (tavanda)"
+  ],
+  [
+   "İ-1",
+   [
+    "SU_Moyka_isti_cixis",
+    "SU_Moyka_isti_dil",
+    "SU_Moyka_isti_divar_fitinqi",
+    "SU_Moyka_isti_flanes",
+    "SU_Moyka_isti_kran",
+    "SU_Moyka_isti_slanq"
+   ],
+   null,
+   "Moyka — isti"
+  ],
+  [
+   "İ-3",
+   [
+    "SU_Dus_523_divar_fitinqi",
+    "SU_Dus_523_flanes",
+    "SU_Dus_ekssentrik_523",
+    "SU_tee_Isti_Dus",
+    "SU_tee_Isti_Dus_qol"
+   ],
+   "SU_Isti_Dus",
+   "Duş — isti"
+  ],
+  [
+   "İ-4",
+   [
+    "SU_tee_Isti_Gigiyenik",
+    "SU_tee_Isti_Gigiyenik_qol"
+   ],
+   "SU_Isti_Gigiyenik",
+   "Gigiyenik duş — isti"
+  ],
+  [
+   "İ-5",
+   [
+    "SU_Lavabo_isti_cixis",
+    "SU_Lavabo_isti_dil",
+    "SU_Lavabo_isti_divar_fitinqi",
+    "SU_Lavabo_isti_flanes",
+    "SU_Lavabo_isti_kran",
+    "SU_Lavabo_isti_slanq"
+   ],
+   null,
+   "Lavabo — isti"
+  ],
+  [
+   "K-0",
+   [
+    "KAN_asqi_Esas_0",
+    "KAN_asqi_Esas_1",
+    "KAN_asqi_mil_Esas_0",
+    "KAN_asqi_mil_Esas_1",
+    "KAN_Esas_d100",
+    "KAN_Esas_d100_dirsek_1",
+    "KAN_Esas_d100_dirsek_3",
+    "KAN_Esas_d100_unitaz_kecid",
+    "KAN_Esas_krestovina",
+    "KAN_Esas_krestovina_qol0",
+    "KAN_Esas_krestovina_qol1",
+    "KAN_Esas_zeng",
+    "KAN_Qosulma_noqtesi",
+    "KAN_Revizyon",
+    "KAN_Revizyon_qapaq",
+    "KAN_Revizyon_qol"
+   ],
+   "KAN_Esas_d100",
+   "Əsas kanalizasiya d100"
+  ],
+  [
+   "K-5",
+   [
+    "KAN_Unitaz_flanes"
+   ],
+   "KAN_Esas_d100_unitaz_kecid",
+   "Unitaz — kanalizasiya d100"
+  ],
+  [
+   "K-2",
+   [
+    "KAN_asqi_Metbex2_0",
+    "KAN_asqi_Metbex2_1",
+    "KAN_asqi_Metbex_0",
+    "KAN_asqi_mil_Metbex2_0",
+    "KAN_asqi_mil_Metbex2_1",
+    "KAN_asqi_mil_Metbex_0",
+    "KAN_Metbex_d50",
+    "KAN_Metbex_d50_dirsek_1",
+    "KAN_Metbex_d50_dirsek_2",
+    "KAN_Metbex_d50_mufta_0",
+    "KAN_Metbex_kosoy_Dus",
+    "KAN_Metbex_kosoy_Dus_qol0",
+    "KAN_sifon_zeng_2950"
+   ],
+   "KAN_Metbex_d50",
+   "Mətbəx xətti d50 (paltaryuyan + duş + moyka)"
+  ],
+  [
+   "K-1",
+   [
+    "KAN_Moyka_d50",
+    "KAN_Moyka_d50_dirsek_1",
+    "KAN_Moyka_tee",
+    "KAN_Moyka_tee_qol",
+    "KAN_Moyka_zeng"
+   ],
+   "KAN_Moyka_d50",
+   "Moyka — kanalizasiya d50"
+  ],
+  [
+   "K-3",
+   [
+    "KAN_Dus_d50",
+    "KAN_Dus_d50_dirsek_1",
+    "KAN_Dus_d50_dirsek_2"
+   ],
+   "KAN_Dus_d50",
+   "Duş — kanalizasiya d50"
+  ],
+  [
+   "K-4",
+   [
+    "KAN_asqi_Lavabo_0",
+    "KAN_asqi_mil_Lavabo_0",
+    "KAN_Lavabo_d50",
+    "KAN_Lavabo_d50_dirsek_1",
+    "KAN_Lavabo_d50_dirsek_2",
+    "KAN_Lavabo_d50_dirsek_3",
+    "KAN_Lavabo_zeng"
+   ],
+   "KAN_Lavabo_d50",
+   "Lavabo — kanalizasiya d50"
+  ]
  ]
-]
+}

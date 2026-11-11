@@ -40,6 +40,7 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 .pl{font:600 10px/1.15 system-ui,Arial,sans-serif;background:var(--panel);border:1px solid;border-radius:4px;padding:1px 4px;white-space:pre;text-align:center;pointer-events:none}
 .pl.lk{pointer-events:auto;cursor:pointer}
 .pl.isti{color:#d0342c;border-color:#d0342c}.pl.soyuq{color:#1f6fd1;border-color:#1f6fd1}.pl.kan{color:#6b7480;border-color:#6b7480}
+.pl.soyuqp{background:#1f6fd1;color:#fff;border-color:#1f6fd1}.pl.istip{background:#d0342c;color:#fff;border-color:#d0342c}.pl.kanp{background:#5f6873;color:#fff;border-color:#5f6873}
 .pl.elp{background:#e08a00;color:#fff;border-color:#e08a00}.pl.zcp{background:#2e7d32;color:#fff;border-color:#2e7d32}
 .pl.el{color:#c26a00;border-color:#e08a00}.pl.zc{color:#2e7d32;border-color:#2e7d32}
 .mode button{flex:1}
@@ -228,7 +229,7 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=step2', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=su1', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
@@ -365,11 +366,13 @@ function tag(text,p,kind,links){ const g=new THREE.Group(); const el=document.cr
  const s=new THREE.Mesh(new THREE.SphereGeometry(0.01,8,8), new THREE.MeshBasicMaterial({color:{isti:'#d0342c',soyuq:'#1f6fd1',kan:'#6b7480',zc:'#2e7d32',zcp:'#2e7d32'}[kind]||'#e08a00',depthTest:false})); s.position.copy(M(...p)); s.renderOrder=11; g.add(s); return g; }
 function setGroupVis(g,v){ g.traverse(o=>{ o.visible=v; if(o.element) o.element.style.display=v?'':'none'; }); }
 function build(k,it){ return (k==='h'||k==='w')? dimension(it[0],it[1],it[2],it[3]) : tag(it[0],it[1],it[2],it[4]); }
-fetch('markers.json',{cache:'no-cache'}).then(r=>r.json()).then(L=>{ const t=document.getElementById('mktab');
- const W=n=>{ const it=(window.__N||[]).find(x=>x[3]===n||(x[4]&&x[4].includes(n))); return it? it[0].split(String.fromCharCode(10)).pop().replace(/^.*· /,''):''; };
- t.innerHTML=L.map(([c,it,b,l])=>`<tr data-n="${b||it[0]}"><td>${c}</td><td>${l}</td><td data-w="${b||it[0]}"></td></tr>`).join('');
+let MKS={}, NN={};
+function drawMarkers(){ const t=document.getElementById('mktab'); const L=MKS[mode]||[]; const NL=NN[mode]||[];
+ const W=n=>{ const it=NL.find(x=>x[3]===n||(x[4]&&x[4].includes(n))); return it? it[0].split(String.fromCharCode(10)).pop().replace(/^.*· /,''):''; };
+ t.innerHTML=L.map(([c,it,b,l])=>{ const n=b||it[0]||''; return `<tr data-n="${n}"><td>${c}</td><td>${l}</td><td>${W(n)}</td></tr>`; }).join('');
  t.querySelectorAll('tr').forEach(r=>r.onclick=()=>{ pickLinked(r.dataset.n); if(MOB.matches) menu(false); });
- window.__fillW=()=>t.querySelectorAll('td[data-w]').forEach(td=>td.textContent=W(td.dataset.w)); window.__fillW(); }).catch(()=>{});
+ document.getElementById('mk').style.display=L.length?'':'none'; }
+fetch('markers.json',{cache:'no-cache'}).then(r=>r.json()).then(L=>{ MKS=Array.isArray(L)?{elektrik:L}:L; drawMarkers(); }).catch(()=>{});
 fetch('olculer.json',{cache:'no-cache'}).then(r=>r.json()).then(J=>{
  for(const m of ["santexnika","elektrik"]){
   for(const k of ["n","d","t"]){ const g=new THREE.Group(); scene.add(g); modeG[m][k]=g; }
@@ -379,7 +382,7 @@ fetch('olculer.json',{cache:'no-cache'}).then(r=>r.json()).then(J=>{
    if(nm && k!=='n'){ (RAW[m][nm]=RAW[m][nm]||[]).push([k,it]); }
    if(k==='n' && it[4]) for(const x of it[4]){ const S=LINK[x]=LINK[x]||new Set(); it[4].forEach(y=>S.add(y)); } }
   for(const k in modeG[m]) setGroupVis(modeG[m][k],false); }
- window.__N=J.elektrik.n; window.__fillW&&window.__fillW();
+ NN={elektrik:J.elektrik.n,santexnika:J.santexnika.n}; drawMarkers();
  applyMode(false);
 }).catch(e=>console.error('olculer',e));
 // dimensions of the tapped object only
@@ -393,7 +396,7 @@ const subEl=document.getElementById('modesub');
 function drawSubs(){ subEl.innerHTML=''; if(mode==='umumi') return;
  for(const [k,t] of SUBS){ const b=document.createElement('button'); b.textContent=t; b.classList.toggle('on',subOn[k]);
   b.onclick=()=>{ subOn[k]=!subOn[k]; applyMode(false); }; subEl.appendChild(b); }
- if(mode==='elektrik' && STEPS.length){ const b=document.createElement('button'); b.className='stepb'+(stepOn?' on':''); b.textContent='▶ Addım-addım'; b.onclick=()=>stepOn?exitStep():showStep(stepI); subEl.appendChild(b); } }
+ if(STEPS.length){ const b=document.createElement('button'); b.className='stepb'+(stepOn?' on':''); b.textContent='▶ Addım-addım'; b.onclick=()=>stepOn?exitStep():showStep(stepI); subEl.appendChild(b); } }
 function applyMode(move=true){
  if(move && stepOn){ stepOn=false; document.getElementById('step').style.display='none'; }
  if(move){ clearSel(); if(selected){ document.getElementById('info').style.display='none'; select(null); } }
@@ -403,17 +406,19 @@ function applyMode(move=true){
  else { const s=new Set(MODE_LAYERS[mode]); LAYERS.forEach(([k])=>showLayer(k,s.has(k)));
   document.querySelectorAll('#presets button,#views button').forEach(b=>b.classList.remove('on'));
   if(move){ const [p,t]=MODE_VIEW[mode]; place(p,t); } }
- document.getElementById('modehelp').textContent=MODE_HELP[mode]; document.getElementById('mk').style.display=mode==='elektrik'?'':'none';
+ document.getElementById('modehelp').textContent=MODE_HELP[mode]; drawMarkers();
+ if(move){ fillSteps(); stepI=0; }
  document.querySelectorAll('#modes button').forEach(b=>b.classList.toggle('on',b.dataset.m===mode)); drawSubs(); }
 document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>{ mode=b.dataset.m; applyMode(true); if(side.classList.contains('open')) menu(true); });
 
 // ---------- montaj addımları ----------
-let STEPS=[], stepOn=false, stepI=0;
+let STEPS_ALL={}, stepOn=false, stepI=0; const STEPSOF=()=>STEPS_ALL[mode]||[];
+let STEPS=[];
 const stepEl=document.getElementById('step'), ssel=document.getElementById('ssel'), sbody=document.getElementById('sbody');
 const esc=t=>String(t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-fetch('steps.json',{cache:'no-cache'}).then(r=>r.json()).then(S=>{ STEPS=S;
- ssel.innerHTML=S.map((x,i)=>`<option value="${i}">${i+1}/${S.length} · ${esc(x.code)} · ${esc(x.room)}</option>`).join('');
- if(mode==='elektrik') drawSubs(); }).catch(()=>{});
+function fillSteps(){ STEPS=STEPSOF(); ssel.innerHTML=STEPS.map((x,i)=>`<option value="${i}">${i+1}/${STEPS.length} · ${esc(x.code)} · ${esc(x.room)}</option>`).join(''); }
+fetch('steps.json',{cache:'no-cache'}).then(r=>r.json()).then(S=>{ STEPS_ALL=Array.isArray(S)?{elektrik:S}:S; fillSteps();
+ if(mode!=='umumi') drawSubs(); }).catch(()=>{});
 ssel.onchange=()=>showStep(+ssel.value);
 document.getElementById('sprev').onclick=()=>showStep(Math.max(0,stepI-1));
 document.getElementById('snext').onclick=()=>showStep(Math.min(STEPS.length-1,stepI+1));
@@ -429,7 +434,7 @@ function showStep(i){
  roots.concat(ctxR).forEach(r=>r.traverse(x=>{ x.visible=true; }));
  ['ELEKTRIK_SITI_Korpus'].forEach(n=>{ const o=modelRoot.getObjectByName(n); if(o) o.traverse(x=>x.visible=true); });
  selected=roots[0]||null; selExtra=roots.slice(1); roots.forEach(r=>paint(r,'#ff2d7a',1.4));
- for(const n of st.names){ const R=RAW.elektrik[n]; if(R) for(const [k,it] of R) selDims.add(build(k,it)); }
+ for(const n of st.names){ const R=RAW[mode][n]; if(R) for(const [k,it] of R) selDims.add(build(k,it)); }
  // camera: keep view direction, frame the step
  const box=new THREE.Box3(); roots.concat(ctxR).forEach(r=>box.expandByObject(r));
  if(!box.isEmpty()){ const c=box.getCenter(new THREE.Vector3()), rad=Math.max(box.getSize(new THREE.Vector3()).length()/2,0.6);
@@ -437,13 +442,13 @@ function showStep(i){
   const dist=rad/Math.sin(THREE.MathUtils.degToRad(cam.fov/2))*(MOB.matches?1.25:1.05);
   ctl.target.copy(c); if(MOB.matches) ctl.target.y-=rad*0.35; cam.position.copy(c).add(dir.multiplyScalar(dist)); ctl.update(); }
  // card
- ssel.value=i; const kv=[st.wire&&('Kabel '+st.wire), st.avtomat&&('Avtomat '+st.avtomat), st.xett&&('Xətt '+st.xett), st.boru&&('Boru '+st.boru), st.len&&('Boru '+st.len+' m'), st.meftil&&('Naqil '+st.meftil+' m')].filter(Boolean);
+ ssel.value=i; const EL=mode==='elektrik'; const kv=[st.wire&&((EL?'Kabel ':'')+st.wire), st.avtomat&&('Avtomat '+st.avtomat), st.xett&&('Xətt '+st.xett), st.boru&&('Boru '+st.boru), st.len&&('Boru '+st.len+' m'), st.meftil&&('Naqil '+st.meftil+' m')].filter(Boolean);
  sbody.innerHTML=`<h4><span class="code">${esc(st.code)}</span>${esc(st.title)}</h4>
   <div class="kv">${kv.map(t=>`<span>${esc(t)}</span>`).join('')}${st.h.length?`<span>h ${st.h.join(' / ')} mm</span>`:''}</div>
-  ${st.flow?`<div class="lbl">Cərəyan yolu:</div><div class="flow">${esc(st.flow)}</div>`:''}
+  ${st.flow?`<div class="lbl">${EL?'Cərəyan yolu':'Su / axın yolu'}:</div><div class="flow">${esc(st.flow)}</div>`:''}
   ${st.route.length?`<div class="lbl">Hardan aparılır:</div><ol>${st.route.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>`:''}
   ${st.note?`<div class="lbl">Qeyd:</div><div>${esc(st.note)}</div>`:''}
-  <div class="lbl">Markerə yaz (borunun hər iki ucuna və kabelin şit tərəfinə):</div><div class="mk">${esc(st.marker)}</div>`;
+  <div class="lbl">Markerə yaz (${EL?'borunun hər iki ucuna və kabelin şit tərəfinə':'borunun hər iki ucuna: tee / əsas xətt tərəfi və çıxış tərəfi'}):</div><div class="mk">${esc(st.marker)}</div>`;
  stepEl.style.display='block'; sbody.scrollTop=0; stepEl.scrollTop=0; drawSubs();
 }
 function exitStep(){ stepOn=false; stepEl.style.display='none'; select(null); clearSel(); applyMode(false); }
