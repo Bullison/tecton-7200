@@ -42,12 +42,23 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 #load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted)}
 #tog{display:none}
 @media (max-width:760px){
- #app{flex-direction:column}
- #side{width:100%;height:auto;max-height:42%;border-right:0;border-bottom:1px solid var(--line);padding:12px 16px}
- #side.closed .body{display:none}
- #tog{display:inline-block;float:right}
- #info{top:auto;bottom:12px;right:12px;left:12px;width:auto}
+ #app{display:block}
+ #view{position:fixed;inset:0}
+ #side{position:fixed;top:0;left:0;right:0;z-index:20;width:auto;height:auto;max-height:none;overflow:visible;padding:8px 10px 10px;border:0;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--panel) 90%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+ #side h1{font-size:15px;display:inline-block;margin:5px 0 8px}
+ #side .sub,#side>h2{display:none}
+ #tog{display:inline-block;float:right;padding:6px 12px;font-weight:600}
+ #side .mode{flex-wrap:nowrap}
+ #side .mode button{padding:8px 6px}
+ #side .body{display:none;max-height:calc(100dvh - 120px);overflow:auto;-webkit-overflow-scrolling:touch;margin-top:8px;padding-top:2px;border-top:1px solid var(--line)}
+ #side.open .body{display:block}
+ #info{top:auto;bottom:10px;left:10px;right:10px;width:auto;max-height:34vh;overflow:auto;padding:10px 12px}
+ #info table{font-size:12px}
  #hint{display:none}
+ #meas{top:auto;bottom:10px}
+ .dl,.pl{font-size:10px;padding:1px 4px}
+ .row{padding:8px 0}.row input{width:20px;height:20px}
+ .btns button{padding:8px 10px}
 }
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
@@ -55,12 +66,12 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 <body>
 <div id="app">
  <aside id="side">
-  <button id="tog">Panel</button>
+  <button id="tog">☰ Menyu</button>
   <h1>TECTON 7200</h1>
   <div class="sub">Modul ev · 7200 × 3200 mm · bütün ölçülər mm</div>
+  <h2>Rejim</h2>
+  <div class="btns mode" id="modes"><button data-m="umumi" class="on">Ümumi</button><button data-m="santexnika">Santexnika</button><button data-m="elektrik">Elektrik</button></div>
   <div class="body">
-   <h2>Rejim</h2>
-   <div class="btns mode" id="modes"><button data-m="umumi" class="on">Ümumi</button><button data-m="santexnika">Santexnika</button><button data-m="elektrik">Elektrik</button></div>
    <div id="modesub"></div>
    <div id="modehelp"></div>
    <h2>Görünüş</h2>
@@ -146,7 +157,7 @@ const sun = new THREE.DirectionalLight(0xffffff, 1.6); sun.position.set(6,10,8);
 const grid = new THREE.GridHelper(20, 40, 0x999999, 0xcccccc); grid.position.y = -0.2; grid.material.opacity=.35; grid.material.transparent=true; scene.add(grid);
 function bg(){ scene.background = new THREE.Color(getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()||'#f4f5f7'); }
 bg(); matchMedia('(prefers-color-scheme: dark)').addEventListener('change', bg);
-function size(){ const w=view.clientWidth,h=view.clientHeight; renderer.setSize(w,h); lab.setSize(w,h); cam.aspect=w/h; cam.updateProjectionMatrix(); }
+function size(){ const w=view.clientWidth,h=view.clientHeight; renderer.setSize(w,h); lab.setSize(w,h); cam.aspect=w/h; cam.fov=cam.aspect<1?62:40; cam.updateProjectionMatrix(); }
 addEventListener('resize', size); size();
 
 // ---------- dimension drawing ----------
@@ -198,7 +209,8 @@ const pe=document.getElementById('presets'); for (const n in PRESETS){ const b=d
 const VIEWS = {
  "Çöldən": [[-7.5,4.5,8.5],[0,1.2,0]], "Yuxarıdan":[[0,13,0.01],[0,0,0]], "Önden":[[0,1.5,9],[0,1.3,0]],
  "Mətbəx":[[-1.2,1.6,1.2],[-2.6,1.0,-1.3]], "Yataq":[[1.0,1.6,1.2],[2.8,0.9,-0.8]], "Hamam":[[-0.105,1.6,0.15],[-0.105,0.9,-1.2]] };
-function setView(n){ const [p,t]=VIEWS[n]; cam.position.set(...p); ctl.target.set(...t); ctl.update();
+function place(p,t){ const d=Math.hypot(p[0]-t[0],p[1]-t[1],p[2]-t[2]), k=(cam.aspect<0.8 && d>4)?1.45:1; cam.position.set(t[0]+(p[0]-t[0])*k,t[1]+(p[1]-t[1])*k,t[2]+(p[2]-t[2])*k); ctl.target.set(...t); ctl.update(); }
+function setView(n){ const [p,t]=VIEWS[n]; place(p,t);
  document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('on', b.textContent===n));
  if (n==="Yuxarıdan"){ showLayer("10_Dam",false); showLayer("11_Fasad",false);} }
 const ve=document.getElementById('views'); for (const n in VIEWS){ const b=document.createElement('button'); b.textContent=n; b.onclick=()=>setView(n); ve.appendChild(b); }
@@ -271,7 +283,11 @@ function info(o){
  document.getElementById('info').style.display='block';
 }
 document.getElementById('ix').onclick=()=>{ document.getElementById('info').style.display='none'; if(selected){ paint(selected,null); selected=null; } };
-document.getElementById('tog').onclick=()=>document.getElementById('side').classList.toggle('closed');
+const side=document.getElementById('side'), tog=document.getElementById('tog'), MOB=matchMedia('(max-width:760px)');
+function menu(open){ side.classList.toggle('open',open); tog.textContent=open?'✕ Bağla':'☰ Menyu'; }
+tog.onclick=()=>menu(!side.classList.contains('open'));
+side.querySelector('.body').addEventListener('click',e=>{ if(MOB.matches && e.target.tagName==='BUTTON' && e.target.id!=='mbtn') menu(false); });
+view.addEventListener('pointerdown',()=>{ if(MOB.matches) menu(false); });
 // ---------- modes: plumbing / electrical with exact dimensions ----------
 const MODE_LAYERS={santexnika:["01_Karkas","02_Doseme","07_Santexnika"],elektrik:["01_Karkas","02_Doseme","06_Elektrik"]};
 const MODE_VIEW={santexnika:[[-0.6,3.0,3.4],[-0.7,1.0,-1.0]],elektrik:[[-1.5,6.5,5.5],[0,0.8,0]]};
@@ -299,10 +315,10 @@ function applyMode(move=true){
  if(mode==='umumi'){ if(move){ setPreset("Hamısı"); setView("Çöldən"); } }
  else { const s=new Set(MODE_LAYERS[mode]); LAYERS.forEach(([k])=>showLayer(k,s.has(k)));
   document.querySelectorAll('#presets button,#views button').forEach(b=>b.classList.remove('on'));
-  if(move){ const [p,t]=MODE_VIEW[mode]; cam.position.set(...p); ctl.target.set(...t); ctl.update(); } }
+  if(move){ const [p,t]=MODE_VIEW[mode]; place(p,t); } }
  document.getElementById('modehelp').textContent=MODE_HELP[mode];
  document.querySelectorAll('#modes button').forEach(b=>b.classList.toggle('on',b.dataset.m===mode)); drawSubs(); }
-document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>{ mode=b.dataset.m; applyMode(true); });
+document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>{ mode=b.dataset.m; applyMode(true); if(MOB.matches) menu(false); });
 (function loop(){ requestAnimationFrame(loop); ctl.update(); renderer.render(scene,cam); lab.render(scene,cam); })();
 </script>
 </body>
