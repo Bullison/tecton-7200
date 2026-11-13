@@ -231,7 +231,7 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=m2a', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=m2b', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
@@ -327,7 +327,7 @@ function addMeasure(p){
  meas.textContent=`${Math.round(d)} mm   (X ${Math.round(dx)} · Y ${Math.round(dy)} · hündürlük ${Math.round(dz)})`; mpts=[];
 }
 const KEYS={marker:"Marker",marker_ad:"Marker təsviri",ad:"Təsvir",tip:"Növ",xett:"Xətt",avtomat:"Avtomat",icindeki_meftil:"Naqil",boru_mm:"Boru, mm",meftil_uzunluq_m_her_reng:"Naqil, m (hər rəng)",
- sahe_m2:"Sahə (bu hissə), m²",qat_sahe:"Bu qat cəmi",hecm_m3:"Həcm (bu hissə), m³",qat_hecm_m3:"Qat cəmi həcm, m³",uzunluq_m:"Uzunluq, m",olcu_mm:"Ölçü, mm",qalinliq_mm:"Qalınlıq, mm",material:"Material",Profil:"Profil",otaq:"Otaq",marsrut:"Marşrut"};
+ sahe_m2:"Bu hissə, m²",mat_cemi_m2:"Evdə cəmi (dəqiq), m²",mat_alinmali:"+10% ehtiyatla alınmalı",mat_terkib:"Harada",hecm_m3:"Həcm (bu hissə), m³",mat_hecm_m3:"Cəmi həcm",uzunluq_m:"Uzunluq, m",olcu_mm:"Ölçü, mm",qalinliq_mm:"Qalınlıq, mm",material:"Material",Profil:"Profil",otaq:"Otaq",marsrut:"Marşrut"};
 function info(o){
  const box=new THREE.Box3().setFromObject(o); const a=toMM(box.min), b=toMM(box.max);
  const w=Math.abs(b.x-a.x), dd=Math.abs(b.y-a.y), h=Math.abs(b.z-a.z);
@@ -342,7 +342,7 @@ function info(o){
  document.getElementById('it').textContent=(o.name.replace(PFX,'').replace(/_/g,' ')).replace(/\.\d+$/,'');
  const ch=[]; if(u.marker) ch.push(u.marker); if(u.tip) ch.push(String(u.tip).replace(/ — .*/,'').slice(0,28));
  const wm=String(u.icindeki_meftil||'').match(/(\d+)\s*ed\.\s*1x([\d.]+)/); if(wm) ch.push(wm[1]==='1'?`1×${wm[2]}`:`${wm[1]}×${wm[2]}`);
- if(u.sahe_m2!==undefined) ch.push(`${u.sahe_m2} m²`); if(u.qat_sahe) ch.push('Cəmi '+String(u.qat_sahe).split(' — ')[0]); if(u.boru_mm) ch.push('d'+u.boru_mm); if(u.xett && !/^Zeif|^PE/.test(u.xett)) ch.push(u.xett); if(u.avtomat) ch.push(u.avtomat);
+ if(u.sahe_m2!==undefined) ch.push(`Bu: ${u.sahe_m2} m²`); if(u.mat_cemi_m2!==undefined) ch.push(`${u.mat_ad||''} cəmi: ${u.mat_cemi_m2} m²`); if(u.mat_alinmali) ch.push('+10%: '+u.mat_alinmali); if(u.boru_mm) ch.push('d'+u.boru_mm); if(u.xett && !/^Zeif|^PE/.test(u.xett)) ch.push(u.xett); if(u.avtomat) ch.push(u.avtomat);
  document.getElementById('ichips').innerHTML=ch.map(t=>`<span>${String(t).replace(/</g,'&lt;')}</span>`).join('');
  const big=Math.max(w,dd,h); document.getElementById('isub').textContent=(big>600? `${(big/1000).toFixed(2)} m · `:`${Math.round(w)}×${Math.round(dd)}×${Math.round(h)} mm · `)+`h ${Math.round(zc-ff)} mm`;
  const inf=document.getElementById('info'); inf.classList.toggle('full', !MOB.matches); document.getElementById('imore').textContent=inf.classList.contains('full')?'Qısalt ▴':'Ətraflı ▾';
