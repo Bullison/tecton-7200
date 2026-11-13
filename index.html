@@ -146,10 +146,26 @@ const floorAt=(x,y)=>(x>=-898&&x<=687&&y>=-238&&y<=1490)?111:125;
 const M = (x,y,z)=>new THREE.Vector3(x/1000, z/1000, -y/1000);          // model mm (Z-up) -> scene m (Y-up)
 const toMM = v=>({x:v.x*1000, y:-v.z*1000, z:v.y*1000});
 const LAYERS = [
- ["01_Karkas","Karkas (metal profil)","#607d8b"],["02_Doseme","Döşəmə OSB 15 mm","#b98a4a"],["03_Das_yunu","Daş yunu","#8d9168"],
- ["05_OSB_ve_Betopan","Divar/tavan OSB 9 mm, betopan","#c69c5d"],["08_Gipskarton","Alçıpan 10 mm","#e0e0dc"],["09_Laminat","Laminat","#a0703f"],["04_Buxar_bariyeri","Par izolyasiyası (içəri)","#b8c9d8"],["16_Hidroizolyasiya","Hidro-külək membranı","#9fb4c8"],["06_Elektrik","Elektrik","#e08a00"],["07_Santexnika","Santexnika","#1f5fd1"],
- ["13_Havalandirma","Havalandırma","#9e9e9e"],["15_Kondisioner","Kondisioner","#6a1b9a"],["12_Metbex","Mətbəx","#8bc34a"],
- ["14_Yataq_mebel","Yataq mebeli","#a1887f"],["10_Dam","Dam","#455a64"],["11_Fasad","Fasad","#37474f"],["17_Pencere_qapi","Pəncərə və qapılar","#111111"],["18_Pille","Giriş pilləsi","#9e9e9e"],["19_Interyer_dizayn","İnteryer dizaynı","#c8a27a"],["20_Dartma_tavan","Dartma tavan","#f0f0f0"]];
+ ["01_Karkas","Karkas (metal profil)","#607d8b"],
+ ["02_Doseme","Döşəmə OSB 15 mm","#b98a4a"],
+ ["06_Elektrik","Elektrik","#e08a00"],
+ ["07_Santexnika","Santexnika","#1f5fd1"],
+ ["13_Havalandirma","Havalandırma","#9e9e9e"],
+ ["15_Kondisioner","Kondisioner","#6a1b9a"],
+ ["03_Das_yunu","Daş yunu","#8d9168"],
+ ["04_Buxar_bariyeri","Par izolyasiyası (içəri)","#b8c9d8"],
+ ["05_OSB_ve_Betopan","Divar/tavan OSB 9 mm, betopan","#c69c5d"],
+ ["16_Hidroizolyasiya","Hidro-külək membranı","#9fb4c8"],
+ ["08_Gipskarton","Alçıpan 10 mm","#e0e0dc"],
+ ["10_Dam","Dam","#455a64"],
+ ["11_Fasad","Fasad","#37474f"],
+ ["17_Pencere_qapi","Pəncərə və qapılar","#111111"],
+ ["20_Dartma_tavan","Dartma tavan","#f0f0f0"],
+ ["09_Laminat","Laminat","#a0703f"],
+ ["12_Metbex","Mətbəx","#8bc34a"],
+ ["14_Yataq_mebel","Yataq mebeli","#a1887f"],
+ ["19_Interyer_dizayn","İnteryer dizaynı","#c8a27a"],
+ ["18_Pille","Giriş pilləsi","#9e9e9e"]];
 const PRESETS = {
  "Hamısı": LAYERS.map(l=>l[0]),
  "Divarın içi": ["01_Karkas","02_Doseme","06_Elektrik","07_Santexnika","13_Havalandirma","15_Kondisioner"],
@@ -231,7 +247,7 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=lam1', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=ord1', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
@@ -242,7 +258,7 @@ new GLTFLoader().load('TECTON_7200.glb?v=lam1', g=>{
 const layEl=document.getElementById('layers'); const chk={};
 for (const [k,t,c] of LAYERS){
  const r=document.createElement('label'); r.className='row';
- r.innerHTML=`<input type="checkbox" checked><span class="sw" style="background:${c}"></span><span>${t}</span>`;
+ r.innerHTML=`<input type="checkbox" checked><span class="sw" style="background:${c}"></span><span><b style="opacity:.55;margin-right:4px">${LAYERS.findIndex(l=>l[0]===k)+1}.</b>${t}</span>`;
  chk[k]=r.querySelector('input'); chk[k].onchange=()=>showLayer(k, chk[k].checked); layEl.appendChild(r);
 }
 function showLayer(k,on){ (byLayer[k]||[]).forEach(o=>o.visible=on); chk[k].checked=on; }
