@@ -154,8 +154,8 @@ const LAYERS = [
  ["13_Havalandirma","Havalandırma","#9e9e9e"],
  ["15_Kondisioner","Kondisioner","#6a1b9a"],
  ["03_Das_yunu","Daş yunu","#8d9168"],
- ["04_Buxar_bariyeri","Par izolyasiyası (içəri)","#b8c9d8"],
  ["05_OSB_ve_Betopan","Divar/tavan OSB 9 mm, betopan","#c69c5d"],
+ ["04_Buxar_bariyeri","Par izolyasiyası (içəri)","#b8c9d8"],
  ["16_Hidroizolyasiya","Hidro-külək membranı","#9fb4c8"],
  ["08_Gipskarton","Alçıpan 10 mm","#e0e0dc"],
  ["10_Dam","Dam","#455a64"],
@@ -248,7 +248,7 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=san1', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=par1', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
