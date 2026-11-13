@@ -122,6 +122,7 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
    <h2>Hazır seçimlər</h2>
    <div class="btns" id="presets"></div>
    <h2>Qatlar</h2>
+   <div class="btns" id="allbtns" style="margin-bottom:6px"><button id="allOn">Hamısını yandır</button><button id="allOff">Hamısını söndür</button></div>
    <div id="layers"></div>
   </div>
  </aside>
@@ -247,12 +248,12 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=ord1', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=ord2', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
  document.getElementById('load').remove();
- setPreset("Hamısı"); setView("Çöldən");
+ onlyKarkas(); setView("Çöldən");
 }, undefined, e=>{ document.getElementById('load').textContent='Model yüklənmədi: '+e.message; });
 
 const layEl=document.getElementById('layers'); const chk={};
@@ -262,6 +263,9 @@ for (const [k,t,c] of LAYERS){
  chk[k]=r.querySelector('input'); chk[k].onchange=()=>showLayer(k, chk[k].checked); layEl.appendChild(r);
 }
 function showLayer(k,on){ (byLayer[k]||[]).forEach(o=>o.visible=on); chk[k].checked=on; }
+function setAll(on){ LAYERS.forEach(([k])=>showLayer(k,on)); document.querySelectorAll('#presets button').forEach(b=>b.classList.toggle('on', on && b.textContent==="Hamısı")); }
+function onlyKarkas(){ LAYERS.forEach(([k])=>showLayer(k,k==="01_Karkas")); document.querySelectorAll('#presets button').forEach(b=>b.classList.remove('on')); }
+document.getElementById('allOn').onclick=()=>setAll(true); document.getElementById('allOff').onclick=()=>setAll(false);
 function setPreset(name){ const s=new Set(PRESETS[name]); LAYERS.forEach(([k])=>showLayer(k, s.has(k)));
  document.querySelectorAll('#presets button').forEach(b=>b.classList.toggle('on', b.textContent===name)); }
 const pe=document.getElementById('presets'); for (const n in PRESETS){ const b=document.createElement('button'); b.textContent=n; b.onclick=()=>setPreset(n); pe.appendChild(b); }
@@ -420,7 +424,7 @@ function applyMode(move=true){
  if(move){ clearSel(); if(selected){ document.getElementById('info').style.display='none'; select(null); } }
  for(const m in modeG) for(const k in modeG[m]) setGroupVis(modeG[m][k], m===mode && subOn[k]);
  for(const k in dimGroups) setGroupVis(dimGroups[k], mode==='umumi' && GROUPS.find(g=>g[0]===k)[2]);
- if(mode==='umumi'){ if(move){ setPreset("Hamısı"); setView("Çöldən"); } }
+ if(mode==='umumi'){ if(move){ onlyKarkas(); setView("Çöldən"); } }
  else { const s=new Set(MODE_LAYERS[mode]); LAYERS.forEach(([k])=>showLayer(k,s.has(k)));
   document.querySelectorAll('#presets button,#views button').forEach(b=>b.classList.remove('on'));
   if(move){ const [p,t]=MODE_VIEW[mode]; place(p,t); } }
