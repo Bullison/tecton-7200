@@ -279,11 +279,12 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=walk4', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=door1', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
  document.getElementById('load').remove();
+ setupDoors(root);
  onlyKarkas(); setView("Çöldən");
 }, undefined, e=>{ document.getElementById('load').textContent='Model yüklənmədi: '+e.message; });
 
@@ -369,7 +370,7 @@ function enterWalk(){ stopTour(); if (typeof stepOn !== 'undefined' && stepOn) e
  setAll(true); for (const [k] of GROUPS) setGroupVis(dimGroups[k], false);
  walkOn = true; ctl.enabled = false; immersive(true, 70); walkTo('giris');
  walkUI.style.display = 'block';
- walkUI.querySelector('.whelp').textContent = MOB.matches ? 'Sol barmaq — yerimək · sağ barmaq — baxmaq' : 'W A S D / oxlar — yerimək · siçanla sürüşdür — baxmaq';
+ walkUI.querySelector('.whelp').textContent = MOB.matches ? 'Sol barmaq — yerimək · sağ barmaq — baxmaq · qapıya toxun — aç / bağla' : 'W A S D / oxlar — yerimək · siçan — baxmaq · F və ya qapıya klik — aç / bağla';
  const touch = MOB.matches || ('ontouchstart' in window); walkUI.querySelector('.joy').style.display = touch ? '' : 'none';
  walkUI.querySelector('.look').style.left = touch ? '45%' : '0'; lastT = performance.now(); }
 function exitWalk(){ walkOn = false; walkUI.style.display = 'none'; ctl.enabled = true; immersive(false);
@@ -387,13 +388,21 @@ const joyEnd = e=>{ if (e.pointerId !== joyId) return; joyId = null; joy = {x:0,
 joyEl.addEventListener('pointerup', joyEnd); joyEl.addEventListener('pointercancel', joyEnd);
 // look (right side on phones, anywhere on desktop)
 const lookEl = walkUI.querySelector('.look'); let lookId = null, lx = 0, ly = 0;
-function lookStart(e){ lookId = e.pointerId; lx = e.clientX; ly = e.clientY; e.target.setPointerCapture(e.pointerId); }
+let tap0 = null;
+function lookStart(e){ lookId = e.pointerId; lx = e.clientX; ly = e.clientY; tap0 = [e.clientX, e.clientY, performance.now()]; e.target.setPointerCapture(e.pointerId); }
+function walkTap(e){ if (!tap0 || Math.hypot(e.clientX - tap0[0], e.clientY - tap0[1]) > 10 || performance.now() - tap0[2] > 400) return;
+ const r = renderer.domElement.getBoundingClientRect(); mouse.set((e.clientX-r.left)/r.width*2-1, -(e.clientY-r.top)/r.height*2+1);
+ ray.setFromCamera(mouse, cam); ray.far = 4;
+ const h = ray.intersectObjects(allMesh, false).find(i=>visibleChain(i.object)); ray.far = Infinity;
+ const d = h && doorHit(h.object); if (d) toggleDoor(d); }
 function lookMove(e){ if (e.pointerId !== lookId) return; const k = MOB.matches ? 0.006 : 0.0045;
  yaw -= (e.clientX - lx) * k; pitch = Math.max(-1.2, Math.min(1.2, pitch - (e.clientY - ly) * k)); lx = e.clientX; ly = e.clientY; }
-const lookEnd = e=>{ if (e.pointerId === lookId) lookId = null; };
+const lookEnd = e=>{ if (e.pointerId === lookId){ lookId = null; walkTap(e); } };
 lookEl.addEventListener('pointerdown', lookStart); lookEl.addEventListener('pointermove', lookMove);
 lookEl.addEventListener('pointerup', lookEnd); lookEl.addEventListener('pointercancel', lookEnd);
-addEventListener('keydown', e=>{ if (walkOn){ keys[e.key.toLowerCase()] = true; if (e.key === 'Escape') exitWalk(); } });
+addEventListener('keydown', e=>{ if (walkOn){ keys[e.key.toLowerCase()] = true; if (e.key === 'Escape') exitWalk();
+  if (e.key.toLowerCase() === 'f'){ const dir = new THREE.Vector3(); cam.getWorldDirection(dir); ray.set(cam.position, dir); ray.far = 3;
+   const h = ray.intersectObjects(allMesh, false).find(i=>visibleChain(i.object)); ray.far = Infinity; const d = h && doorHit(h.object); if (d) toggleDoor(d); } } });
 addEventListener('keyup', e=>{ keys[e.key.toLowerCase()] = false; });
 function blocked(from, dir){ // horizontal ray at knee and chest height against visible, non-glass geometry
  for (const h of [0.45, 1.1]){
@@ -437,8 +446,26 @@ renderer.domElement.addEventListener('pointerup',e=>{
  if(stepOn){ if(MOB.matches && side.classList.contains('open')) menu(false); return; }
  if(!hits.length){ if(MOB.matches && side.classList.contains('open')) menu(false); else if(selected){ document.getElementById('info').style.display='none'; clearSel(); select(null); } return; }
  if(measuring){ addMeasure(hits[0].point); return; }
+ { const dr = doorHit(hits[0].object); if (dr){ toggleDoor(dr); return; } }
  const root=pickRoot(hits[0].object); select(root); info(root); showSel(root);
 });
+
+// ---------- doors: tap / click a door leaf to open or close it ----------
+const DOORS = [
+ {names:['QAPI_Hamam_lay','QAPI_Hamam_dəstək'], hinge:[-482,-295], ang:-Math.PI/2},                        // opens out into the corridor
+ {names:['QAPI_Giris_lay','QAPI_Giris_suse','QAPI_Giris_dəstək_col','QAPI_Giris_dəstək_ic'], hinge:[300,-1560], ang:-Math.PI/2} ];  // opens inwards
+const doorOf = new Map();
+function setupDoors(root){
+ for (const d of DOORS){
+  const piv = new THREE.Group(); piv.position.set(d.hinge[0]/1000, 0, -d.hinge[1]/1000); root.add(piv); root.updateMatrixWorld(true);
+  d.piv = piv; d.open = false; d.t = 0; d.parts = [];
+  for (const n of d.names){ const o = root.getObjectByName(n) || root.getObjectByName(n.normalize('NFC'));
+   if (!o) continue; piv.attach(o); d.parts.push(o); o.traverse(x=>doorOf.set(x, d)); } } }
+function doorHit(obj){ for (let x = obj; x; x = x.parent){ if (doorOf.has(x)) return doorOf.get(x); } return null; }
+function toggleDoor(d){ d.open = !d.open; }
+function doorsFrame(dt){ for (const d of DOORS){ if (!d.piv) continue; const goal = d.open ? 1 : 0;
+  if (d.t !== goal){ d.t += Math.sign(goal - d.t) * dt / 0.9; d.t = Math.max(0, Math.min(1, d.t));
+   const e = d.t < 0.5 ? 2*d.t*d.t : 1 - Math.pow(-2*d.t + 2, 2) / 2; d.piv.rotation.y = d.ang * e; } } }
 // ---------- highlight: hover (soft) and selected (bright) ----------
 function pickRoot(o){ for(let x=o;x;x=x.parent){ if(x.userData && x.userData.web_qat) return x; } return o; }
 const allMesh=[]; let ghostOn=false;
@@ -621,7 +648,8 @@ function showStep(i){
  stepEl.style.display='block'; sbody.scrollTop=0; stepEl.scrollTop=0; drawSubs();
 }
 function exitStep(){ stepPainted.forEach(r=>paint(r,null)); stepPainted=[]; stepOn=false; stepEl.style.display='none'; select(null); clearSel(); applyMode(false); }
-(function loop(now){ requestAnimationFrame(loop); if (walkOn) walkFrame(now); else if (tourT0 !== null) tourFrame(now); else ctl.update(); renderer.render(scene,cam); lab.render(scene,cam); })(performance.now());
+let _dl = performance.now();
+(function loop(now){ requestAnimationFrame(loop); doorsFrame(Math.min(0.05, ((now||performance.now()) - _dl) / 1000)); _dl = now || performance.now(); if (walkOn) walkFrame(now); else if (tourT0 !== null) tourFrame(now); else ctl.update(); renderer.render(scene,cam); lab.render(scene,cam); })(performance.now());
 </script>
 </body>
 </html>
