@@ -1560,31 +1560,36 @@
    "code": "S-6",
    "title": "Gigiyenik duş — soyuq",
    "names": [
+    "SU_Gigiyenik_ekssentrik_soyuq",
+    "SU_Gigiyenik_soyuq_divar_fitinqi",
+    "SU_Gigiyenik_soyuq_flanes",
     "SU_tee_Soyuq_Gigiyenik",
     "SU_tee_Soyuq_Gigiyenik_qol",
-    "SU_Soyuq_Gigiyenik",
-    "SU_Gigiyenik_gizli_korpus"
+    "SU_Soyuq_Gigiyenik"
    ],
    "ctx": [
+    "SANT_Gigiyenik_qarisdirici",
     "SANT_Gigiyenik_dus"
    ],
    "wire": "PPR d20 soyuq",
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 1.84,
+   "len": 1.93,
    "meftil": null,
    "h": [
-    750
+    836
    ],
    "route": [
     "Əsas xəttdəki tee-dən başla (h 2489)",
-    "yataq tərəfə (+X) 151 mm (tavanda)",
-    "aşağı 1638 mm → h 807"
+    "yataq tərəfə (+X) 50 mm (tavanda)",
+    "ön divara (−Y) 80 mm (tavanda)",
+    "yataq tərəfə (+X) 71 mm (tavanda)",
+    "aşağı 1609 mm → h 847"
    ],
    "note": "",
    "marker": "S-6 · Gigiyenik duş · PPR d20 soyuq",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → tee → S-6 qolu yan divarda aşağı → gizli qarışdırıcı",
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → tee → S-6 qolu yan divarda aşağı → gigiyenik duş qarışdırıcısı (sağ giriş)",
    "feed": [
     "SU_Soyuq_xett"
    ],
@@ -1824,31 +1829,34 @@
    "code": "İ-4",
    "title": "Gigiyenik duş — isti",
    "names": [
+    "SU_Gigiyenik_ekssentrik_isti",
+    "SU_Gigiyenik_isti_divar_fitinqi",
+    "SU_Gigiyenik_isti_flanes",
     "SU_tee_Isti_Gigiyenik",
     "SU_tee_Isti_Gigiyenik_qol",
-    "SU_Isti_Gigiyenik",
-    "SU_Gigiyenik_gizli_korpus"
+    "SU_Isti_Gigiyenik"
    ],
    "ctx": [
+    "SANT_Gigiyenik_qarisdirici",
     "SANT_Gigiyenik_dus"
    ],
    "wire": "PPR d20 isti",
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 1.77,
+   "len": 1.8,
    "meftil": null,
    "h": [
-    750
+    836
    ],
    "route": [
     "Əsas xəttdəki tee-dən başla (h 2449)",
-    "yataq tərəfə (+X) 121 mm (tavanda)",
-    "aşağı 1598 mm → h 807"
+    "yataq tərəfə (+X) 131 mm (tavanda)",
+    "aşağı 1569 mm → h 847"
    ],
    "note": "",
    "marker": "İ-4 · Gigiyenik duş · PPR d20 isti",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 → İ-0 isti əsas xətt (tavanda) → tee → İ-4 qolu yan divarda aşağı → gizli qarışdırıcı",
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 → İ-0 isti əsas xətt (tavanda) → tee → İ-4 qolu yan divarda aşağı → gigiyenik duş qarışdırıcısı (sol giriş)",
    "feed": [
     "SU_Isti_xett"
    ],
