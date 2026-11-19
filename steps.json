@@ -1574,28 +1574,26 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 2.48,
+   "len": 0.5,
    "meftil": null,
    "h": [
     300
    ],
    "route": [
-    "Əsas xəttdəki tee-dən başla (h 2489)",
-    "yataq tərəfə (+X) 50 mm (tavanda)",
-    "ön divara (−Y) 80 mm (tavanda)",
-    "yataq tərəfə (+X) 71 mm (tavanda)",
-    "aşağı 2158 mm → h 311"
+    "Əsas xəttdəki tee-dən başla (h 300)",
+    "mətbəx tərəfə (−X) 428 mm",
+    "ön divara (−Y) 39 mm"
    ],
    "note": "",
    "marker": "S-6 · Gigiyenik duş · PPR d20 soyuq",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → tee → S-6 qolu yan divarda aşağı → gigiyenik duş qarışdırıcısı (sağ giriş)",
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-5 unitaz qolu → h 300-də tee → S-6 arxa divarın içi ilə sola (dirək profilində gilzalı deşik) → gigiyenik duş qarışdırıcısı (sağ giriş)",
    "feed": [
     "SU_Soyuq_xett"
    ],
    "feedAt": [
-    530,
-    990,
-    2720
+    540,
+    1545,
+    531
    ],
    "feedTxt": "Su buradan gəlir: S-0 soyuq əsas xəttindəki tee"
   },
@@ -1843,25 +1841,25 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 2.35,
+   "len": 2.45,
    "meftil": null,
    "h": [
     300
    ],
    "route": [
     "Əsas xəttdəki tee-dən başla (h 2449)",
-    "yataq tərəfə (+X) 131 mm (tavanda)",
-    "aşağı 2119 mm → h 311"
+    "arxa divara (+Y) 260 mm (tavanda)",
+    "aşağı 2112 mm → h 317"
    ],
    "note": "",
    "marker": "İ-4 · Gigiyenik duş · PPR d20 isti",
-   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 → İ-0 isti əsas xətt (tavanda) → tee → İ-4 qolu yan divarda aşağı → gigiyenik duş qarışdırıcısı (sol giriş)",
+   "flow": "Sayğac quyusu → SG-1 giriş → S-0 soyuq əsas xətt (tavanda) → S-3 → Ariston → İ-2 → İ-0 isti əsas xətt (tavanda) → tee → İ-4 qolu arxa divarın içi ilə düz aşağı → gigiyenik duş qarışdırıcısı (sol giriş)",
    "feed": [
     "SU_Isti_xett"
    ],
    "feedAt": [
-    560,
-    965,
+    -58,
+    1240,
     2680
    ],
    "feedTxt": "İsti su buradan gəlir: İ-0 isti əsas xəttindəki tee"
