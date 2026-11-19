@@ -180,7 +180,7 @@ const PRESETS = {
 // each: [group, label, p1, p2, offset vector (mm)]
 let UNIT=(()=>{ try{ return localStorage.getItem('unit')||'sm'; }catch(e){ return 'sm'; } })();
 const UL=()=>UNIT==='sm'?'sm':'mm';
-const NUM=v=>UNIT==='sm'? (Math.round(+v)/10).toFixed(1).replace(/\.0$/,'') : String(Math.round(+v));
+const NUM=v=>UNIT==='sm'? String(Math.round(+v/10)) : String(Math.round(+v));
 function UT(s){ s=String(s);
  s=s.replace(/(\d+)×(\d+)×(\d+) mm/g,(m,a,b,c)=>`${NUM(a)}×${NUM(b)}×${NUM(c)} ${UL()}`);
  s=s.replace(/(-?\d+(?:\.\d+)?) mm\b/g,(m,a)=>`${NUM(a)} ${UL()}`);
@@ -265,7 +265,7 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=moy1', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=rnd1', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
