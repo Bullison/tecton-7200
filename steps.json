@@ -1574,17 +1574,17 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 1.93,
+   "len": 2.48,
    "meftil": null,
    "h": [
-    850
+    300
    ],
    "route": [
     "Əsas xəttdəki tee-dən başla (h 2489)",
     "yataq tərəfə (+X) 50 mm (tavanda)",
     "ön divara (−Y) 80 mm (tavanda)",
     "yataq tərəfə (+X) 71 mm (tavanda)",
-    "aşağı 1609 mm → h 861"
+    "aşağı 2158 mm → h 311"
    ],
    "note": "",
    "marker": "S-6 · Gigiyenik duş · PPR d20 soyuq",
@@ -1843,15 +1843,15 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 1.8,
+   "len": 2.35,
    "meftil": null,
    "h": [
-    850
+    300
    ],
    "route": [
     "Əsas xəttdəki tee-dən başla (h 2449)",
     "yataq tərəfə (+X) 131 mm (tavanda)",
-    "aşağı 1569 mm → h 861"
+    "aşağı 2119 mm → h 311"
    ],
    "note": "",
    "marker": "İ-4 · Gigiyenik duş · PPR d20 isti",
