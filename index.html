@@ -279,7 +279,7 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=walk2', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=walk3', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
@@ -360,7 +360,7 @@ walkUI.innerHTML = `<div class="look"></div><div class="joy"><div class="knob"><
  <button class="wbtn">✕ Çıx</button><div class="whelp"></div>
  <div class="wroom"><button data-r="giris">Giriş</button><button data-r="metbex">Mətbəx</button><button data-r="hamam">Hamam</button><button data-r="yataq">Yataq</button></div>`;
 view.appendChild(walkUI);
-const WSTART = {giris:[-100,-1150, 90], metbex:[-1500,-400, 160], hamam:[-80,-150, 175], yataq:[1300,-900, 40]};  // model mm + yaw (deg, 0 = +Y)
+const WSTART = {giris:[-100,-1150, 0], metbex:[-1500,-400, 22], hamam:[-80,-150, 5], yataq:[1300,-900, -34]};  // model mm + yaw (deg, 0 = +Y)
 let walkOn = false, yaw = 0, pitch = 0, joy = {x:0, y:0}, keys = {}, wSave = null, lastT = 0;
 const EYE = 1.62, SPEED = 1.35, RAD = 0.28;
 const rayW = new THREE.Raycaster();
