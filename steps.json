@@ -1127,15 +1127,15 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 0.82,
+   "len": 0.75,
    "meftil": null,
    "h": [
     535
    ],
    "route": [
-    "Sifon zəngindən başla (h 535)",
-    "arxa divara (+Y) 83 mm",
-    "aşağı 656 mm → h -171"
+    "PVC 50 dirsek yanından başla (h 535)",
+    "arxa divara (+Y) 25 mm",
+    "aşağı 681 mm → h -171"
    ],
    "note": "",
    "marker": "K-1 · Moyka · PVC d50 · meyl ≥2%",
