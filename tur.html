@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<title>TECTON 7200 — 360° tur</title>
+<style>
+:root{--bg:#0f1115;--ink:#f4f5f7;--acc:#ff2d7a;--chip:rgba(20,24,32,.62)}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1.4 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;overflow:hidden;touch-action:none}
+#v{position:fixed;inset:0}
+.bar{position:fixed;left:0;right:0;top:0;display:flex;gap:8px;align-items:center;padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top));z-index:3;
+ background:linear-gradient(rgba(10,12,16,.65),rgba(10,12,16,0));pointer-events:none}
+.bar *{pointer-events:auto}
+.bar h1{font-size:15px;margin:0 6px 0 0;white-space:nowrap}
+.bar a.back{color:#fff;text-decoration:none;background:var(--chip);padding:7px 11px;border-radius:9px;font-weight:600}
+.rooms{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;overflow-x:auto;padding:12px;padding-bottom:max(12px,env(safe-area-inset-bottom));z-index:3;
+ background:linear-gradient(rgba(10,12,16,0),rgba(10,12,16,.7))}
+.rooms button{flex:none;border:0;border-radius:10px;padding:9px 14px;font-weight:700;font-size:14px;background:rgba(255,255,255,.92);color:#111}
+.rooms button.on{background:var(--acc);color:#fff}
+.tools{margin-left:auto;display:flex;gap:6px}
+.tools button{border:0;border-radius:9px;padding:7px 11px;font-weight:600;background:var(--chip);color:#fff}
+.tools button.on{background:var(--acc)}
+#load{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;pointer-events:none;font-weight:600;letter-spacing:.2px}
+#gal{position:fixed;inset:0;z-index:5;background:rgba(10,12,16,.96);display:none;overflow:auto;padding:60px 12px 20px}
+#gal .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;max-width:1400px;margin:0 auto}
+#gal figure{margin:0;background:#1a1d24;border-radius:12px;overflow:hidden}
+#gal img{width:100%;display:block;cursor:zoom-in}
+#gal figcaption{padding:8px 12px;font-weight:600}
+#gal .x{position:fixed;top:12px;right:12px;border:0;border-radius:9px;padding:8px 13px;background:var(--acc);color:#fff;font-weight:700}
+#big{position:fixed;inset:0;z-index:6;background:#000;display:none;align-items:center;justify-content:center}
+#big img{max-width:100%;max-height:100%}
+.hint{position:fixed;left:50%;transform:translateX(-50%);bottom:76px;z-index:3;background:var(--chip);padding:6px 11px;border-radius:9px;font-size:12px;white-space:nowrap;transition:opacity .6s}
+</style>
+</head>
+<body>
+<div id="v"></div>
+<div id="load">Panorama yüklənir…</div>
+<div class="bar"><a class="back" href="./">← 3D model</a><h1>360° tur</h1>
+ <div class="tools"><button id="gyro">📱 Giroskop</button><button id="gbtn">🖼 Fotolar</button></div></div>
+<div class="rooms" id="rooms"></div>
+<div class="hint" id="hint">Barmaqla sürüşdür — ətrafa bax · iki barmaq — yaxınlaşdır</div>
+<div id="gal"><button class="x" id="gx">✕ Bağla</button><div class="grid" id="grid"></div></div>
+<div id="big"><img id="bigimg" alt=""></div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+const V = 'r1';
+const PANOS = [["giris","Giriş"],["metbex","Mətbəx"],["qonaq","Qonaq"],["hamam","Hamam"],["yataq","Yataq otağı"]];
+const STILLS = [["colaxsam","Çöldən — axşam"],["col","Çöldən — gündüz"],["metbex","Mətbəx"],["qonaq","Qonaq"],["hamam","Hamam"],["yataq","Yataq otağı"]];
+// initial look direction per panorama (degrees, 0 = towards the back wall)
+const YAW0 = {giris:-35, metbex:0, qonaq:180, hamam:-30, yataq:80};
+const el = document.getElementById('v');
+const renderer = new THREE.WebGLRenderer({antialias:true}); renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace; el.appendChild(renderer.domElement);
+const scene = new THREE.Scene(); const cam = new THREE.PerspectiveCamera(75, 1, 0.1, 100);
+const geo = new THREE.SphereGeometry(20, 96, 64); geo.scale(-1, 1, 1);
+const mat = new THREE.MeshBasicMaterial({color:0xffffff}); const sph = new THREE.Mesh(geo, mat); sph.rotation.y = -Math.PI / 2; scene.add(sph);   // image centre = back wall
+let lon = 0, lat = 0, fov = 75, gyroOn = false, gq = null, gyroOff = 0;
+const loader = new THREE.TextureLoader(); const cache = {};
+const small = Math.min(screen.width, screen.height) < 900;
+function show(key){
+ document.querySelectorAll('#rooms button').forEach(b=>b.classList.toggle('on', b.dataset.k === key));
+ document.getElementById('load').style.display = 'flex';
+ const url = `real/pano_${key}.jpg?${V}`;
+ const done = t=>{ t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = renderer.capabilities.getMaxAnisotropy(); mat.map = t; mat.needsUpdate = true;
+  document.getElementById('load').style.display = 'none'; lon = YAW0[key] || 0; lat = 0; gyroOff = null; };
+ if (cache[url]) return done(cache[url]);
+ document.getElementById('load').textContent = 'Panorama yüklənir…';
+ loader.load(url, t=>{ cache[url] = t; done(t); }, undefined, ()=>{ document.getElementById('load').textContent = 'Bu otağın panoraması hələ hazırlanır'; });
+ history.replaceState(null, '', '#' + key); }
+const rb = document.getElementById('rooms');
+for (const [k, t] of PANOS){ const b = document.createElement('button'); b.textContent = t; b.dataset.k = k; b.onclick = ()=>show(k); rb.appendChild(b); }
+// drag / pinch / wheel
+const pts = new Map(); let pinch0 = null;
+el.addEventListener('pointerdown', e=>{ pts.set(e.pointerId, [e.clientX, e.clientY]); el.setPointerCapture(e.pointerId); hideHint(); });
+el.addEventListener('pointermove', e=>{ if (!pts.has(e.pointerId)) return; const [x0, y0] = pts.get(e.pointerId); pts.set(e.pointerId, [e.clientX, e.clientY]);
+ if (pts.size === 2){ const [a, b] = [...pts.values()]; const d = Math.hypot(a[0]-b[0], a[1]-b[1]); if (pinch0) fov = Math.max(30, Math.min(95, fov * pinch0 / d)); pinch0 = d; return; }
+ const k = fov / renderer.domElement.clientHeight; lon -= (e.clientX - x0) * k; lat = Math.max(-85, Math.min(85, lat + (e.clientY - y0) * k)); });
+const up = e=>{ pts.delete(e.pointerId); if (pts.size < 2) pinch0 = null; };
+el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up);
+el.addEventListener('wheel', e=>{ fov = Math.max(30, Math.min(95, fov + e.deltaY * 0.04)); }, {passive:true});
+// gyroscope
+const gbtn = document.getElementById('gyro');
+if (!('DeviceOrientationEvent' in window)) gbtn.style.display = 'none';
+gbtn.onclick = async ()=>{
+ if (!gyroOn && typeof DeviceOrientationEvent.requestPermission === 'function'){ try{ if (await DeviceOrientationEvent.requestPermission() !== 'granted') return; }catch(e){ return; } }
+ gyroOn = !gyroOn; gbtn.classList.toggle('on', gyroOn); gyroOff = null; };
+const zee = new THREE.Vector3(0, 0, 1), q0 = new THREE.Quaternion(), q1 = new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)), eu = new THREE.Euler();
+addEventListener('deviceorientation', e=>{ if (e.alpha == null) return; gq = e; });
+function gyroQuat(){ const a = THREE.MathUtils.degToRad(gq.alpha || 0), b = THREE.MathUtils.degToRad(gq.beta || 0), g = THREE.MathUtils.degToRad(gq.gamma || 0);
+ const o = THREE.MathUtils.degToRad((screen.orientation && screen.orientation.angle) || window.orientation || 0);
+ eu.set(b, a, -g, 'YXZ'); const q = new THREE.Quaternion().setFromEuler(eu); q.multiply(q1); q.multiply(q0.setFromAxisAngle(zee, -o)); return q; }
+// gallery
+const grid = document.getElementById('grid');
+for (const [k, t] of STILLS){ const f = document.createElement('figure');
+ f.innerHTML = `<img loading="lazy" src="real/still_${k}_w.jpg?${V}" alt="${t}"><figcaption>${t}</figcaption>`;
+ f.querySelector('img').onclick = ()=>{ document.getElementById('bigimg').src = `real/still_${k}.jpg?${V}`; document.getElementById('big').style.display = 'flex'; };
+ grid.appendChild(f); }
+document.getElementById('gbtn').onclick = ()=>{ document.getElementById('gal').style.display = 'block'; };
+document.getElementById('gx').onclick = ()=>{ document.getElementById('gal').style.display = 'none'; };
+document.getElementById('big').onclick = ()=>{ document.getElementById('big').style.display = 'none'; };
+let hintT = setTimeout(hideHint, 6000); function hideHint(){ document.getElementById('hint').style.opacity = 0; }
+function size(){ const w = innerWidth, h = innerHeight; renderer.setSize(w, h); cam.aspect = w / h; cam.updateProjectionMatrix(); }
+addEventListener('resize', size); size();
+(function loop(){ requestAnimationFrame(loop);
+ if (cam.fov !== fov){ cam.fov = fov; cam.updateProjectionMatrix(); }
+ if (gyroOn && gq){ cam.quaternion.copy(gyroQuat()); }
+ else { const phi = THREE.MathUtils.degToRad(90 - lat), th = THREE.MathUtils.degToRad(lon);
+  cam.lookAt(Math.sin(phi) * Math.sin(th), Math.cos(phi), -Math.sin(phi) * Math.cos(th)); }
+ renderer.render(scene, cam); })();
+show((location.hash || '#giris').slice(1) in YAW0 ? (location.hash || '#giris').slice(1) : 'giris');
+</script>
+</body>
+</html>
