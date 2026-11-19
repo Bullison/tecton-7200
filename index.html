@@ -281,7 +281,7 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=qon1', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=qon2', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
@@ -315,7 +315,7 @@ const MV = (x,y,z)=>[x/1000, z/1000, -y/1000];
 const VIEWS = {
  "Çöldən": [[-7.5,4.5,8.5],[0,1.2,0]], "Yuxarıdan":[[0,13,0.01],[0,0,0]], "Önden":[[0,1.5,9],[0,1.3,0]],
  "Mətbəx": [MV(-1250,-1050,1650), MV(-2500,1250,1000)],
- "Qonaq":  [MV(-1180,560,1600),   MV(-3150,-560,620)],
+ "Qonaq":  [MV(-1180,300,1600),   MV(-3150,-900,620)],
  "Hamam":  [MV(-60,-190,1650),    MV(-250,1350,850)],
  "Yataq":  [MV(880,-1320,1700),   MV(3300,-200,850)] };
 const ROOMS = new Set(["Mətbəx","Qonaq","Hamam","Yataq"]);
