@@ -56,6 +56,15 @@ button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 #step ol{margin:2px 0 8px;padding-left:20px}#step li{margin:2px 0}#step .lbl{color:var(--muted);font-size:11.5px;margin-top:4px}
 #step .mk{font:700 13px/1.3 ui-monospace,Consolas,monospace;border:1.5px dashed #ff2d7a;border-radius:6px;padding:6px 8px;margin-top:2px;user-select:all}
 .chips button.stepb{border-color:#ff2d7a;color:#ff2d7a;font-weight:600}.chips button.stepb.on{background:#ff2d7a;color:#fff}
+
+#walkui{position:absolute;inset:0;z-index:5;display:none;touch-action:none;user-select:none;-webkit-user-select:none}
+#walkui .joy{position:absolute;left:22px;bottom:28px;width:132px;height:132px;border-radius:50%;background:rgba(20,24,32,.28);border:2px solid rgba(255,255,255,.55);backdrop-filter:blur(2px)}
+#walkui .knob{position:absolute;left:41px;top:41px;width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.85);box-shadow:0 2px 8px rgba(0,0,0,.3)}
+#walkui .look{position:absolute;right:0;top:0;bottom:0;left:45%}
+#walkui .wbtn{position:absolute;top:12px;right:12px;padding:9px 14px;border-radius:10px;border:0;background:#ff2d7a;color:#fff;font-weight:700;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+#walkui .whelp{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:rgba(20,24,32,.6);color:#fff;font-size:12px;padding:6px 10px;border-radius:8px;white-space:nowrap}
+#walkui .wroom{position:absolute;right:12px;top:56px;display:flex;flex-direction:column;gap:6px}
+#walkui .wroom button{padding:6px 10px;border-radius:8px;border:0;background:rgba(255,255,255,.88);font-size:12px;font-weight:600}
 #views button.tourb{border-color:#ff2d7a;color:#ff2d7a;font-weight:600}#views button.tourb.on{background:#ff2d7a;color:#fff}
 #modehelp{color:var(--muted);font-size:12px;margin-top:6px}
 #mk{margin-top:8px;font-size:12px}#mk summary{cursor:pointer;color:var(--acc);font-weight:600}#mktab{width:100%;border-collapse:collapse;margin-top:4px}#mktab td{padding:3px 4px;border-top:1px solid var(--line);vertical-align:top}#mktab tr{cursor:pointer}#mktab td:first-child{font-weight:700;white-space:nowrap;color:var(--ink)}#mktab td:last-child{color:var(--muted);white-space:nowrap}
@@ -266,7 +275,7 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=tour2', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=walk1', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
@@ -334,6 +343,70 @@ function tourFrame(now){ if (tourT0 === null) return;
 tourBtn = document.createElement('button'); tourBtn.textContent = '▶ Gəzinti'; tourBtn.className = 'tourb';
 tourBtn.onclick = ()=> tourT0 === null ? startTour() : stopTour(); ve.appendChild(tourBtn);
 renderer.domElement.addEventListener('pointerdown', ()=>{ if (tourT0 !== null) stopTour(); });
+// ---------- first-person walk (game-like): joystick + look on phones, WASD + mouse on desktop ----------
+const walkUI = document.createElement('div'); walkUI.id = 'walkui';
+walkUI.innerHTML = `<div class="look"></div><div class="joy"><div class="knob"></div></div>
+ <button class="wbtn">✕ Çıx</button><div class="whelp"></div>
+ <div class="wroom"><button data-r="giris">Giriş</button><button data-r="metbex">Mətbəx</button><button data-r="hamam">Hamam</button><button data-r="yataq">Yataq</button></div>`;
+view.appendChild(walkUI);
+const WSTART = {giris:[-100,-1150, 90], metbex:[-1500,-400, 160], hamam:[-80,-150, 175], yataq:[1300,-900, 40]};  // model mm + yaw (deg, 0 = +Y)
+let walkOn = false, yaw = 0, pitch = 0, joy = {x:0, y:0}, keys = {}, wSave = null, lastT = 0;
+const EYE = 1.62, SPEED = 1.35, RAD = 0.28;
+const rayW = new THREE.Raycaster();
+function walkTo(r){ const [x,y,a] = WSTART[r]; cam.position.set(x/1000, EYE, -y/1000); yaw = a*Math.PI/180; pitch = -0.05; }
+function enterWalk(){ stopTour(); if (typeof stepOn !== 'undefined' && stepOn) exitStep(); if (MOB.matches) menu(false);
+ setAll(true); for (const [k] of GROUPS) setGroupVis(dimGroups[k], false);
+ walkOn = true; ctl.enabled = false; cam.fov = 70; cam.updateProjectionMatrix(); walkTo('giris');
+ walkUI.style.display = 'block';
+ walkUI.querySelector('.whelp').textContent = MOB.matches ? 'Sol barmaq — yerimək · sağ barmaq — baxmaq' : 'W A S D / oxlar — yerimək · siçanla sürüşdür — baxmaq';
+ walkUI.querySelector('.joy').style.display = MOB.matches || ('ontouchstart' in window) ? '' : 'none'; lastT = performance.now(); }
+function exitWalk(){ walkOn = false; walkUI.style.display = 'none'; ctl.enabled = true; cam.fov = 40; cam.updateProjectionMatrix();
+ for (const [k,t,on] of GROUPS) setGroupVis(dimGroups[k], on && mode==='umumi'); const [p,t] = VIEWS["Çöldən"]; place(p,t); }
+walkUI.querySelector('.wbtn').onclick = exitWalk;
+walkUI.querySelectorAll('.wroom button').forEach(b=>b.onclick = ()=>walkTo(b.dataset.r));
+// joystick
+const joyEl = walkUI.querySelector('.joy'), knob = walkUI.querySelector('.knob'); let joyId = null;
+function joyMove(e){ const r = joyEl.getBoundingClientRect(); let dx = e.clientX - (r.left + r.width/2), dy = e.clientY - (r.top + r.height/2);
+ const m = Math.hypot(dx, dy), R0 = r.width/2 - 10; if (m > R0){ dx *= R0/m; dy *= R0/m; }
+ knob.style.transform = `translate(${dx}px,${dy}px)`; joy = {x: dx/R0, y: -dy/R0}; }
+joyEl.addEventListener('pointerdown', e=>{ joyId = e.pointerId; joyEl.setPointerCapture(e.pointerId); joyMove(e); e.preventDefault(); });
+joyEl.addEventListener('pointermove', e=>{ if (e.pointerId === joyId) joyMove(e); });
+const joyEnd = e=>{ if (e.pointerId !== joyId) return; joyId = null; joy = {x:0, y:0}; knob.style.transform = ''; };
+joyEl.addEventListener('pointerup', joyEnd); joyEl.addEventListener('pointercancel', joyEnd);
+// look (right side on phones, anywhere on desktop)
+const lookEl = walkUI.querySelector('.look'); let lookId = null, lx = 0, ly = 0;
+function lookStart(e){ lookId = e.pointerId; lx = e.clientX; ly = e.clientY; e.target.setPointerCapture(e.pointerId); }
+function lookMove(e){ if (e.pointerId !== lookId) return; const k = MOB.matches ? 0.006 : 0.0045;
+ yaw -= (e.clientX - lx) * k; pitch = Math.max(-1.2, Math.min(1.2, pitch - (e.clientY - ly) * k)); lx = e.clientX; ly = e.clientY; }
+const lookEnd = e=>{ if (e.pointerId === lookId) lookId = null; };
+lookEl.addEventListener('pointerdown', lookStart); lookEl.addEventListener('pointermove', lookMove);
+lookEl.addEventListener('pointerup', lookEnd); lookEl.addEventListener('pointercancel', lookEnd);
+addEventListener('keydown', e=>{ if (walkOn){ keys[e.key.toLowerCase()] = true; if (e.key === 'Escape') exitWalk(); } });
+addEventListener('keyup', e=>{ keys[e.key.toLowerCase()] = false; });
+function blocked(from, dir){ // horizontal ray at knee and chest height against visible, non-glass geometry
+ for (const h of [0.45, 1.1]){
+  rayW.set(new THREE.Vector3(from.x, h, from.z), dir); rayW.far = RAD + 0.05;
+  const hit = rayW.intersectObjects(allMesh, false).find(i=>{ let o = i.object; let v = true; while (o){ if (!o.visible){ v = false; break; } o = o.parent; }
+   const m = i.object.material; return v && !(m && (m.transparent && m.opacity < 0.6)) && !/suse|şüşə|glass/i.test((m && m.name) || ''); });
+  if (hit) return true; }
+ return false; }
+function walkFrame(now){ const dt = Math.min(0.05, (now - lastT) / 1000); lastT = now;
+ let fx = joy.y, sx = joy.x;
+ if (keys['w'] || keys['arrowup']) fx += 1; if (keys['s'] || keys['arrowdown']) fx -= 1;
+ if (keys['d'] || keys['arrowright']) sx += 1; if (keys['a'] || keys['arrowleft']) sx -= 1;
+ if (keys['q']) yaw += 1.6*dt; if (keys['e']) yaw -= 1.6*dt;
+ const fwd = new THREE.Vector3(-Math.sin(yaw), 0, -Math.cos(yaw)), right = new THREE.Vector3(Math.cos(yaw), 0, -Math.sin(yaw));
+ const mv = fwd.multiplyScalar(fx).add(right.multiplyScalar(sx)); const L = mv.length();
+ if (L > 0.01){ if (L > 1) mv.divideScalar(L); const step = mv.multiplyScalar(SPEED * dt);
+  for (const part of [step, new THREE.Vector3(step.x, 0, 0), new THREE.Vector3(0, 0, step.z)]){
+   if (part.length() < 1e-5) continue;
+   if (!blocked(cam.position, part.clone().normalize())){ cam.position.add(part); break; } } }
+ cam.position.y = EYE;
+ const look = new THREE.Vector3(-Math.sin(yaw)*Math.cos(pitch), Math.sin(pitch), -Math.cos(yaw)*Math.cos(pitch));
+ cam.lookAt(cam.position.clone().add(look)); }
+const walkBtn = document.createElement('button'); walkBtn.textContent = '🚶 Gəz'; walkBtn.className = 'tourb';
+walkBtn.onclick = enterWalk; ve.appendChild(walkBtn);
+
 
 // ---------- picking: info + measure ----------
 const ray=new THREE.Raycaster(); const mouse=new THREE.Vector2(); let measuring=false, mpts=[];
@@ -536,7 +609,7 @@ function showStep(i){
  stepEl.style.display='block'; sbody.scrollTop=0; stepEl.scrollTop=0; drawSubs();
 }
 function exitStep(){ stepPainted.forEach(r=>paint(r,null)); stepPainted=[]; stepOn=false; stepEl.style.display='none'; select(null); clearSel(); applyMode(false); }
-(function loop(now){ requestAnimationFrame(loop); if (tourT0 !== null) tourFrame(now); else ctl.update(); renderer.render(scene,cam); lab.render(scene,cam); })(performance.now());
+(function loop(now){ requestAnimationFrame(loop); if (walkOn) walkFrame(now); else if (tourT0 !== null) tourFrame(now); else ctl.update(); renderer.render(scene,cam); lab.render(scene,cam); })(performance.now());
 </script>
 </body>
 </html>
