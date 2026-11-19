@@ -1004,7 +1004,7 @@
     -245
    ],
    "route": [
-    "Krestovinadan (ev altında) başla (h -162)",
+    "Krestovinadan (ev altında) başla (h -191)",
     "arxa divara (+Y) 451 mm, meyl 2.0%",
     "aşağı 782 mm → h -1027",
     "arxa divara (+Y) 252 mm, meyl 2.0%"
@@ -1035,14 +1035,14 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 0.19,
+   "len": 0.21,
    "meftil": null,
    "h": [
     -2
    ],
    "route": [
     "Sifon zəngindən başla (h -3)",
-    "aşağı 160 mm → h -163"
+    "aşağı 189 mm → h -192"
    ],
    "note": "",
    "marker": "K-5 · Unitaz · PVC d100 · meyl ≥2%",
@@ -1166,15 +1166,15 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 0.27,
+   "len": 0.38,
    "meftil": null,
    "h": [
-    -214
+    -243
    ],
    "route": [
-    "Duş trapından başla (h -96)",
-    "aşağı 81 mm → h -177",
-    "yataq tərəfə (+X) 135 mm, meyl 2.0%"
+    "Duş trapından başla (h -50)",
+    "aşağı 156 mm → h -206",
+    "yataq tərəfə (+X) 167 mm, meyl 2.0%"
    ],
    "note": "",
    "marker": "K-3 · Duş · PVC d50 · meyl ≥2%",
@@ -1183,7 +1183,7 @@
     "KAN_Metbex_d50"
    ],
    "feedAt": [
-    -371,
+    -327,
     1433,
     17
    ],
@@ -1213,11 +1213,11 @@
    "len": 2.29,
    "meftil": null,
    "h": [
-    542
+    512
    ],
    "route": [
-    "Sifon zəngindən başla (h 549)",
-    "aşağı 697 mm → h -148",
+    "Sifon zəngindən başla (h 520)",
+    "aşağı 697 mm → h -177",
     "arxa divara (+Y) 1171 mm, meyl 1.8%",
     "mətbəx tərəfə (−X) 249 mm, meyl 1.9%"
    ],
@@ -1286,7 +1286,7 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 9.3,
+   "len": 9.32,
    "meftil": null,
    "h": [],
    "route": [
@@ -1303,8 +1303,9 @@
     "yataq tərəfə (+X) 1320 mm (tavanda)",
     "ön divara (−Y) 830 mm (tavanda)",
     "yataq tərəfə (+X) 127 mm (tavanda)",
-    "aşağı 1893 mm → h 566",
-    "ön divara (−Y) 72 mm"
+    "aşağı 1893 mm → h 537",
+    "ön divara (−Y) 72 mm",
+    "mətbəx tərəfə (−X) 43 mm"
    ],
    "note": "Ariston arxasında S-0 divarın içinə girir (obvod, 4 dirsək) və İ-2 isti borusunun arxasından keçir — isti ilə soyuq kəsişmir, ara 30 mm. Divar profilləri deşilmir.",
    "marker": "S-0 · Soyuq su əsas xətti (tavanda) · PPR d20 soyuq",
@@ -1483,16 +1484,16 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 1.82,
+   "len": 1.85,
    "meftil": null,
    "h": [
-    1039
+    1010
    ],
    "route": [
-    "Əsas xəttdəki tee-dən başla (h 2489)",
+    "Əsas xəttdəki tee-dən başla (h 2460)",
     "arxa divara (+Y) 305 mm (tavanda)",
-    "aşağı 1393 mm → h 1066",
-    "ön divara (−Y) 32 mm"
+    "aşağı 1393 mm → h 1037",
+    "ön divara (−Y) 56 mm"
    ],
    "note": "",
    "marker": "S-4 · Duş · PPR d20 soyuq",
@@ -1530,16 +1531,16 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 2.73,
+   "len": 2.75,
    "meftil": null,
    "h": [
-    139
+    110
    ],
    "route": [
-    "Əsas xəttdəki tee-dən başla (h 2489)",
+    "Əsas xəttdəki tee-dən başla (h 2460)",
     "arxa divara (+Y) 305 mm (tavanda)",
-    "aşağı 2253 mm → h 206",
-    "ön divara (−Y) 46 mm"
+    "aşağı 2253 mm → h 177",
+    "ön divara (−Y) 70 mm"
    ],
    "note": "",
    "marker": "S-5 · Unitaz · PPR d20 soyuq",
@@ -1574,7 +1575,7 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 0.5,
+   "len": 0.52,
    "meftil": null,
    "h": [
     300
@@ -1582,7 +1583,7 @@
    "route": [
     "Əsas xəttdəki tee-dən başla (h 300)",
     "mətbəx tərəfə (−X) 428 mm",
-    "ön divara (−Y) 39 mm"
+    "ön divara (−Y) 63 mm"
    ],
    "note": "",
    "marker": "S-6 · Gigiyenik duş · PPR d20 soyuq",
@@ -1593,7 +1594,7 @@
    "feedAt": [
     540,
     1545,
-    531
+    560
    ],
    "feedTxt": "Su buradan gəlir: S-0 soyuq əsas xəttindəki tee"
   },
@@ -1621,12 +1622,12 @@
    "len": null,
    "meftil": null,
    "h": [
-    439
+    410
    ],
    "route": [
     "Tavandan (S-0 sonu)",
-    "aşağı 1893 mm → h 566",
-    "ön divara (−Y) 72 mm"
+    "ön divara (−Y) 72 mm",
+    "mətbəx tərəfə (−X) 43 mm"
    ],
    "note": "Ayrıca qol yoxdur: S-0 soyuq əsas xətt burada bitir (tavandan lavaboya düşür).",
    "marker": "S-7 · Lavabo · PPR d20 soyuq",
@@ -1702,7 +1703,7 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 8.36,
+   "len": 8.38,
    "meftil": null,
    "h": [],
    "route": [
@@ -1710,12 +1711,13 @@
     "yuxarı 2081 mm → h 2523",
     "ön divara (−Y) 42 mm (tavanda)",
     "yataq tərəfə (+X) 1038 mm (tavanda)",
-    "aşağı 34 mm → h 2479",
+    "aşağı 34 mm → h 2450",
     "ön divara (−Y) 125 mm (tavanda)",
     "yataq tərəfə (+X) 1380 mm (tavanda)",
     "ön divara (−Y) 1088 mm (tavanda)",
     "yataq tərəfə (+X) 97 mm (tavanda)",
-    "aşağı 1964 mm → h 455"
+    "aşağı 1964 mm → h 426",
+    "mətbəx tərəfə (−X) 43 mm"
    ],
    "note": "",
    "marker": "İ-0 · İsti su əsas xətti (tavanda) · PPR d20 isti",
@@ -1798,15 +1800,16 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 1.71,
+   "len": 1.73,
    "meftil": null,
    "h": [
-    1039
+    1010
    ],
    "route": [
-    "Əsas xəttdəki tee-dən başla (h 2449)",
+    "Əsas xəttdəki tee-dən başla (h 2420)",
     "arxa divara (+Y) 250 mm (tavanda)",
-    "aşağı 1365 mm → h 1054"
+    "aşağı 1365 mm → h 1025",
+    "ön divara (−Y) 43 mm"
    ],
    "note": "",
    "marker": "İ-3 · Duş · PPR d20 isti",
@@ -1841,15 +1844,16 @@
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 2.45,
+   "len": 2.44,
    "meftil": null,
    "h": [
     300
    ],
    "route": [
-    "Əsas xəttdəki tee-dən başla (h 2449)",
+    "Əsas xəttdəki tee-dən başla (h 2420)",
     "arxa divara (+Y) 260 mm (tavanda)",
-    "aşağı 2112 mm → h 317"
+    "aşağı 2080 mm → h 320",
+    "ön divara (−Y) 38 mm"
    ],
    "note": "",
    "marker": "İ-4 · Gigiyenik duş · PPR d20 isti",
@@ -1888,12 +1892,12 @@
    "len": null,
    "meftil": null,
    "h": [
-    439
+    410
    ],
    "route": [
     "Tavandan (İ-0 sonu)",
-    "yataq tərəfə (+X) 97 mm (tavanda)",
-    "aşağı 1964 mm → h 455"
+    "aşağı 1964 mm → h 426",
+    "mətbəx tərəfə (−X) 43 mm"
    ],
    "note": "Ayrıca qol yoxdur: İ-0 isti əsas xətt burada bitir. Lavaboda isti sağdadır — şlanqlar qarışdırıcıda çarpazlaşır.",
    "marker": "İ-5 · Lavabo · PPR d20 isti",

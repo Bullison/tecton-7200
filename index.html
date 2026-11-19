@@ -144,7 +144,7 @@ import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {CSS2DRenderer, CSS2DObject} from 'three/addons/renderers/CSS2DRenderer.js';
 
 const FFL = 125; // finished floor (laminate top), mm; bathroom tile top 111
-const floorAt=(x,y)=>(x>=-898&&x<=687&&y>=-238&&y<=1490)?111:125;
+const floorAt=(x,y)=>(x>=-900&&x<=770&&y>=-240&&y<=1610)?140:125;   // bathroom: OSB 115 + betopan 10 + tile 15
 const M = (x,y,z)=>new THREE.Vector3(x/1000, z/1000, -y/1000);          // model mm (Z-up) -> scene m (Y-up)
 const toMM = v=>({x:v.x*1000, y:-v.z*1000, z:v.y*1000});
 const LAYERS = [
@@ -265,7 +265,7 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=wc35', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=fin1', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
