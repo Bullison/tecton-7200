@@ -153,6 +153,7 @@ body.imm #view{position:fixed;inset:0}
 <script type="module">
 import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {CSS2DRenderer, CSS2DObject} from 'three/addons/renderers/CSS2DRenderer.js';
 
@@ -279,12 +280,17 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=mir1', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=mir2', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
  document.getElementById('load').remove();
  setupDoors(root);
+ // mirror: give it something to reflect (a soft generic room), otherwise a metal surface renders black
+ const pm = new THREE.PMREMGenerator(renderer); const envTex = pm.fromScene(new RoomEnvironment(), 0.04).texture;
+ root.traverse(o=>{ if (!o.isMesh) return; for (const m of (Array.isArray(o.material) ? o.material : [o.material])){
+  if (m && /güzgü|guzgu/i.test(m.name || '')){ m.envMap = envTex; m.envMapIntensity = 1.1; m.metalness = 1; m.roughness = 0.04; m.color.setRGB(0.92, 0.94, 0.96); m.needsUpdate = true; }
+  if (m && /LED/i.test(m.name || '')){ m.emissive = new THREE.Color(1, 0.93, 0.8); m.emissiveIntensity = 1.2; } } });
  onlyKarkas(); setView("Çöldən");
 }, undefined, e=>{ document.getElementById('load').textContent='Model yüklənmədi: '+e.message; });
 
