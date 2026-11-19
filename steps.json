@@ -1157,34 +1157,33 @@
    "names": [
     "KAN_Dus_d50",
     "KAN_Dus_d50_dirsek_1",
-    "KAN_Dus_d50_dirsek_2",
     "KAN_Metbex_kosoy_Dus"
    ],
    "ctx": [
-    "SANT_Dus_poddonu"
+    "SANT_Dus_trap_xetti"
    ],
    "wire": "PVC d50",
    "avtomat": "",
    "xett": "",
    "boru": "",
-   "len": 0.59,
+   "len": 0.27,
    "meftil": null,
    "h": [
     -214
    ],
    "route": [
-    "Duş trapından başla (h 4)",
-    "aşağı 161 mm → h -157",
-    "arxa divara (+Y) 326 mm, meyl 2.0%"
+    "Duş trapından başla (h -96)",
+    "aşağı 81 mm → h -177",
+    "yataq tərəfə (+X) 135 mm, meyl 2.0%"
    ],
    "note": "",
    "marker": "K-3 · Duş · PVC d50 · meyl ≥2%",
-   "flow": "Duş poddonunun trapı → K-3 döşəmənin altında → K-2-yə 45° kosoy",
+   "flow": "Xətti trap 300 mm (kabinin ortasında, arxa divardan 200 mm) → K-3 düz aşağı → döşəmə altında 87° dirsək → 45° kosoy ilə K-2-yə",
    "feed": [
     "KAN_Metbex_d50"
    ],
    "feedAt": [
-    -356,
+    -371,
     1433,
     17
    ],
@@ -1478,7 +1477,7 @@
    ],
    "ctx": [
     "SANT_Dus_qarisdirici",
-    "SANT_Dus_poddonu"
+    "SANT_Dus_trap_xetti"
    ],
    "wire": "PPR d20 soyuq",
    "avtomat": "",
@@ -1795,7 +1794,7 @@
    ],
    "ctx": [
     "SANT_Dus_qarisdirici",
-    "SANT_Dus_poddonu"
+    "SANT_Dus_trap_xetti"
    ],
    "wire": "PPR d20 isti",
    "avtomat": "",
