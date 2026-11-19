@@ -1303,7 +1303,7 @@
     "yataq tərəfə (+X) 1320 mm (tavanda)",
     "ön divara (−Y) 830 mm (tavanda)",
     "yataq tərəfə (+X) 127 mm (tavanda)",
-    "aşağı 1893 mm → h 552",
+    "aşağı 1893 mm → h 566",
     "ön divara (−Y) 72 mm"
    ],
    "note": "Ariston arxasında S-0 divarın içinə girir (obvod, 4 dirsək) və İ-2 isti borusunun arxasından keçir — isti ilə soyuq kəsişmir, ara 30 mm. Divar profilləri deşilmir.",
@@ -1486,12 +1486,12 @@
    "len": 1.82,
    "meftil": null,
    "h": [
-    1025
+    1039
    ],
    "route": [
     "Əsas xəttdəki tee-dən başla (h 2489)",
     "arxa divara (+Y) 305 mm (tavanda)",
-    "aşağı 1393 mm → h 1052",
+    "aşağı 1393 mm → h 1066",
     "ön divara (−Y) 32 mm"
    ],
    "note": "",
@@ -1533,12 +1533,12 @@
    "len": 2.73,
    "meftil": null,
    "h": [
-    125
+    139
    ],
    "route": [
     "Əsas xəttdəki tee-dən başla (h 2489)",
     "arxa divara (+Y) 305 mm (tavanda)",
-    "aşağı 2253 mm → h 192",
+    "aşağı 2253 mm → h 206",
     "ön divara (−Y) 46 mm"
    ],
    "note": "",
@@ -1577,14 +1577,14 @@
    "len": 1.93,
    "meftil": null,
    "h": [
-    836
+    850
    ],
    "route": [
     "Əsas xəttdəki tee-dən başla (h 2489)",
     "yataq tərəfə (+X) 50 mm (tavanda)",
     "ön divara (−Y) 80 mm (tavanda)",
     "yataq tərəfə (+X) 71 mm (tavanda)",
-    "aşağı 1609 mm → h 847"
+    "aşağı 1609 mm → h 861"
    ],
    "note": "",
    "marker": "S-6 · Gigiyenik duş · PPR d20 soyuq",
@@ -1623,11 +1623,11 @@
    "len": null,
    "meftil": null,
    "h": [
-    425
+    439
    ],
    "route": [
     "Tavandan (S-0 sonu)",
-    "aşağı 1893 mm → h 552",
+    "aşağı 1893 mm → h 566",
     "ön divara (−Y) 72 mm"
    ],
    "note": "Ayrıca qol yoxdur: S-0 soyuq əsas xətt burada bitir (tavandan lavaboya düşür).",
@@ -1717,7 +1717,7 @@
     "yataq tərəfə (+X) 1380 mm (tavanda)",
     "ön divara (−Y) 1088 mm (tavanda)",
     "yataq tərəfə (+X) 97 mm (tavanda)",
-    "aşağı 1964 mm → h 441"
+    "aşağı 1964 mm → h 455"
    ],
    "note": "",
    "marker": "İ-0 · İsti su əsas xətti (tavanda) · PPR d20 isti",
@@ -1803,12 +1803,12 @@
    "len": 1.71,
    "meftil": null,
    "h": [
-    1025
+    1039
    ],
    "route": [
     "Əsas xəttdəki tee-dən başla (h 2449)",
     "arxa divara (+Y) 250 mm (tavanda)",
-    "aşağı 1365 mm → h 1040"
+    "aşağı 1365 mm → h 1054"
    ],
    "note": "",
    "marker": "İ-3 · Duş · PPR d20 isti",
@@ -1846,12 +1846,12 @@
    "len": 1.8,
    "meftil": null,
    "h": [
-    836
+    850
    ],
    "route": [
     "Əsas xəttdəki tee-dən başla (h 2449)",
     "yataq tərəfə (+X) 131 mm (tavanda)",
-    "aşağı 1569 mm → h 847"
+    "aşağı 1569 mm → h 861"
    ],
    "note": "",
    "marker": "İ-4 · Gigiyenik duş · PPR d20 isti",
@@ -1890,12 +1890,12 @@
    "len": null,
    "meftil": null,
    "h": [
-    425
+    439
    ],
    "route": [
     "Tavandan (İ-0 sonu)",
     "yataq tərəfə (+X) 97 mm (tavanda)",
-    "aşağı 1964 mm → h 441"
+    "aşağı 1964 mm → h 455"
    ],
    "note": "Ayrıca qol yoxdur: İ-0 isti əsas xətt burada bitir. Lavaboda isti sağdadır — şlanqlar qarışdırıcıda çarpazlaşır.",
    "marker": "İ-5 · Lavabo · PPR d20 isti",
