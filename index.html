@@ -280,7 +280,7 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=bed2', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=all1', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
@@ -321,6 +321,7 @@ const ROOMS = new Set(["Mətbəx","Qonaq","Hamam","Yataq"]);
 function place(p,t){ const d=Math.hypot(p[0]-t[0],p[1]-t[1],p[2]-t[2]), k=(cam.aspect<0.8 && d>4)?1.2:1; cam.position.set(t[0]+(p[0]-t[0])*k,t[1]+(p[1]-t[1])*k,t[2]+(p[2]-t[2])*k); ctl.target.set(...t); ctl.update(); }
 function setView(n){ const [p,t]=VIEWS[n]; stopTour(); if (MOB.matches && ROOMS.has(n)) menu(false);
  if (ROOMS.has(n)){ setAll(true); cam.fov = 62; } else cam.fov = cam.aspect<1?54:40;
+ for (const [k,t,on] of GROUPS) setGroupVis(dimGroups[k], on && mode==='umumi' && !ROOMS.has(n));
  cam.updateProjectionMatrix(); place(p,t);
  document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('on', b.textContent===n));
  if (n==="Yuxarıdan"){ showLayer("10_Dam",false); showLayer("11_Fasad",false);} }
@@ -601,7 +602,7 @@ function applyMode(move=true){
  if(move){ clearSel(); if(selected){ document.getElementById('info').style.display='none'; select(null); } }
  for(const m in modeG) for(const k in modeG[m]) setGroupVis(modeG[m][k], m===mode && subOn[k]);
  for(const k in dimGroups) setGroupVis(dimGroups[k], mode==='umumi' && GROUPS.find(g=>g[0]===k)[2]);
- if(mode==='umumi'){ if(move){ onlyKarkas(); setView("Çöldən"); } }
+ if(mode==='umumi'){ if(move){ setAll(true); setView("Çöldən"); } }
  else { const s=new Set(MODE_LAYERS[mode]); LAYERS.forEach(([k])=>showLayer(k,s.has(k)));
   document.querySelectorAll('#presets button,#views button').forEach(b=>b.classList.remove('on'));
   if(move){ const [p,t]=MODE_VIEW[mode]; place(p,t); } }
