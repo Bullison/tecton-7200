@@ -67,7 +67,7 @@ body.imm #view{position:fixed;inset:0}
 #walkui .wbtn{position:absolute;top:12px;right:12px;padding:9px 14px;border-radius:10px;border:0;background:#ff2d7a;color:#fff;font-weight:700;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
 #walkui .whelp{position:absolute;left:12px;top:12px;max-width:calc(100% - 120px);background:rgba(20,24,32,.6);color:#fff;font-size:12px;padding:6px 10px;border-radius:8px;pointer-events:none}
 #walkui .wroom{position:absolute;right:12px;top:56px;display:flex;flex-direction:column;gap:6px}
-#walkui .wroom button{padding:6px 10px;border-radius:8px;border:0;background:rgba(255,255,255,.88);font-size:12px;font-weight:600}
+#walkui .wroom button{padding:6px 10px;border-radius:8px;border:0;background:rgba(255,255,255,.92);color:#111;font-size:12px;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.25)}
 #views button.tourb{border-color:#ff2d7a;color:#ff2d7a;font-weight:600}#views button.tourb.on{background:#ff2d7a;color:#fff}
 #modehelp{color:var(--muted);font-size:12px;margin-top:6px}
 #mk{margin-top:8px;font-size:12px}#mk summary{cursor:pointer;color:var(--acc);font-weight:600}#mktab{width:100%;border-collapse:collapse;margin-top:4px}#mktab td{padding:3px 4px;border-top:1px solid var(--line);vertical-align:top}#mktab tr{cursor:pointer}#mktab td:first-child{font-weight:700;white-space:nowrap;color:var(--ink)}#mktab td:last-child{color:var(--muted);white-space:nowrap}
@@ -279,7 +279,7 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=door1', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=mir1', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
