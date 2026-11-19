@@ -266,7 +266,7 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=tour1', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=tour2', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
@@ -318,9 +318,11 @@ const tourPos = new THREE.CatmullRomCurve3(TOUR.map(q=>V3(q[0])), false, 'centri
 const tourTgt = new THREE.CatmullRomCurve3(TOUR.map(q=>V3(q[1])), false, 'centripetal');
 const TOUR_S = 70; let tourT0 = null, tourBtn = null, tourSave = null;
 function stopTour(){ if (tourT0 === null) return; tourT0 = null; ctl.enabled = true; cam.fov = 40; cam.updateProjectionMatrix();
+ for (const [k,t,on] of GROUPS) setGroupVis(dimGroups[k], on && mode==='umumi');
  if (tourBtn) { tourBtn.textContent = '▶ Gəzinti'; tourBtn.classList.remove('on'); } }
 function startTour(){ if (typeof stepOn !== 'undefined' && stepOn) exitStep(); if (MOB.matches) menu(false);
  setAll(true); ctl.enabled = false; cam.fov = 62; cam.updateProjectionMatrix(); tourT0 = performance.now();
+ for (const [k] of GROUPS) setGroupVis(dimGroups[k], false);
  if (tourBtn) { tourBtn.textContent = '■ Dayandır'; tourBtn.classList.add('on'); }
  document.querySelectorAll('#views button').forEach(b=>{ if (b !== tourBtn) b.classList.remove('on'); }); }
 function tourFrame(now){ if (tourT0 === null) return;
