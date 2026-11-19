@@ -521,19 +521,13 @@
    "avtomat": "B10",
    "xett": "W11",
    "boru": "d20",
-   "len": 7.31,
-   "meftil": 8.05,
+   "len": null,
+   "meftil": 7.75,
    "h": [
-    290
+    600
    ],
-   "route": [
-    "Şitdən başla (h 1800)",
-    "yuxarı 755 mm → h 2555",
-    "yataq tərəfə (+X) 4140 mm (tavanda, ön divardan 46 mm)",
-    "arxa divara (+Y) 109 mm (tavanda)",
-    "aşağı 2265 mm → h 290"
-   ],
-   "note": "",
+   "route": [],
+   "note": "Sit -> divarin ici -> kuncden cixir -> tavan OSB-nin alti -> kuncden divarin icine -> noqte",
    "flow": "Şit W11 B10 → YR-3 borusu → Yataq, çarpayı sağ",
    "marker": "YR-3 · Yataq, çarpayı sağ · 3×1.5 · B10"
   },
@@ -551,20 +545,13 @@
    "avtomat": "B10",
    "xett": "W11",
    "boru": "d20",
-   "len": 9.41,
-   "meftil": 10.16,
+   "len": null,
+   "meftil": 9.86,
    "h": [
-    290
+    600
    ],
-   "route": [
-    "Şitdən başla (h 1800)",
-    "yuxarı 755 mm → h 2555",
-    "yataq tərəfə (+X) 4136 mm (tavanda, ön divardan 76 mm)",
-    "arxa divara (+Y) 2160 mm (tavanda)",
-    "yataq tərəfə (+X) 51 mm (tavanda, ön divardan 2236 mm)",
-    "aşağı 2265 mm → h 290"
-   ],
-   "note": "",
+   "route": [],
+   "note": "Sit -> divarin ici -> kuncden cixir -> tavan OSB-nin alti -> kuncden divarin icine -> noqte",
    "flow": "Şit W11 B10 → YR-4 borusu → Yataq, çarpayı sol",
    "marker": "YR-4 · Yataq, çarpayı sol · 3×1.5 · B10"
   },
@@ -587,13 +574,13 @@
    "len": 1.15,
    "meftil": 1.75,
    "h": [
-    1525
+    1510
    ],
    "route": [
     "Tavandakı W10 paylayıcı qutusundan başla (YR-2 xəttindən ayrılır) (h 2555)",
     "aşağı 25 mm → h 2530",
     "mətbəx tərəfə (−X) 123 mm (tavanda, ön divardan 1726 mm)",
-    "aşağı 980 mm → h 1525"
+    "aşağı 980 mm → h 1510"
    ],
    "note": "",
    "flow": "Şit W10 B16 → YR-2 borusu → tavanda W10 paylayıcı qutu → YR-5 borusu → TV rozetkası",
@@ -619,7 +606,7 @@
    "len": 4.91,
    "meftil": 5.9,
    "h": [
-    1525
+    1510
    ],
    "route": [
     "Modem nişindən başla (şitin üstü) (h 2020)",
@@ -629,7 +616,7 @@
     "yuxarı 35 mm → h 2555",
     "arxa divara (+Y) 1595 mm (tavanda)",
     "mətbəx tərəfə (−X) 73 mm (tavanda, ön divardan 1876 mm)",
-    "aşağı 1030 mm → h 1525"
+    "aşağı 1030 mm → h 1510"
    ],
    "note": "",
    "flow": "Modem / TV splitter (şitin üstündəki niş) → YZ-1 borusu → yataq TV yanında LAN + TV",
@@ -758,14 +745,14 @@
    "h": [],
    "route": [
     "Hamam açarının (HA-1) qutusundan başla (h 990)",
-    "yuxarı 1560 mm → h 2564",
+    "yuxarı 1560 mm → h 2535",
     "mətbəx tərəfə (−X) 510 mm (tavanda, ön divardan 1281 mm)",
     "arxa divara (+Y) 500 mm (tavanda)",
-    "aşağı 44 mm → h 2520",
-    "yuxarı 44 mm → h 2564",
+    "aşağı 44 mm → h 2491",
+    "yuxarı 44 mm → h 2535",
     "arxa divara (+Y) 700 mm (tavanda)",
-    "aşağı 44 mm → h 2520",
-    "yuxarı 44 mm → h 2564",
+    "aşağı 44 mm → h 2491",
+    "yuxarı 44 mm → h 2535",
     "arxa divara (+Y) 300 mm (tavanda)",
     "yataq tərəfə (+X) 365 mm (tavanda, ön divardan 2781 mm)"
    ],
@@ -792,14 +779,14 @@
    "len": 2.86,
    "meftil": 3.46,
    "h": [
-    1939
+    1910
    ],
    "route": [
     "Hamam açarının (HA-1) qutusundan başla (h 990)",
-    "yuxarı 1560 mm → h 2564",
+    "yuxarı 1560 mm → h 2535",
     "yataq tərəfə (+X) 285 mm (tavanda, ön divardan 1281 mm)",
     "arxa divara (+Y) 350 mm (tavanda)",
-    "aşağı 625 mm → h 1925"
+    "aşağı 625 mm → h 1910"
    ],
    "note": "",
    "flow": "Şit W1 B10 → HA-1 → hamam açarı → HI-2 borusu → güzgü işığı",
