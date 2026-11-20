@@ -386,7 +386,7 @@ walkUI.innerHTML = `<div class="look"></div><div class="joy"><div class="knob"><
  <button class="wbtn">✕ Çıx</button><div class="whelp"></div>
  <div class="wroom"><button data-r="giris">Giriş</button><button data-r="metbex">Mətbəx</button><button data-r="hamam">Hamam</button><button data-r="yataq">Yataq</button></div>`;
 view.appendChild(walkUI);
-const WSTART = {giris:[-100,-1150, 0], metbex:[-1500,-400, 22], hamam:[-80,-150, 5], yataq:[950,-1250, -68]};  // model mm + yaw (deg, 0 = +Y)
+const WSTART = {giris:[-100,-1150, 55], metbex:[-1500,-400, 22], hamam:[-80,-150, 5], yataq:[950,-1250, -68]};  // model mm + yaw (deg, 0 = +Y)
 let walkOn = false, yaw = 0, pitch = 0, joy = {x:0, y:0}, keys = {}, wSave = null, lastT = 0;
 const EYE = 1.62, SPEED = 1.35, RAD = 0.28;
 const rayW = new THREE.Raycaster();
