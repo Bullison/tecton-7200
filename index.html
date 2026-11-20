@@ -76,7 +76,7 @@ body.imm #view{position:fixed;inset:0}
 .chips:empty{display:none}
 .chips button{font-size:12.5px;padding:5px 10px;border-radius:999px}
 .chips button.on{background:var(--acc);border-color:var(--acc);color:#fff}
-#tog{display:none}
+#tog{display:none} #wfab{display:none}
 @media (max-width:760px){
  #app{display:block}
  #view{position:fixed;inset:0}
@@ -85,12 +85,14 @@ body.imm #view{position:fixed;inset:0}
  #side .sub,#side>h2{display:none}
  #tog{display:flex;align-items:center;justify-content:center;position:absolute;left:12px;top:calc(100% + 12px);z-index:2;width:46px;height:46px;padding:0;border-radius:50%;transition:left .22s ease,background .15s,color .15s;background:var(--acc);color:#fff;border:2px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.35)}
  #tog::before{content:"";position:absolute;inset:-2px;border-radius:50%;border:3px solid var(--acc);animation:ping 1.6s ease-out infinite;pointer-events:none}
- #tog::after{content:"Menyu";position:absolute;left:calc(100% + 8px);top:50%;transform:translateY(-50%);background:var(--acc);color:#fff;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.3);animation:nudge 1.6s ease-in-out infinite;pointer-events:none}
+ #tog::after{content:"Menyu";position:absolute;left:calc(100% + 64px);top:50%;transform:translateY(-50%);background:var(--acc);color:#fff;font:600 13px/1 system-ui,Arial,sans-serif;padding:7px 10px;border-radius:999px;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.3);animation:nudge 1.6s ease-in-out infinite;pointer-events:none}
  #side.seen #tog::before,#side.open #tog::before{animation:none;opacity:0}
  #side.seen #tog::after,#side.open #tog::after{display:none}
  @keyframes ping{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.8);opacity:0}}
  @keyframes nudge{0%,100%{transform:translate(0,-50%)}50%{transform:translate(4px,-50%)}}
  #side.open #tog{background:#fff;color:var(--acc);border-color:var(--acc);left:calc(min(64vw,270px) + 10px)}
+ #wfab{display:flex;align-items:center;justify-content:center;position:absolute;left:68px;top:calc(100% + 12px);z-index:2;width:46px;height:46px;padding:0;border-radius:50%;background:#fff;color:var(--acc);border:2px solid var(--acc);box-shadow:0 4px 14px rgba(0,0,0,.35)}
+ #side.open #wfab{display:none}
  #side .mode{flex-wrap:nowrap}
  #side .mode button{padding:8px 6px}
  #side .chips{flex-wrap:nowrap;overflow-x:auto}
@@ -119,6 +121,7 @@ body.imm #view{position:fixed;inset:0}
 <div id="app">
  <aside id="side">
   <button id="tog" aria-label="Menyu" title="Menyu"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.6 12 3.5l9 7.1"/><path d="M5.5 9v10.5h13V9"/><path d="M10 19.5v-5.2h4v5.2"/><path d="M16.2 6.6V4.2h1.9v3.9"/></svg></button>
+  <button id="wfab" aria-label="Gəz" title="Gəz — içəridə gəz"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><circle cx="13.2" cy="3.6" r="2.1"/><path d="M10.6 7.2c.5-.4 1.2-.6 1.9-.5l1.3.2c.9.1 1.6.8 1.9 1.6l.9 2.5 2.2 1.1c.5.3.7.9.5 1.4-.3.5-.9.7-1.4.5l-2.6-1.3c-.3-.1-.5-.4-.6-.7l-.4-1.1-1 3.9 2.3 2.4c.2.2.3.4.3.7l.6 4.2c.1.6-.3 1.1-.9 1.2-.6.1-1.1-.3-1.2-.9l-.5-3.8-2.4-2.4-.8 2.6c-.1.3-.2.5-.4.6l-2.9 3.2c-.4.4-1 .5-1.5.1-.4-.4-.5-1-.1-1.5l2.7-3 1.9-7.2-1 .8-.9 2.6c-.2.5-.8.8-1.3.6-.5-.2-.8-.8-.6-1.3l1-3c.1-.2.2-.4.4-.5z"/></svg></button>
   <h1>TECTON 7200</h1>
   <div class="sub">Modul ev · 7200 × 3200 mm · bütün ölçülər mm</div>
   <h2>Rejim</h2>
@@ -398,6 +401,7 @@ function enterWalk(){ stopTour(); if (typeof stepOn !== 'undefined' && stepOn) e
 function exitWalk(){ walkOn = false; walkUI.style.display = 'none'; ctl.enabled = true; immersive(false);
  for (const [k,t,on] of GROUPS) setGroupVis(dimGroups[k], on && mode==='umumi'); const [p,t] = VIEWS["Çöldən"]; place(p,t); }
 walkUI.querySelector('.wbtn').onclick = exitWalk;
+document.getElementById('wfab').onclick = e=>{ e.stopPropagation(); enterWalk(); };
 walkUI.querySelectorAll('.wroom button').forEach(b=>b.onclick = ()=>walkTo(b.dataset.r));
 // joystick
 const joyEl = walkUI.querySelector('.joy'), knob = walkUI.querySelector('.knob'); let joyId = null;
