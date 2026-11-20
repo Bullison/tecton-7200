@@ -281,10 +281,23 @@ for (const [k,t,on] of GROUPS){
 // ---------- model ----------
 let modelRoot=null; const LINK={};
 const byLayer = {}; LAYERS.forEach(l=>byLayer[l[0]]=[]);
-new GLTFLoader().load('TECTON_7200.glb?v=pil1', g=>{
+new GLTFLoader().load('TECTON_7200.glb?v=lm2', g=>{
  const root=g.scene; scene.add(root); modelRoot=root;
  root.traverse(o=>{ if(!o.isMesh) return; const L=o.userData.web_qat||o.parent?.userData?.web_qat; (byLayer[L]||(byLayer[L]=[])).push(o);
    o.material.side = THREE.DoubleSide; allMesh.push(o); });
+ // interior: light baked in Cycles (sun, sky, spots, bounces) arrives as the glTF occlusion map on UV2 -> use it as a lightmap
+ const LMI = 1.6 * Math.PI, lmCache = new Map();
+ root.traverse(o=>{ if (!o.isMesh || Array.isArray(o.material)) return; const m = o.material;
+  if (!m || !m.aoMap || !o.geometry.attributes[m.aoMap.channel ? 'uv' + m.aoMap.channel : 'uv']) return;
+  const t = m.aoMap; t.colorSpace = THREE.SRGBColorSpace;
+  if (m.transparent || m.metalness > 0.5){ m.aoMap = null; m.needsUpdate = true; return; }
+  let b = lmCache.get(m);
+  if (!b){ b = new THREE.MeshBasicMaterial({name:m.name, color:m.color.clone(), map:m.map, lightMap:t, lightMapIntensity:LMI, side:THREE.DoubleSide,
+     transparent:m.transparent, opacity:m.opacity, alphaTest:m.alphaTest});
+     // wallpaper / tile skins lie on the drywall: pull them forward so the (dark, covered) drywall never shows through
+     if (/ka[gğ][iı]z|kafel|limewash/i.test(m.name.normalize('NFC')) && !/alcipan|alçıpan/i.test(m.name.normalize('NFC'))){ b.polygonOffset = true; b.polygonOffsetFactor = -2; b.polygonOffsetUnits = -4; }
+     lmCache.set(m, b); }
+  o.material = b; });
  document.getElementById('load').remove();
  setupDoors(root); setupLifts(root);
  // mirror: give it something to reflect (a soft generic room), otherwise a metal surface renders black
@@ -495,7 +508,7 @@ function paint(root, color, k){
   if(!m.userData._orig) m.userData._orig=m.material;
   if(color===null){ m.material=baseMat(m); return; }
   if(k>1){ m.material=SELMAT; return; }
-  const mt=m.userData._orig.clone(); mt.emissive=new THREE.Color(color); mt.emissiveIntensity=k; m.material=mt; });
+  const mt=m.userData._orig.clone(); if(mt.isMeshBasicMaterial) mt.color.lerp(new THREE.Color(color), Math.min(0.6, k*0.6)); else { mt.emissive=new THREE.Color(color); mt.emissiveIntensity=k; } m.material=mt; });
 }
 function ghost(on){ ghostOn=on; document.body.classList.toggle('sel',on); allMesh.forEach(m=>{ if(selected && inRoot(m,selected)) return; if(hovered && inRoot(m,hovered) && on===false) return; m.material=baseMat(m); }); }
 let selected=null, hovered=null;
